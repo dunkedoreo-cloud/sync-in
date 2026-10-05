@@ -3251,6 +3251,7 @@
     }
 
     function proceedSetRole(role) {
+      if (role === 'admin') setTimeout(() => setAdminSubTab(currentAdminSubTab), 50);
       currentRole = role;
       const vStudent = document.getElementById('roleViewStudent');
       const vFaculty = document.getElementById('roleViewFaculty');
@@ -3912,6 +3913,747 @@
         `;
       }
       updateKpiCounters();
+    }
+
+
+    // ==============================================================================
+    // UNIFIED CLIENT-SIDE DATABASE SYSTEM & REAL-TIME CRUD ENGINE
+    // ==============================================================================
+    const SyncInDB = {
+      data: {
+        events: [],
+        announcements: [],
+        protocols: [],
+        attendees: [],
+        serviceSlots: []
+      },
+
+      async init() {
+        try {
+          const res = await fetch('/api/db');
+          if (res.ok) {
+            const json = await res.json();
+            if (json.success && json.data) {
+              this.data = json.data;
+              this.saveLocal();
+              this.renderAll();
+              return;
+            }
+          }
+        } catch (e) {
+          console.log('[SyncInDB] Operating in offline/standalone mode');
+        }
+
+        // Fallback to localStorage or Seed
+        const local = localStorage.getItem('syncin_db_store');
+        if (local) {
+          try {
+            this.data = JSON.parse(local);
+          } catch(e) {
+            this.seedFallback();
+          }
+        } else {
+          this.seedFallback();
+        }
+        this.renderAll();
+      },
+
+      saveLocal() {
+        try {
+          localStorage.setItem('syncin_db_store', JSON.stringify(this.data));
+        } catch(e) {}
+      },
+
+      seedFallback() {
+        this.data = {
+          events: [
+            { id: 'evt_himamat_2026', title: 'Himamat 2026: Campus Fellowship', category: 'Campus Fellowship', date: 'October 14, 2026', timeInCutoff: '08:30:00 AM', timeOutCutoff: '05:00:00 PM', location: 'University Gymnasium Gate 2', status: 'Active', votingEnabled: false },
+            { id: 'evt_strands_2026', title: 'Strands of Love: Cultural Gala', category: 'Cultural Festival', date: 'October 16, 2026', timeInCutoff: '01:30:00 PM', timeOutCutoff: '06:30:00 PM', location: 'University Auditorium & Plenary', status: 'Upcoming', votingEnabled: false },
+            { id: 'evt_convocation_2026', title: 'Annual University Convocation', category: 'Student Assembly', date: 'October 22, 2026', timeInCutoff: '08:00:00 AM', timeOutCutoff: '12:00:00 PM', location: 'Main University Grandstand', status: 'Upcoming', votingEnabled: false },
+            { id: 'evt_tech_summit_2026', title: 'CCS Tech Innovation Summit', category: 'Academic Conference', date: 'November 05, 2026', timeInCutoff: '09:00:00 AM', timeOutCutoff: '04:30:00 PM', location: 'IT Building AVR 1 & 2', status: 'Upcoming', votingEnabled: false }
+          ],
+          announcements: [
+            { id: 'ann_01', title: 'Himamat 2026 Attendance Clearance Protocol', category: 'SSG Advisory', priority: 'High', content: 'All students must register Time In before 08:30 AM at assigned gate standees. Fine penalty of ₱150 applies for missed assemblies.', date: 'Oct 05, 2026' },
+            { id: 'ann_02', title: 'Lost & Found Turnstile Booth 3 Active', category: 'General Notice', priority: 'Normal', content: 'Items recovered during campus fellowship can be claimed at Booth 3 after blind-proof ownership verification.', date: 'Oct 04, 2026' },
+            { id: 'ann_03', title: 'Sweat Equity Service Hours Sign-ups Open', category: 'Community Service', priority: 'Normal', content: 'Students with attendance fines may sign up for library or campus greening slots to offset penalties without cash.', date: 'Oct 03, 2026' }
+          ],
+          protocols: [
+            { id: 'proto_shooting', title: 'Tactical Silent Threat / Active Shooter Drill', type: 'Tactical Threat', threatLevel: 'CRITICAL', safeZones: 'Classrooms, AVR, Gym Interior Barricade', directives: ['Lock and barricade all doors immediately.', 'Silence all mobile devices (zero sound/vibration).', 'Turn off all lights and digital projectors (OLED Blackout mode).', 'Stay flat on floor away from doors and exterior windows.', 'Await official SSG & Marshal all-clear broadcast.'], activeBroadcast: false },
+            { id: 'proto_hazard', title: 'Hazard Evacuation (Earthquake / Structural Incident)', type: 'Natural Hazard', threatLevel: 'HIGH', safeZones: 'University Athletic Oval & Open Grandstand', directives: ['Duck, Cover, and Hold during initial tremors.', 'Evacuate through designated structural stairwells — DO NOT use elevators.', 'Proceed calmly to the Open Field Assembly Area.', 'Faculty marshals take headcounts using Faculty Attendance Portal.'], activeBroadcast: false },
+            { id: 'proto_fire', title: 'Fire Alarm & Rapid Suppression Protocol', type: 'Emergency Fire', threatLevel: 'ELEVATED', safeZones: 'Quadrangle Perimeter Assembly Point', directives: ['Sound local pull station alarms immediately.', 'Low-crawl below smoke line if smoke is detected.', 'Marshal turnstile gates auto-unlock to free perimeter egress paths.', 'Report missing students immediately via Emergency Hub.'], activeBroadcast: false }
+          ],
+          attendees: [
+            { id: 'att_001', name: 'Alexandra Marie Chen', studId: '2024-112551-A27', course: 'BS Information Technology', year: '3rd Year', department: 'College of Computer Studies', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:14:22 AM', timeOut: '04:45:10 PM', method: 'QR Scan', status: 'Cleared' },
+            { id: 'att_002', name: 'Marcus John Bautista', studId: '2024-118932-B14', course: 'BS Computer Science', year: '2nd Year', department: 'College of Computer Studies', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:22:15 AM', timeOut: '04:52:00 PM', method: 'RFID Tap', status: 'Cleared' },
+            { id: 'att_003', name: 'Klarisse Anne Santos', studId: '2023-104421-E08', course: 'BS Information Systems', year: '4th Year', department: 'College of Computer Studies', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:05:40 AM', timeOut: '05:01:12 PM', method: 'QR Scan', status: 'Cleared' },
+            { id: 'att_004', name: 'David Joshua Reyes', studId: '2025-120014-C03', course: 'BS Civil Engineering', year: '1st Year', department: 'College of Engineering', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:29:10 AM', timeOut: '--', method: 'RFID Tap', status: 'Pending Out' },
+            { id: 'att_005', name: 'Patricia Nicole Lim', studId: '2024-115672-A19', course: 'BS Business Administration', year: '2nd Year', department: 'College of Business & Accountancy', eventName: 'Strands of Love: Cultural Gala', timeIn: '01:10:05 PM', timeOut: '06:30:18 PM', method: 'QR Scan', status: 'Cleared' },
+            { id: 'att_006', name: 'Gabriel Ethan Villanueva', studId: '2023-108892-F11', course: 'BS Nursing', year: '3rd Year', department: 'College of Nursing', eventName: 'Strands of Love: Cultural Gala', timeIn: '01:25:33 PM', timeOut: '06:40:02 PM', method: 'Manual Marshal', status: 'Cleared' },
+            { id: 'att_007', name: 'Sophia Isabel Delgado', studId: '2025-124451-D05', course: 'BA Communication', year: '1st Year', department: 'College of Arts & Sciences', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:18:50 AM', timeOut: '04:55:30 PM', method: 'QR Scan', status: 'Cleared' },
+            { id: 'att_008', name: 'Christian Paul De Leon', studId: '2024-117820-B33', course: 'BS Mechanical Engineering', year: '2nd Year', department: 'College of Engineering', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:28:44 AM', timeOut: '--', method: 'RFID Tap', status: 'Pending Out' },
+            { id: 'att_009', name: 'Hannah Beatrice Tan', studId: '2024-113309-A02', course: 'BS Accountancy', year: '2nd Year', department: 'College of Business & Accountancy', eventName: 'Strands of Love: Cultural Gala', timeIn: '01:15:20 PM', timeOut: '06:15:40 PM', method: 'QR Scan', status: 'Cleared' },
+            { id: 'att_010', name: 'Angelo Rafael Morales', studId: '2023-109923-C21', course: 'BS Secondary Education', year: '3rd Year', department: 'College of Teacher Education', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:11:05 AM', timeOut: '04:40:15 PM', method: 'Manual Marshal', status: 'Cleared' },
+            { id: 'att_011', name: 'Mikaela Andrea Gomez', studId: '2025-123381-E14', course: 'BS Hospitality Management', year: '1st Year', department: 'College of Hospitality & Tourism', eventName: 'Strands of Love: Cultural Gala', timeIn: '01:20:10 PM', timeOut: '06:22:45 PM', method: 'QR Scan', status: 'Cleared' },
+            { id: 'att_012', name: 'Vincent Edward Soriano', studId: '2024-116670-C09', course: 'BS Electrical Engineering', year: '2nd Year', department: 'College of Engineering', eventName: 'Himamat 2026: Campus Fellowship', timeIn: '08:20:12 AM', timeOut: '04:48:30 PM', method: 'RFID Tap', status: 'Cleared' }
+          ],
+          serviceSlots: [
+            { id: 'slot_01', department: 'Main Library', title: 'Library Archiving & Book Shelving', hours: '2.0 Hours', supervisor: 'Ms. Ramos', offset: '₱200 Offset', enrolled: 8, capacity: 10 },
+            { id: 'slot_02', department: 'PE Department', title: 'Gym Bleacher Clean-up Crew', hours: '1.5 Hours', supervisor: 'Coach Santos', offset: '₱150 Offset', enrolled: 14, capacity: 15 },
+            { id: 'slot_03', department: 'Grounds', title: 'Campus Tree Planting & Greening', hours: '3.0 Hours', supervisor: 'Mr. Dizon', offset: '₱300 Offset', enrolled: 5, capacity: 20 }
+          ]
+        };
+        this.saveLocal();
+      },
+
+      async addEvent(evt) {
+        this.data.events.unshift(evt);
+        this.saveLocal();
+        try {
+          await fetch('/api/events', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(evt) });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      async updateEvent(evt) {
+        const idx = this.data.events.findIndex(e => e.id === evt.id);
+        if (idx !== -1) {
+          this.data.events[idx] = { ...this.data.events[idx], ...evt };
+          this.saveLocal();
+          try {
+            await fetch('/api/events', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(evt) });
+          } catch(e) {}
+          this.renderAll();
+        }
+      },
+
+      async deleteEvent(id) {
+        this.data.events = this.data.events.filter(e => e.id !== id);
+        this.saveLocal();
+        try {
+          await fetch(`/api/events?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      async addAnnouncement(ann) {
+        this.data.announcements.unshift(ann);
+        this.saveLocal();
+        try {
+          await fetch('/api/announcements', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(ann) });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      async updateAnnouncement(ann) {
+        const idx = this.data.announcements.findIndex(a => a.id === ann.id);
+        if (idx !== -1) {
+          this.data.announcements[idx] = { ...this.data.announcements[idx], ...ann };
+          this.saveLocal();
+          try {
+            await fetch('/api/announcements', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(ann) });
+          } catch(e) {}
+          this.renderAll();
+        }
+      },
+
+      async deleteAnnouncement(id) {
+        this.data.announcements = this.data.announcements.filter(a => a.id !== id);
+        this.saveLocal();
+        try {
+          await fetch(`/api/announcements?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      async updateProtocol(proto) {
+        const idx = this.data.protocols.findIndex(p => p.id === proto.id);
+        if (idx !== -1) {
+          this.data.protocols[idx] = { ...this.data.protocols[idx], ...proto };
+          this.saveLocal();
+          try {
+            await fetch('/api/protocols', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(proto) });
+          } catch(e) {}
+          this.renderAll();
+        }
+      },
+
+      async toggleProtocolBroadcast(id) {
+        this.data.protocols = this.data.protocols.map(p => ({
+          ...p,
+          activeBroadcast: p.id === id ? !p.activeBroadcast : false
+        }));
+        this.saveLocal();
+        try {
+          await fetch('/api/protocols/broadcast', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      async addAttendee(att) {
+        this.data.attendees.unshift(att);
+        this.saveLocal();
+        try {
+          await fetch('/api/attendees', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(att) });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      async updateAttendee(att) {
+        const idx = this.data.attendees.findIndex(a => a.id === att.id);
+        if (idx !== -1) {
+          this.data.attendees[idx] = { ...this.data.attendees[idx], ...att };
+          this.saveLocal();
+          try {
+            await fetch('/api/attendees', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(att) });
+          } catch(e) {}
+          this.renderAll();
+        }
+      },
+
+      async deleteAttendee(id) {
+        this.data.attendees = this.data.attendees.filter(a => a.id !== id);
+        this.saveLocal();
+        try {
+          await fetch(`/api/attendees?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+        } catch(e) {}
+        this.renderAll();
+      },
+
+      renderAll() {
+        renderAdminKioskServiceSlots();
+        renderAdminEventsList();
+        renderAdminAttendeesTable();
+        renderAdminAnnouncementsList();
+        renderAdminProtocolsList();
+        updateStudentEventsDropdown();
+      }
+    };
+
+    // Sub-Tab Switcher for SSG Admin Command Suite
+    let currentAdminSubTab = 'kiosk';
+    function setAdminSubTab(tab) {
+      currentAdminSubTab = tab;
+      const tKiosk = document.getElementById('admTabKiosk');
+      const tEvents = document.getElementById('admTabEvents');
+      const tAttendees = document.getElementById('admTabAttendees');
+      const tAnn = document.getElementById('admTabAnnouncements');
+
+      const vKiosk = document.getElementById('admViewKiosk');
+      const vEvents = document.getElementById('admViewEvents');
+      const vAttendees = document.getElementById('admViewAttendees');
+      const vAnn = document.getElementById('admViewAnnouncements');
+
+      const tabs = [tKiosk, tEvents, tAttendees, tAnn];
+      const views = [vKiosk, vEvents, vAttendees, vAnn];
+
+      tabs.forEach(t => {
+        if (t) {
+          t.className = 'px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all font-semibold';
+        }
+      });
+      views.forEach(v => {
+        if (v) v.classList.add('hidden');
+      });
+
+      if (tab === 'kiosk') {
+        if (tKiosk) tKiosk.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
+        if (vKiosk) vKiosk.classList.remove('hidden');
+        renderAdminKioskServiceSlots();
+      } else if (tab === 'events') {
+        if (tEvents) tEvents.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
+        if (vEvents) vEvents.classList.remove('hidden');
+        renderAdminEventsList();
+      } else if (tab === 'attendees') {
+        if (tAttendees) tAttendees.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
+        if (vAttendees) vAttendees.classList.remove('hidden');
+        renderAdminAttendeesTable();
+      } else if (tab === 'announcements') {
+        if (tAnn) tAnn.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
+        if (vAnn) vAnn.classList.remove('hidden');
+        renderAdminAnnouncementsList();
+        renderAdminProtocolsList();
+      }
+    }
+
+    // ==================== RENDER ADMIN SERVICE SLOTS ====================
+    function renderAdminKioskServiceSlots() {
+      const container = document.getElementById('adminServiceSlotsContainer');
+      if (!container) return;
+      const slots = SyncInDB.data.serviceSlots || [];
+      const countLabel = document.getElementById('adminServiceSlotCount');
+      if (countLabel) countLabel.innerText = `${slots.length} Active`;
+
+      container.innerHTML = slots.map(s => `
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[9px] font-bold uppercase text-sky-600 bg-sky-50 dark:bg-sky-950/60 px-2 py-0.5 rounded-full">${SecurityCore.sanitizeHTML(s.department)}</span>
+              <span class="text-xs font-bold text-emerald-600">${SecurityCore.sanitizeHTML(s.offset)}</span>
+            </div>
+            <h5 class="text-xs font-bold text-slate-900 dark:text-white">${SecurityCore.sanitizeHTML(s.title)}</h5>
+            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">${SecurityCore.sanitizeHTML(s.hours)} • Supervisor: ${SecurityCore.sanitizeHTML(s.supervisor)}</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-[10px]">
+            <span class="text-slate-500 font-semibold">Enrolled: ${s.enrolled} / ${s.capacity}</span>
+            <span class="text-emerald-600 font-bold">${Math.max(0, s.capacity - s.enrolled)} Slots Left</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== RENDER ADMIN EVENTS LIST ====================
+    function renderAdminEventsList() {
+      const container = document.getElementById('admEventsListContainer');
+      if (!container) return;
+      const events = SyncInDB.data.events || [];
+      if (events.length === 0) {
+        container.innerHTML = '<div class="col-span-2 text-center py-8 text-slate-400">No events found in database. Click "+ Add New Event" above to create one.</div>';
+        return;
+      }
+      container.innerHTML = events.map(e => `
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between transition-all hover:border-sky-400">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${e.status === 'Active' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300' : 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300'}">${SecurityCore.sanitizeHTML(e.status)}</span>
+              <span class="text-[9.5px] font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-2 py-0.5 rounded-full">${SecurityCore.sanitizeHTML(e.category)}</span>
+            </div>
+            <h5 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">${SecurityCore.sanitizeHTML(e.title)}</h5>
+            <div class="space-y-1 mt-2 text-[10.5px] text-slate-600 dark:text-slate-300">
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>${SecurityCore.sanitizeHTML(e.date)}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>${SecurityCore.sanitizeHTML(e.location)}</span>
+              </div>
+              <div class="flex items-center gap-2 text-[10px] text-slate-500 font-mono mt-1">
+                <span>In: ${SecurityCore.sanitizeHTML(e.timeInCutoff)}</span> • <span>Out: ${SecurityCore.sanitizeHTML(e.timeOutCutoff)}</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
+            <span class="text-[9.5px] font-semibold ${e.votingEnabled ? 'text-emerald-600' : 'text-slate-400'}">${e.votingEnabled ? 'Voting: Enabled' : 'Voting: Disabled'}</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="openEditEventModal('${e.id}')" class="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-[10.5px] font-semibold transition-colors">Edit</button>
+              <button onclick="confirmDeleteEvent('${e.id}')" class="px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-950/60 hover:bg-rose-200 text-rose-700 dark:text-rose-300 text-[10.5px] font-semibold transition-colors">Delete</button>
+              <button onclick="setActiveEvent('${e.title}')" class="px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-[10.5px] font-semibold transition-colors">Set Active</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== RENDER ADMIN ATTENDEES TABLE ====================
+    function renderAdminAttendeesTable() {
+      const tbody = document.getElementById('admAttendeesTableBody');
+      const badgeCount = document.getElementById('admAttendeeBadgeCount');
+      const rosterCount = document.getElementById('admRosterRecordCount');
+      if (!tbody) return;
+
+      const q = (document.getElementById('admAttendeeSearchInput')?.value || '').toLowerCase().trim();
+      const eventFilter = document.getElementById('admAttendeeEventFilter')?.value || 'all';
+      const deptFilter = document.getElementById('admAttendeeDeptFilter')?.value || 'all';
+
+      let list = SyncInDB.data.attendees || [];
+      if (q) {
+        list = list.filter(a => a.name.toLowerCase().includes(q) || a.studId.toLowerCase().includes(q) || a.course.toLowerCase().includes(q) || a.department.toLowerCase().includes(q));
+      }
+      if (eventFilter !== 'all') {
+        list = list.filter(a => a.eventName.toLowerCase().includes(eventFilter.toLowerCase()));
+      }
+      if (deptFilter !== 'all') {
+        list = list.filter(a => a.department.toLowerCase().includes(deptFilter.toLowerCase()));
+      }
+
+      if (badgeCount) badgeCount.innerText = `${(SyncInDB.data.attendees || []).length}`;
+      if (rosterCount) rosterCount.innerText = `${list.length} Records`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-400">No student attendees matching filter. Click "+ Add Attendee" to record manual entry.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(a => `
+        <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+          <td class="py-3 px-3.5 font-bold text-slate-900 dark:text-white">${SecurityCore.sanitizeHTML(a.name)}</td>
+          <td class="py-3 px-3.5 font-mono text-slate-600 dark:text-slate-400 font-semibold text-[11px]">${SecurityCore.sanitizeHTML(a.studId)}</td>
+          <td class="py-3 px-3.5 font-medium text-slate-700 dark:text-slate-300">${SecurityCore.sanitizeHTML(a.course)}</td>
+          <td class="py-3 px-3.5 text-slate-600 dark:text-slate-400">${SecurityCore.sanitizeHTML(a.year)}</td>
+          <td class="py-3 px-3.5 text-slate-600 dark:text-slate-400">${SecurityCore.sanitizeHTML(a.department)}</td>
+          <td class="py-3 px-3.5 font-semibold text-slate-800 dark:text-slate-200 text-[11px]">${SecurityCore.sanitizeHTML(a.eventName)}</td>
+          <td class="py-3 px-3.5 font-mono text-[10.5px]">
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">${SecurityCore.sanitizeHTML(a.timeIn)}</span>
+            <span class="text-slate-400"> / </span>
+            <span class="text-slate-500 dark:text-slate-400">${SecurityCore.sanitizeHTML(a.timeOut)}</span>
+          </td>
+          <td class="py-3 px-3.5">
+            <span class="px-2 py-0.5 rounded-full text-[9.5px] font-bold ${a.method === 'RFID Tap' ? 'bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800' : a.method === 'QR Scan' ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">${SecurityCore.sanitizeHTML(a.method)}</span>
+          </td>
+          <td class="py-3 px-3.5 text-right space-x-1">
+            <button onclick="toggleAttendeeClearance('${a.id}')" title="Toggle Check-out / Clearance" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[10px] font-semibold text-slate-700 dark:text-slate-300 transition-colors">${a.status === 'Cleared' ? 'Cleared' : 'Pending'}</button>
+            <button onclick="openEditAttendeeModal('${a.id}')" class="px-2 py-1 rounded bg-sky-50 dark:bg-sky-950/60 hover:bg-sky-100 text-[10px] font-semibold text-sky-700 dark:text-sky-300 transition-colors">Edit</button>
+            <button onclick="confirmDeleteAttendee('${a.id}')" class="px-2 py-1 rounded bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 text-[10px] font-semibold text-rose-700 dark:text-rose-300 transition-colors">Del</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterAdminAttendees() {
+      renderAdminAttendeesTable();
+    }
+
+    // ==================== RENDER ADMIN ANNOUNCEMENTS ====================
+    function renderAdminAnnouncementsList() {
+      const container = document.getElementById('admAnnouncementsListContainer');
+      if (!container) return;
+      const anns = SyncInDB.data.announcements || [];
+      if (anns.length === 0) {
+        container.innerHTML = '<div class="text-center py-6 text-slate-400">No announcements posted. Click "+ Create Announcement" above.</div>';
+        return;
+      }
+      container.innerHTML = anns.map(a => `
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${a.priority === 'Critical' ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300' : a.priority === 'High' ? 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300' : 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300'}">${SecurityCore.sanitizeHTML(a.priority)}</span>
+              <span class="text-[9.5px] font-bold text-sky-600 dark:text-sky-400">${SecurityCore.sanitizeHTML(a.category)}</span>
+              <span class="text-[9px] text-slate-400 font-mono">• ${SecurityCore.sanitizeHTML(a.date)}</span>
+            </div>
+            <h5 class="text-xs font-bold text-slate-900 dark:text-white">${SecurityCore.sanitizeHTML(a.title)}</h5>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300">${SecurityCore.sanitizeHTML(a.content)}</p>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0 self-start sm:self-center">
+            <button onclick="openEditAnnouncementModal('${a.id}')" class="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-[10.5px] font-semibold text-slate-800 dark:text-slate-200 transition-colors">Edit</button>
+            <button onclick="confirmDeleteAnnouncement('${a.id}')" class="px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-950/60 hover:bg-rose-200 text-[10.5px] font-semibold text-rose-700 dark:text-rose-300 transition-colors">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== RENDER ADMIN PROTOCOLS ====================
+    function renderAdminProtocolsList() {
+      const container = document.getElementById('admProtocolsListContainer');
+      if (!container) return;
+      const protos = SyncInDB.data.protocols || [];
+      container.innerHTML = protos.map(p => `
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full ${p.threatLevel === 'CRITICAL' ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-300 dark:border-rose-800' : 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300'}">${p.threatLevel}</span>
+              <span class="text-[9px] font-semibold text-slate-500">${SecurityCore.sanitizeHTML(p.type)}</span>
+            </div>
+            <h5 class="text-xs font-bold text-slate-900 dark:text-white leading-tight">${SecurityCore.sanitizeHTML(p.title)}</h5>
+            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">Safe Zones: ${SecurityCore.sanitizeHTML(p.safeZones)}</p>
+            <ul class="mt-2 space-y-1 text-[10px] text-slate-600 dark:text-slate-300 list-disc list-inside">
+              ${(p.directives || []).slice(0, 3).map(d => `<li>${SecurityCore.sanitizeHTML(d)}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
+            <button onclick="openEditProtocolModal('${p.id}')" class="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-[10.5px] font-semibold transition-colors">Edit Directives</button>
+            <button onclick="toggleProtocolBroadcast('${p.id}')" class="px-2.5 py-1 rounded-lg ${p.activeBroadcast ? 'bg-rose-600 text-white animate-pulse' : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-300 dark:border-rose-800'} text-[10.5px] font-bold transition-all">
+              ${p.activeBroadcast ? 'Active Drill Broadcast' : 'Trigger Drill'}
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== EVENT MODAL HANDLERS ====================
+    function openCreateEventModal() {
+      document.getElementById('modalEventTitle').innerText = 'Add New University Event';
+      document.getElementById('inputEventId').value = '';
+      document.getElementById('inputEventTitle').value = '';
+      document.getElementById('inputEventCategory').value = 'Campus Fellowship';
+      document.getElementById('inputEventDate').value = 'October 2026';
+      document.getElementById('inputEventLocation').value = 'University Gymnasium Gate 2';
+      document.getElementById('inputEventTimeInCutoff').value = '08:30:00 AM';
+      document.getElementById('inputEventTimeOutCutoff').value = '05:00:00 PM';
+      document.getElementById('inputEventStatus').value = 'Active';
+      document.getElementById('inputEventVotingEnabled').checked = false;
+      document.getElementById('modalEventForm').classList.remove('hidden');
+    }
+
+    function openEditEventModal(id) {
+      const evt = (SyncInDB.data.events || []).find(e => e.id === id);
+      if (!evt) return;
+      document.getElementById('modalEventTitle').innerText = 'Edit University Event';
+      document.getElementById('inputEventId').value = evt.id;
+      document.getElementById('inputEventTitle').value = evt.title;
+      document.getElementById('inputEventCategory').value = evt.category;
+      document.getElementById('inputEventDate').value = evt.date;
+      document.getElementById('inputEventLocation').value = evt.location;
+      document.getElementById('inputEventTimeInCutoff').value = evt.timeInCutoff;
+      document.getElementById('inputEventTimeOutCutoff').value = evt.timeOutCutoff;
+      document.getElementById('inputEventStatus').value = evt.status;
+      document.getElementById('inputEventVotingEnabled').checked = !!evt.votingEnabled;
+      document.getElementById('modalEventForm').classList.remove('hidden');
+    }
+
+    function closeEventModal() {
+      document.getElementById('modalEventForm').classList.add('hidden');
+    }
+
+    function saveEventForm() {
+      const id = document.getElementById('inputEventId').value;
+      const evtData = {
+        title: document.getElementById('inputEventTitle').value.trim(),
+        category: document.getElementById('inputEventCategory').value,
+        date: document.getElementById('inputEventDate').value.trim(),
+        location: document.getElementById('inputEventLocation').value.trim(),
+        timeInCutoff: document.getElementById('inputEventTimeInCutoff').value.trim(),
+        timeOutCutoff: document.getElementById('inputEventTimeOutCutoff').value.trim(),
+        status: document.getElementById('inputEventStatus').value,
+        votingEnabled: document.getElementById('inputEventVotingEnabled').checked
+      };
+      if (id) {
+        evtData.id = id;
+        SyncInDB.updateEvent(evtData);
+      } else {
+        evtData.id = `evt_${Date.now()}`;
+        SyncInDB.addEvent(evtData);
+      }
+      closeEventModal();
+    }
+
+    function confirmDeleteEvent(id) {
+      if (confirm('Are you sure you want to delete this event from the university database?')) {
+        SyncInDB.deleteEvent(id);
+      }
+    }
+
+    function setActiveEvent(title) {
+      currentEvent = title;
+      const b1 = document.getElementById('activeEventBadge');
+      if (b1) b1.innerText = `${title} • Gate 2 Scanner`;
+      const kt = document.getElementById('kioskEventTitle');
+      if (kt) kt.innerText = `${title}: Gate 2 Turnstile`;
+      alert(`Active event switched to: ${title}`);
+    }
+
+    // ==================== ATTENDEE MODAL HANDLERS ====================
+    function openCreateAttendeeModal() {
+      document.getElementById('modalAttendeeTitle').innerText = 'Add Student Attendee Record';
+      document.getElementById('inputAttId').value = '';
+      document.getElementById('inputAttName').value = '';
+      document.getElementById('inputAttStudId').value = '';
+      document.getElementById('inputAttCourse').value = 'BS Information Technology';
+      document.getElementById('inputAttYear').value = '3rd Year';
+      document.getElementById('inputAttDepartment').value = 'College of Computer Studies';
+      populateAttendeeEventDropdown();
+      document.getElementById('inputAttMethod').value = 'Manual Marshal';
+      document.getElementById('inputAttStatus').value = 'Cleared';
+      document.getElementById('modalAttendeeForm').classList.remove('hidden');
+    }
+
+    function openEditAttendeeModal(id) {
+      const att = (SyncInDB.data.attendees || []).find(a => a.id === id);
+      if (!att) return;
+      document.getElementById('modalAttendeeTitle').innerText = 'Edit Student Attendee';
+      document.getElementById('inputAttId').value = att.id;
+      document.getElementById('inputAttName').value = att.name;
+      document.getElementById('inputAttStudId').value = att.studId;
+      document.getElementById('inputAttCourse').value = att.course;
+      document.getElementById('inputAttYear').value = att.year;
+      document.getElementById('inputAttDepartment').value = att.department;
+      populateAttendeeEventDropdown(att.eventName);
+      document.getElementById('inputAttMethod').value = att.method;
+      document.getElementById('inputAttStatus').value = att.status;
+      document.getElementById('modalAttendeeForm').classList.remove('hidden');
+    }
+
+    function populateAttendeeEventDropdown(selected) {
+      const select = document.getElementById('inputAttEventName');
+      if (!select) return;
+      const evts = SyncInDB.data.events || [];
+      select.innerHTML = evts.map(e => `
+        <option value="${SecurityCore.sanitizeHTML(e.title)}" ${selected === e.title ? 'selected' : ''}>${SecurityCore.sanitizeHTML(e.title)}</option>
+      `).join('');
+    }
+
+    function closeAttendeeModal() {
+      document.getElementById('modalAttendeeForm').classList.add('hidden');
+    }
+
+    function saveAttendeeForm() {
+      const id = document.getElementById('inputAttId').value;
+      const attData = {
+        name: document.getElementById('inputAttName').value.trim(),
+        studId: document.getElementById('inputAttStudId').value.trim(),
+        course: document.getElementById('inputAttCourse').value.trim(),
+        year: document.getElementById('inputAttYear').value,
+        department: document.getElementById('inputAttDepartment').value,
+        eventName: document.getElementById('inputAttEventName').value,
+        method: document.getElementById('inputAttMethod').value,
+        status: document.getElementById('inputAttStatus').value,
+        timeIn: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        timeOut: document.getElementById('inputAttStatus').value === 'Cleared' ? new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '--'
+      };
+      if (id) {
+        attData.id = id;
+        SyncInDB.updateAttendee(attData);
+      } else {
+        attData.id = `att_${Date.now()}`;
+        SyncInDB.addAttendee(attData);
+      }
+      closeAttendeeModal();
+    }
+
+    function toggleAttendeeClearance(id) {
+      const att = (SyncInDB.data.attendees || []).find(a => a.id === id);
+      if (!att) return;
+      if (att.status === 'Cleared') {
+        att.status = 'Pending Out';
+        att.timeOut = '--';
+      } else {
+        att.status = 'Cleared';
+        att.timeOut = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+      SyncInDB.updateAttendee(att);
+    }
+
+    function confirmDeleteAttendee(id) {
+      if (confirm('Delete this student attendance record from the database?')) {
+        SyncInDB.deleteAttendee(id);
+      }
+    }
+
+    function exportAttendeesCSV() {
+      const list = SyncInDB.data.attendees || [];
+      if (list.length === 0) {
+        alert('No attendance records to export.');
+        return;
+      }
+      let csv = 'Student Name,Student ID,Course,Year Level,Department,Attended Event,Time In,Time Out,Method,Status\n';
+      list.forEach(a => {
+        csv += `"${SecurityCore.sanitizeCSVField(a.name)}","${SecurityCore.sanitizeCSVField(a.studId)}","${SecurityCore.sanitizeCSVField(a.course)}","${SecurityCore.sanitizeCSVField(a.year)}","${SecurityCore.sanitizeCSVField(a.department)}","${SecurityCore.sanitizeCSVField(a.eventName)}","${SecurityCore.sanitizeCSVField(a.timeIn)}","${SecurityCore.sanitizeCSVField(a.timeOut)}","${SecurityCore.sanitizeCSVField(a.method)}","${SecurityCore.sanitizeCSVField(a.status)}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `SyncIn_Event_Attendees_Roster_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // ==================== ANNOUNCEMENT MODAL HANDLERS ====================
+    function openCreateAnnouncementModal() {
+      document.getElementById('modalAnnTitle').innerText = 'Post Campus Announcement';
+      document.getElementById('inputAnnId').value = '';
+      document.getElementById('inputAnnTitle').value = '';
+      document.getElementById('inputAnnCategory').value = 'SSG Advisory';
+      document.getElementById('inputAnnPriority').value = 'Normal';
+      document.getElementById('inputAnnContent').value = '';
+      document.getElementById('modalAnnouncementForm').classList.remove('hidden');
+    }
+
+    function openEditAnnouncementModal(id) {
+      const ann = (SyncInDB.data.announcements || []).find(a => a.id === id);
+      if (!ann) return;
+      document.getElementById('modalAnnTitle').innerText = 'Edit Campus Announcement';
+      document.getElementById('inputAnnId').value = ann.id;
+      document.getElementById('inputAnnTitle').value = ann.title;
+      document.getElementById('inputAnnCategory').value = ann.category;
+      document.getElementById('inputAnnPriority').value = ann.priority;
+      document.getElementById('inputAnnContent').value = ann.content;
+      document.getElementById('modalAnnouncementForm').classList.remove('hidden');
+    }
+
+    function closeAnnouncementModal() {
+      document.getElementById('modalAnnouncementForm').classList.add('hidden');
+    }
+
+    function saveAnnouncementForm() {
+      const id = document.getElementById('inputAnnId').value;
+      const annData = {
+        title: document.getElementById('inputAnnTitle').value.trim(),
+        category: document.getElementById('inputAnnCategory').value,
+        priority: document.getElementById('inputAnnPriority').value,
+        content: document.getElementById('inputAnnContent').value.trim(),
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+      };
+      if (id) {
+        annData.id = id;
+        SyncInDB.updateAnnouncement(annData);
+      } else {
+        annData.id = `ann_${Date.now()}`;
+        SyncInDB.addAnnouncement(annData);
+      }
+      closeAnnouncementModal();
+    }
+
+    function confirmDeleteAnnouncement(id) {
+      if (confirm('Delete this announcement bulletin?')) {
+        SyncInDB.deleteAnnouncement(id);
+      }
+    }
+
+    // ==================== PROTOCOL MODAL HANDLERS ====================
+    function openEditProtocolModal(id) {
+      const proto = (SyncInDB.data.protocols || []).find(p => p.id === id);
+      if (!proto) return;
+      document.getElementById('modalProtoTitle').innerText = `Configure: ${proto.title}`;
+      document.getElementById('inputProtoId').value = proto.id;
+      document.getElementById('inputProtoName').value = proto.title;
+      document.getElementById('inputProtoThreatLevel').value = proto.threatLevel;
+      document.getElementById('inputProtoSafeZones').value = proto.safeZones;
+      document.getElementById('inputProtoDirectives').value = (proto.directives || []).join('\n');
+      document.getElementById('modalProtocolForm').classList.remove('hidden');
+    }
+
+    function closeProtocolModal() {
+      document.getElementById('modalProtocolForm').classList.add('hidden');
+    }
+
+    function saveProtocolForm() {
+      const id = document.getElementById('inputProtoId').value;
+      const dirs = document.getElementById('inputProtoDirectives').value
+        .split('\n')
+        .map(d => d.trim())
+        .filter(d => d.length > 0);
+      const protoData = {
+        id,
+        title: document.getElementById('inputProtoName').value.trim(),
+        threatLevel: document.getElementById('inputProtoThreatLevel').value,
+        safeZones: document.getElementById('inputProtoSafeZones').value.trim(),
+        directives: dirs
+      };
+      SyncInDB.updateProtocol(protoData);
+      closeProtocolModal();
+    }
+
+    function toggleProtocolBroadcast(id) {
+      SyncInDB.toggleProtocolBroadcast(id);
+      const p = (SyncInDB.data.protocols || []).find(x => x.id === id);
+      if (p && p.activeBroadcast) {
+        openEmergencyModal();
+      }
+    }
+
+    function updateStudentEventsDropdown() {
+      const evtFilter = document.getElementById('admAttendeeEventFilter');
+      if (evtFilter) {
+        const evts = SyncInDB.data.events || [];
+        evtFilter.innerHTML = '<option value="all">All Events</option>' + evts.map(e => `
+          <option value="${SecurityCore.sanitizeHTML(e.title)}">${SecurityCore.sanitizeHTML(e.title)}</option>
+        `).join('');
+      }
+    }
+
+
+    // Auto-initialize SyncInDB on document load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof SyncInDB !== 'undefined' && SyncInDB.init) {
+          SyncInDB.init();
+        }
+      });
+    } else {
+      if (typeof SyncInDB !== 'undefined' && SyncInDB.init) {
+        SyncInDB.init();
+      }
     }
 </script>
 
