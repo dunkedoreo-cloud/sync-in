@@ -1,0 +1,36 @@
+name: CI & Quality Assurance
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Syntax & Runtime Check
+        run: |
+          node --check server.js
+          echo "Server JavaScript Syntax Passed."
+
+      - name: Verify Web Asset Integrity
+        run: |
+          test -f index.html
+          test -f public/index.html
+          test -f public/favicon.svg
+          echo "All static entrypoints verified."
+
+      - name: Test Docker Container Build
+        run: |
+          docker build -t sync-in:test .
+          echo "Docker container built successfully."

@@ -1,0 +1,599 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <!-- Dark Mode Ambient Radial Canvas -->
+    <radialGradient id="darkCanvasBg" cx="50%" cy="25%" r="85%" fx="50%" fy="15%">
+      <stop offset="0%" stop-color="#0E1726"/>
+      <stop offset="45%" stop-color="#090E17"/>
+      <stop offset="100%" stop-color="#04060A"/>
+    </radialGradient>
+
+    <!-- Dark Phone Ambient Glow & Shadows -->
+    <filter id="darkPhoneShadowCenter" x="-25%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="32" stdDeviation="40" flood-color="#000000" flood-opacity="0.85"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0284C7" flood-opacity="0.22"/>
+    </filter>
+
+    <filter id="darkPhoneShadowSide" x="-25%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="26" stdDeviation="32" flood-color="#000000" flood-opacity="0.75"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#0284C7" flood-opacity="0.10"/>
+    </filter>
+
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#38BDF8" flood-opacity="0.85"/>
+    </filter>
+
+    <filter id="cardGlowActive" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#0284C7" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Dark Titanium Device Border -->
+    <linearGradient id="darkTitaniumEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="40%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+
+    <!-- Screen Glass Gradient -->
+    <linearGradient id="screenGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B1323"/>
+      <stop offset="100%" stop-color="#070C18"/>
+    </linearGradient>
+
+    <style>
+      .ui-font {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-style: normal;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-display {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: -0.02em;
+      }
+    </style>
+  </defs>
+
+  <!-- CANVAS BACKGROUND -->
+  <rect width="1920" height="1080" fill="url(#darkCanvasBg)"/>
+
+  <!-- SUBTLE ARCHITECTURAL CYBERNETIC GRID -->
+  <g opacity="0.04" stroke="#38BDF8" stroke-width="1">
+    <line x1="0" y1="216" x2="1920" y2="216"/>
+    <line x1="0" y1="432" x2="1920" y2="432"/>
+    <line x1="0" y1="648" x2="1920" y2="648"/>
+    <line x1="0" y1="864" x2="1920" y2="864"/>
+    <line x1="480" y1="0" x2="480" y2="1080"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080"/>
+  </g>
+
+  <!-- TOP HEADER TITLE (DARK MODE) -->
+  <g transform="translate(960, 75)" text-anchor="middle">
+    <rect x="-210" y="-30" width="420" height="26" rx="13" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+    <circle cx="-185" cy="-17" r="3.5" fill="#38BDF8"/>
+    <text x="12" y="-13" class="ui-font" font-size="10.5" font-weight="700" fill="#38BDF8" letter-spacing="1.5">DARK MODE • USER PROFILE &amp; FINES HUB</text>
+    
+    <text x="0" y="28" class="font-display" font-size="44" fill="#FFFFFF">
+      Sync-in: <tspan fill="#38BDF8">Event Carousel</tspan>, <tspan fill="#34D399">User Profile</tspan> &amp; <tspan fill="#FBBF24">Fine Tracker</tspan>
+    </text>
+    <text x="0" y="54" class="ui-font" font-size="13.5" fill="#94A3B8" font-weight="400">
+      Full Name, Course &amp; Dept • Announcements • Fines Tracker • Settings &amp; Log Out • Deep Obsidian
+    </text>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- PHONE 1 (LEFT): EVENTS & ACTIVITIES HUB (DARK MODE)                                -->
+  <!-- ================================================================================== -->
+  <g transform="translate(190, 160)" filter="url(#darkPhoneShadowSide)">
+    <!-- Device Chassis -->
+    <rect width="430" height="850" rx="52" fill="#0A0F1D" stroke="url(#darkTitaniumEdge)" stroke-width="5.5"/>
+    <rect x="7" y="7" width="416" height="836" rx="46" fill="url(#screenGlass)" stroke="#1E293B" stroke-width="1.5"/>
+
+    <!-- Dynamic Island -->
+    <rect x="155" y="18" width="120" height="26" rx="13" fill="#000000"/>
+    <circle cx="245" cy="31" r="5" fill="#0F172A"/>
+
+    <!-- Status Bar -->
+    <text x="40" y="36" class="ui-font" font-size="12" font-weight="600" fill="#F8FAFC">9:41</text>
+    <g transform="translate(355, 25)" fill="#F8FAFC">
+      <rect x="0" y="4" width="3" height="8" rx="1"/>
+      <rect x="5" y="2" width="3" height="10" rx="1"/>
+      <rect x="10" y="0" width="3" height="12" rx="1"/>
+      <rect x="18" y="1" width="18" height="10" rx="2" fill="none" stroke="#F8FAFC" stroke-width="1.5"/>
+      <rect x="20" y="3" width="12" height="6" rx="1" fill="#F8FAFC"/>
+    </g>
+
+    <!-- Top App Navigation -->
+    <g transform="translate(32, 70)">
+      <text x="0" y="12" class="ui-font" font-size="13" font-weight="700" fill="#38BDF8" letter-spacing="0.5">SYNC-IN</text>
+      <!-- Bell Notification -->
+      <circle cx="365" cy="8" r="16" fill="#131E35" stroke="#1E293B" stroke-width="1"/>
+      <path d="M361 5a3.5 3.5 0 0 1 7 0c0 3 1.5 4 1.5 4h-10s1.5-1 1.5-4M363.5 10a1.5 1.5 0 0 0 3 0" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+      <circle cx="372" cy="1" r="3" fill="#F59E0B"/>
+    </g>
+
+    <!-- User Header (Clean, Upright, Non-Italic Sans) -->
+    <g transform="translate(32, 112)">
+      <text x="0" y="16" class="font-display" font-size="22" fill="#FFFFFF">Hello, Alexandra</text>
+      <text x="0" y="33" class="ui-font" font-size="11.5" font-weight="600" fill="#38BDF8">BS Information Technology • College of Computer Studies</text>
+    </g>
+
+    <!-- SEARCH BAR FOR EVENTS -->
+    <g transform="translate(32, 154)">
+      <rect width="366" height="36" rx="12" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+      <g transform="translate(14, 11)">
+        <path d="M11 11l3.5 3.5M5.5 9.5a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" stroke="#64748B" stroke-width="1.6" fill="none"/>
+        <text x="22" y="10" class="ui-font" font-size="11" fill="#64748B">Search events (Himamat, Strands of Love)...</text>
+      </g>
+    </g>
+
+    <!-- ==================== USER TRACKERS ROW (NATURAL DARK MONOCHROME) ==================== -->
+    <g transform="translate(32, 202)">
+      <!-- EVENT TRACKER CARD (Attended vs Missed) -->
+      <g>
+        <rect width="176" height="74" rx="16" fill="#10192D" stroke="#1E293B" stroke-width="1"/>
+        <text x="14" y="19" class="ui-font" font-size="8.5" font-weight="700" fill="#94A3B8" letter-spacing="0.5">EVENT TRACKER</text>
+        <g transform="translate(14, 28)">
+          <!-- Attended Stat -->
+          <text x="22" y="18" class="ui-font" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">14</text>
+          <text x="22" y="30" class="ui-font" font-size="8" font-weight="600" fill="#94A3B8" text-anchor="middle">ATTENDED</text>
+          
+          <!-- Clean Vertical Divider -->
+          <line x1="74" y1="2" x2="74" y2="32" stroke="#1E293B" stroke-width="1"/>
+
+          <!-- Missed Stat -->
+          <text x="126" y="18" class="ui-font" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+          <text x="126" y="30" class="ui-font" font-size="8" font-weight="600" fill="#94A3B8" text-anchor="middle">MISSED</text>
+        </g>
+      </g>
+
+      <!-- FINE TRACKER CARD (Attendance Dues / Penalties - CLICKABLE LINK TO RECORDS) -->
+      <g transform="translate(188, 0)">
+        <rect width="178" height="74" rx="16" fill="#10192D" stroke="#1E293B" stroke-width="1"/>
+        <text x="14" y="19" class="ui-font" font-size="8.5" font-weight="700" fill="#94A3B8" letter-spacing="0.5">FINE TRACKER</text>
+        <path d="M162 13L166 17L162 21" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <g transform="translate(14, 32)">
+          <text x="0" y="14" class="ui-font" font-size="18" font-weight="700" fill="#FFFFFF">₱150.00</text>
+          <text x="0" y="27" class="ui-font" font-size="8" font-weight="500" fill="#94A3B8">1 Missed Event • Tap to view</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- SECTION TITLE: FEATURED EVENT WITH MINIMAL ARROWS -->
+    <g transform="translate(32, 290)">
+      <text x="0" y="0" class="ui-font" font-size="11" font-weight="700" fill="#CBD5E1" letter-spacing="0.5">FEATURED EVENT</text>
+      <g transform="translate(306, -11)">
+        <rect x="0" y="0" width="18" height="18" rx="5" fill="#10192D"/>
+        <text x="9" y="13" class="ui-font" font-size="11" font-weight="700" fill="#CBD5E1" text-anchor="middle">‹</text>
+        <text x="29" y="13" class="ui-font" font-size="9" font-weight="600" fill="#94A3B8" text-anchor="middle">1 / 2</text>
+        <rect x="42" y="0" width="18" height="18" rx="5" fill="#10192D"/>
+        <text x="51" y="13" class="ui-font" font-size="11" font-weight="700" fill="#CBD5E1" text-anchor="middle">›</text>
+      </g>
+    </g>
+
+    <!-- ==================== 5-SECOND ROTATING EVENT CAROUSEL BOX (SLIDE 1: HIMAMAT) ==================== -->
+    <g transform="translate(32, 304)">
+      <rect width="366" height="410" rx="22" fill="#10192D" stroke="#0284C7" stroke-width="2"/>
+
+      <!-- Category Tag & Status -->
+      <g transform="translate(18, 18)">
+        <rect width="134" height="22" rx="6" fill="#082F49"/>
+        <text x="10" y="15" class="ui-font" font-size="9" font-weight="700" fill="#38BDF8" letter-spacing="0.5">CAMPUS FELLOWSHIP</text>
+
+        <!-- Completed Status Pill -->
+        <rect x="250" y="0" width="80" height="22" rx="11" fill="#1E293B"/>
+        <circle cx="262" cy="11" r="3" fill="#38BDF8"/>
+        <text x="270" y="15" class="ui-font" font-size="10" font-weight="600" fill="#CBD5E1">Completed</text>
+      </g>
+
+      <!-- Event Name & Location -->
+      <g transform="translate(18, 64)">
+        <text x="0" y="0" class="font-display" font-size="24" fill="#FFFFFF">Himamat</text>
+        
+        <!-- WHEN (Date & Time) -->
+        <g transform="translate(0, 18)">
+          <path d="M0 4h10M0 8h10M2 0v2M8 0v2M0 2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H0a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="none" stroke="#64748B" stroke-width="1.2" transform="translate(0, 2)"/>
+          <text x="18" y="10" class="ui-font" font-size="11.5" font-weight="600" fill="#CBD5E1">Oct 15, 2026 • 08:00 AM – 12:00 PM</text>
+        </g>
+
+        <!-- WHERE (Attendance Location / Gates) -->
+        <g transform="translate(0, 36)">
+          <path d="M6 0C2.7 0 0 2.7 0 6c0 4.5 6 10 6 10s6-5.5 6-10c0-3.3-2.7-6-6-6zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#38BDF8" transform="translate(0, 1)"/>
+          <text x="18" y="10" class="ui-font" font-size="11.5" font-weight="600" fill="#38BDF8">Grand Gymnasium, Gates 2 &amp; 3 Turnstiles</text>
+        </g>
+      </g>
+
+      <!-- LATE THRESHOLD & CUTOFF POLICY BANNER -->
+      <g transform="translate(18, 134)">
+        <rect width="330" height="42" rx="10" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+        <g transform="translate(12, 16)">
+          <circle cx="4" cy="5" r="5" fill="#64748B"/>
+          <text x="4" y="8" class="ui-font" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">!</text>
+          <text x="16" y="5" class="ui-font" font-size="10" font-weight="700" fill="#F8FAFC">TIME LIMITS &amp; LATE RULES:</text>
+          <text x="16" y="18" class="ui-font" font-size="9" fill="#94A3B8">Time In closes 08:45 AM • Late fine ₱50 if after 08:30 AM</text>
+        </g>
+      </g>
+
+      <!-- CHECKPOINTS: TIME IN & TIME OUT DATA (CLEAN & NATURAL) -->
+      <g transform="translate(18, 192)">
+        <!-- Time In Box -->
+        <g>
+          <rect width="160" height="74" rx="12" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+          <text x="12" y="20" class="ui-font" font-size="9" font-weight="700" fill="#64748B" letter-spacing="0.5">TIME IN (ARRIVAL)</text>
+          <g transform="translate(12, 44)">
+            <circle cx="7" cy="-5" r="7" fill="#1E293B"/>
+            <path d="M4 -5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+            <text x="22" y="0" class="ui-font" font-size="15" font-weight="700" fill="#FFFFFF">08:15 AM</text>
+          </g>
+          <text x="12" y="64" class="ui-font" font-size="8.5" font-weight="600" fill="#94A3B8">On-Time • No Fine</text>
+        </g>
+
+        <!-- Time Out Box -->
+        <g transform="translate(170, 0)">
+          <rect width="160" height="74" rx="12" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+          <text x="12" y="20" class="ui-font" font-size="9" font-weight="700" fill="#64748B" letter-spacing="0.5">TIME OUT (DEPARTURE)</text>
+          <g transform="translate(12, 44)">
+            <circle cx="7" cy="-5" r="7" fill="#1E293B"/>
+            <path d="M4 -5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+            <text x="22" y="0" class="ui-font" font-size="15" font-weight="700" fill="#FFFFFF">11:45 AM</text>
+          </g>
+          <text x="12" y="64" class="ui-font" font-size="8.5" font-weight="600" fill="#94A3B8">Cleared • Window Valid</text>
+        </g>
+      </g>
+
+      <!-- AUTO-SLIDING FOOTER (5 SECONDS) -->
+      <g transform="translate(18, 286)">
+        <line x1="0" y1="0" x2="330" y2="0" stroke="#1E293B" stroke-width="1"/>
+        <g transform="translate(0, 16)">
+          <text x="0" y="8" class="ui-font" font-size="9.5" font-weight="600" fill="#94A3B8">Slide 1 of 2 • Auto-sliding card (5s timer)</text>
+          <circle cx="310" cy="5" r="3.5" fill="#38BDF8"/>
+          <circle cx="324" cy="5" r="3" fill="#475569"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- Bottom Nav Bar (Dark) -->
+    <g transform="translate(32, 735)">
+      <line x1="0" y1="0" x2="366" y2="0" stroke="#1E293B" stroke-width="1"/>
+      <g transform="translate(45, 24)">
+        <path d="M-8 4L0 -4L8 4V12H-8Z" fill="#38BDF8"/>
+        <circle cx="0" cy="18" r="2.5" fill="#38BDF8"/>
+      </g>
+      <g transform="translate(140, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <rect x="-7" y="-7" width="14" height="14" rx="2"/>
+        <rect x="-3" y="-3" width="6" height="6"/>
+      </g>
+      <g transform="translate(235, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <path d="M-6 -8h8l5 5v11h-13z"/>
+      </g>
+      <g transform="translate(325, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <circle cx="0" cy="-3" r="5"/>
+        <path d="M-7 9c0-3.5 3-5 7-5s7 1.5 7 5"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- PHONE 2 (CENTER / HERO): DYNAMIC QR CHECKPOINT PASS (DARK MODE)                    -->
+  <!-- ================================================================================== -->
+  <g transform="translate(745, 130)" filter="url(#darkPhoneShadowCenter)">
+    <!-- Device Chassis -->
+    <rect width="430" height="880" rx="52" fill="#0A0F1D" stroke="url(#darkTitaniumEdge)" stroke-width="6.5"/>
+    <rect x="7" y="7" width="416" height="866" rx="46" fill="url(#screenGlass)" stroke="#38BDF8" stroke-width="2"/>
+
+    <!-- Dynamic Island -->
+    <rect x="155" y="18" width="120" height="26" rx="13" fill="#000000"/>
+    <circle cx="245" cy="31" r="5" fill="#38BDF8" opacity="0.7"/>
+
+    <!-- Status Bar -->
+    <text x="40" y="36" class="ui-font" font-size="12" font-weight="600" fill="#F8FAFC">9:41</text>
+    <g transform="translate(355, 25)" fill="#F8FAFC">
+      <rect x="0" y="4" width="3" height="8" rx="1"/>
+      <rect x="5" y="2" width="3" height="10" rx="1"/>
+      <rect x="10" y="0" width="3" height="12" rx="1"/>
+      <rect x="18" y="1" width="18" height="10" rx="2" fill="none" stroke="#F8FAFC" stroke-width="1.5"/>
+      <rect x="20" y="3" width="12" height="6" rx="1" fill="#F8FAFC"/>
+    </g>
+
+    <!-- Event Pill Badge -->
+    <g transform="translate(215, 84)" text-anchor="middle">
+      <rect x="-105" y="-12" width="210" height="24" rx="12" fill="#082F49" stroke="#0284C7" stroke-width="1"/>
+      <text x="0" y="4.5" class="ui-font" font-size="10.5" font-weight="700" fill="#38BDF8">Himamat • Gate 2 Scanner</text>
+    </g>
+
+    <!-- Header Titles -->
+    <text x="215" y="145" class="font-display" font-size="30" text-anchor="middle" fill="#FFFFFF">
+      Gate Scanner
+    </text>
+    <text x="215" y="168" class="ui-font" font-size="11.5" fill="#94A3B8" text-anchor="middle">
+      Align camera with Admin QR Standee at Gym Gate
+    </text>
+
+    <!-- Segmented Checkpoint Toggle (Time In / Time Out) -->
+    <g transform="translate(65, 186)">
+      <rect width="300" height="40" rx="12" fill="#111B32" stroke="#1E293B" stroke-width="1"/>
+      <!-- Time In Active Tab -->
+      <rect x="4" y="3" width="144" height="34" rx="9" fill="#0284C7"/>
+      <circle cx="36" cy="20" r="3.5" fill="#FFFFFF"/>
+      <text x="75" y="25" class="ui-font" font-size="12.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Time In</text>
+      <!-- Time Out Tab -->
+      <text x="225" y="25" class="ui-font" font-size="12.5" font-weight="500" fill="#64748B" text-anchor="middle">Time Out</text>
+    </g>
+
+    <!-- QR Viewfinder Container (Dark Glass) -->
+    <g transform="translate(48, 246)">
+      <rect width="334" height="364" rx="26" fill="#10192E" stroke="#1E2E4A" stroke-width="1.5"/>
+
+      <!-- SSG Audio-Visual Verification Tag -->
+      <g transform="translate(167, 34)" text-anchor="middle">
+        <rect x="-95" y="-12" width="190" height="24" rx="12" fill="#064E3B" stroke="#059669" stroke-width="1"/>
+        <path d="M-75 0l2 2 4-4" stroke="#34D399" stroke-width="1.6" fill="none"/>
+        <text x="2" y="4" class="ui-font" font-size="9.5" font-weight="700" fill="#A7F3D0">SSG Marshal Chime Active</text>
+      </g>
+
+      <!-- Viewfinder Optical Frame -->
+      <g transform="translate(62, 68)">
+        <!-- Corner Brackets in Glowing Cyan -->
+        <path d="M0 24V0H24" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M186 0H210V24" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M0 186V210H24" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M186 210H210V186" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+        <!-- Laser Scan Line -->
+        <line x1="8" y1="105" x2="202" y2="105" stroke="#38BDF8" stroke-width="2.5" filter="url(#cyanGlow)"/>
+
+        <!-- Crisp Dark Mode QR Matrix (White on Dark Glass) -->
+        <g transform="translate(25, 25)" fill="#FFFFFF">
+          <rect x="0" y="0" width="40" height="40" rx="6"/>
+          <rect x="8" y="8" width="24" height="24" rx="3" fill="#10192E"/>
+          <rect x="14" y="14" width="12" height="12" rx="2" fill="#38BDF8"/>
+
+          <rect x="120" y="0" width="40" height="40" rx="6"/>
+          <rect x="128" y="8" width="24" height="24" rx="3" fill="#10192E"/>
+          <rect x="134" y="14" width="12" height="12" rx="2" fill="#38BDF8"/>
+
+          <rect x="0" y="120" width="40" height="40" rx="6"/>
+          <rect x="8" y="128" width="24" height="24" rx="3" fill="#10192E"/>
+          <rect x="14" y="134" width="12" height="12" rx="2" fill="#38BDF8"/>
+
+          <rect x="52" y="8" width="12" height="12" rx="2"/>
+          <rect x="74" y="8" width="12" height="12" rx="2"/>
+          <rect x="52" y="28" width="12" height="12" rx="2"/>
+          <rect x="96" y="28" width="14" height="14" rx="3" fill="#38BDF8"/>
+          
+          <rect x="8" y="54" width="12" height="12" rx="2"/>
+          <rect x="28" y="54" width="12" height="12" rx="2"/>
+          <rect x="128" y="54" width="14" height="12" rx="2"/>
+
+          <!-- Center Emblem -->
+          <rect x="62" y="62" width="36" height="36" rx="8" fill="#0A0F1D"/>
+          <circle cx="80" cy="80" r="11" fill="#F59E0B"/>
+          <path d="M76 80l3 3 5-5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <rect x="120" y="80" width="12" height="12" rx="2"/>
+          <rect x="140" y="90" width="16" height="12" rx="2"/>
+          <rect x="52" y="120" width="12" height="12" rx="2"/>
+          <rect x="74" y="132" width="14" height="14" rx="2" fill="#38BDF8"/>
+          <rect x="120" y="120" width="14" height="14" rx="2"/>
+          <rect x="138" y="136" width="18" height="16" rx="3" fill="#38BDF8"/>
+        </g>
+      </g>
+
+      <!-- Scanner Status -->
+      <g transform="translate(167, 330)" text-anchor="middle">
+        <text class="ui-font" font-size="11.5" font-weight="600" fill="#34D399">
+          Admin Standee Locked • Point &amp; Auto-Chime
+        </text>
+      </g>
+    </g>
+
+    <!-- Subtext -->
+    <text x="215" y="642" class="ui-font" font-size="11.5" fill="#64748B" text-anchor="middle">
+      SSG Marshals verify green pass &amp; audible chime at turnstile
+    </text>
+
+    <!-- Primary Action Button -->
+    <g transform="translate(48, 670)">
+      <rect width="334" height="52" rx="26" fill="#0284C7"/>
+      <g transform="translate(62, 16)">
+        <path d="M4 1a2 2 0 0 0-2 2v2H0V3a4 4 0 0 1 4-4h2v2H4zm12-2a4 4 0 0 1 4 4v2h-2V3a2 2 0 0 0-2-2h-2V0h2zm4 14a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 2-2v-2h2v2zM4 19a4 4 0 0 1-4-4v-2h2v2a2 2 0 0 0 2 2h2v2H4z" fill="#FFFFFF"/>
+        <text x="26" y="15" class="ui-font" font-size="13" font-weight="700" fill="#FFFFFF">Scan Standee QR (Play Chime)</text>
+      </g>
+    </g>
+
+    <!-- Bottom Nav Bar -->
+    <g transform="translate(32, 770)">
+      <line x1="0" y1="0" x2="366" y2="0" stroke="#1E293B" stroke-width="1"/>
+      <g transform="translate(45, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <path d="M-8 4L0 -4L8 4V12H-8Z"/>
+      </g>
+      <!-- Center Active QR -->
+      <g transform="translate(183, 22)">
+        <circle cx="0" cy="0" r="22" fill="#0284C7"/>
+        <g fill="none" stroke="#FFFFFF" stroke-width="2">
+          <rect x="-7" y="-7" width="14" height="14" rx="2"/>
+          <rect x="-3" y="-3" width="6" height="6"/>
+        </g>
+      </g>
+      <g transform="translate(325, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <circle cx="0" cy="-3" r="5"/>
+        <path d="M-7 9c0-3.5 3-5 7-5s7 1.5 7 5"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- ================================================================================== -->
+  <!-- PHONE 3 (RIGHT): USER PROFILE, EVENTS & SETTINGS HUB (DARK MODE)                  -->
+  <!-- ================================================================================== -->
+  <g transform="translate(1300, 160)" filter="url(#darkPhoneShadowSide)">
+    <!-- Device Chassis -->
+    <rect width="430" height="850" rx="52" fill="#0A0F1D" stroke="url(#darkTitaniumEdge)" stroke-width="5.5"/>
+    <rect x="7" y="7" width="416" height="836" rx="46" fill="url(#screenGlass)" stroke="#1E293B" stroke-width="1.5"/>
+
+    <!-- Dynamic Island -->
+    <rect x="155" y="18" width="120" height="26" rx="13" fill="#000000"/>
+    <circle cx="245" cy="31" r="5" fill="#0F172A"/>
+
+    <!-- Status Bar -->
+    <text x="40" y="36" class="ui-font" font-size="12" font-weight="600" fill="#F8FAFC">9:41</text>
+    <g transform="translate(355, 25)" fill="#F8FAFC">
+      <rect x="0" y="4" width="3" height="8" rx="1"/>
+      <rect x="5" y="2" width="3" height="10" rx="1"/>
+      <rect x="10" y="0" width="3" height="12" rx="1"/>
+      <rect x="18" y="1" width="18" height="10" rx="2" fill="none" stroke="#F8FAFC" stroke-width="1.5"/>
+      <rect x="20" y="3" width="12" height="6" rx="1" fill="#F8FAFC"/>
+    </g>
+
+    <!-- Top App Navigation -->
+    <g transform="translate(32, 70)">
+      <text x="0" y="12" class="ui-font" font-size="13" font-weight="700" fill="#38BDF8" letter-spacing="0.5">SYNC-IN</text>
+      <rect x="120" y="-3" width="126" height="22" rx="11" fill="#111B32"/>
+      <text x="183" y="12" class="ui-font" font-size="10.5" font-weight="700" fill="#94A3B8" text-anchor="middle">USER PROFILE</text>
+      <!-- Edit Icon -->
+      <circle cx="365" cy="8" r="16" fill="#131E35" stroke="#1E293B" stroke-width="1"/>
+      <path d="M360 12l6-6 2 2-6 6h-2v-2z" fill="#94A3B8"/>
+    </g>
+
+    <!-- ==================== 1. DEDICATED STUDENT PROFILE SECTION (DARK) ==================== -->
+    <g transform="translate(32, 106)">
+      <rect width="366" height="184" rx="20" fill="#111B32" stroke="#1E2E4A" stroke-width="1.2"/>
+      
+      <!-- Top Avatar & Name Info -->
+      <g transform="translate(18, 18)">
+        <circle cx="34" cy="34" r="34" fill="#082F49" stroke="#38BDF8" stroke-width="2"/>
+        <text x="34" y="42" class="font-display" font-size="22" fill="#38BDF8" text-anchor="middle">AC</text>
+        <circle cx="58" cy="56" r="10" fill="#0284C7" stroke="#111B32" stroke-width="2"/>
+        <path d="M55 56l2 2 4-4" stroke="#FFFFFF" stroke-width="1.6" fill="none"/>
+
+        <!-- Name & Core Info -->
+        <g transform="translate(82, 4)">
+          <text x="0" y="16" class="font-display" font-size="18" fill="#F8FAFC">Alexandra Marie Chen</text>
+          <text x="0" y="34" class="ui-font" font-size="12" font-weight="700" fill="#38BDF8">BS in Information Technology (BSIT)</text>
+          <text x="0" y="50" class="ui-font" font-size="11" font-weight="600" fill="#CBD5E1">College of Computer Studies (CCS)</text>
+          <text x="0" y="66" class="ui-font" font-size="9.5" fill="#94A3B8">ID: 2024-112551-A27 • 3rd Year Regular</text>
+        </g>
+      </g>
+
+      <!-- Hairline Divider -->
+      <line x1="18" y1="112" x2="348" y2="112" stroke="#1E293B" stroke-width="1"/>
+
+      <!-- Academic Standing & Clearance Badges -->
+      <g transform="translate(18, 126)">
+        <!-- Status Pill -->
+        <rect x="0" y="0" width="102" height="28" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+        <circle cx="12" cy="14" r="3" fill="#38BDF8"/>
+        <text x="20" y="18" class="ui-font" font-size="9" font-weight="700" fill="#E2E8F0">Enrolled • Regular</text>
+
+        <!-- Term Pill -->
+        <rect x="110" y="0" width="102" height="28" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+        <text x="161" y="18" class="ui-font" font-size="9" font-weight="600" fill="#94A3B8" text-anchor="middle">1st Sem 2026–27</text>
+
+        <!-- Clearance Notice Pill -->
+        <rect x="220" y="0" width="110" height="28" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+        <text x="268" y="18" class="ui-font" font-size="8.5" font-weight="700" fill="#94A3B8" text-anchor="middle">1 Due • View Records</text>
+        <path d="M316 14L320 17.5L316 21" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </g>
+    </g>
+
+    <!-- ==================== 2. ACADEMIC CREDENTIALS & ADVISER (DARK) ==================== -->
+    <g transform="translate(32, 304)">
+      <text x="0" y="0" class="ui-font" font-size="10" font-weight="700" fill="#94A3B8" letter-spacing="0.5">ACADEMIC &amp; STUDENT INFORMATION</text>
+      <g transform="translate(0, 10)">
+        <rect width="366" height="116" rx="16" fill="#111B32" stroke="#1E2E4A" stroke-width="1"/>
+        
+        <!-- Field 1: Email -->
+        <g transform="translate(16, 16)">
+          <text x="0" y="10" class="ui-font" font-size="9.5" fill="#94A3B8">University Student Email</text>
+          <text x="334" y="10" class="ui-font" font-size="10.5" font-weight="600" fill="#F8FAFC" text-anchor="end">a.chen@university.edu.ph</text>
+        </g>
+        <line x1="16" y1="38" x2="350" y2="38" stroke="#1E293B" stroke-width="1"/>
+
+        <!-- Field 2: Adviser -->
+        <g transform="translate(16, 52)">
+          <text x="0" y="10" class="ui-font" font-size="9.5" fill="#94A3B8">Academic Program Adviser</text>
+          <text x="334" y="10" class="ui-font" font-size="10.5" font-weight="600" fill="#F8FAFC" text-anchor="end">Engr. M. De Castro, MSIT</text>
+        </g>
+        <line x1="16" y1="76" x2="350" y2="76" stroke="#1E293B" stroke-width="1"/>
+
+        <!-- Field 3: Major Specialization -->
+        <g transform="translate(16, 90)">
+          <text x="0" y="10" class="ui-font" font-size="9.5" fill="#94A3B8">Specialization Track</text>
+          <text x="334" y="10" class="ui-font" font-size="10.5" font-weight="600" fill="#38BDF8" text-anchor="end">Systems &amp; Network Technology</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ==================== 3. SETTINGS & PREFERENCES (DARK) ==================== -->
+    <g transform="translate(32, 442)">
+      <text x="0" y="0" class="ui-font" font-size="10" font-weight="700" fill="#94A3B8" letter-spacing="0.5">SETTINGS &amp; PREFERENCES</text>
+      <g transform="translate(0, 10)">
+        <rect width="366" height="136" rx="16" fill="#111B32" stroke="#1E2E4A" stroke-width="1"/>
+        
+        <!-- Setting 1: Notifications -->
+        <g transform="translate(16, 16)">
+          <text x="0" y="14" class="ui-font" font-size="11.5" font-weight="600" fill="#F8FAFC">Event Reminders (15m before)</text>
+          <rect x="290" y="0" width="44" height="24" rx="12" fill="#0284C7"/>
+          <circle cx="322" cy="12" r="9" fill="#FFFFFF"/>
+        </g>
+
+        <line x1="16" y1="46" x2="350" y2="46" stroke="#1E293B" stroke-width="1"/>
+
+        <!-- Setting 2: Offline Pass Caching -->
+        <g transform="translate(16, 58)">
+          <text x="0" y="14" class="ui-font" font-size="11.5" font-weight="600" fill="#F8FAFC">Offline QR Token Caching</text>
+          <rect x="290" y="0" width="44" height="24" rx="12" fill="#0284C7"/>
+          <circle cx="322" cy="12" r="9" fill="#FFFFFF"/>
+        </g>
+
+        <line x1="16" y1="90" x2="350" y2="90" stroke="#1E293B" stroke-width="1"/>
+
+        <!-- Setting 3: Biometric Lock -->
+        <g transform="translate(16, 102)">
+          <text x="0" y="14" class="ui-font" font-size="11.5" font-weight="600" fill="#F8FAFC">Biometric Lock (Face ID)</text>
+          <rect x="290" y="0" width="44" height="24" rx="12" fill="#0284C7"/>
+          <circle cx="322" cy="12" r="9" fill="#FFFFFF"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- ==================== 4. LOG OUT BUTTON (DARK) ==================== -->
+    <g transform="translate(32, 606)">
+      <rect width="366" height="46" rx="23" fill="#1E293B" stroke="#334155" stroke-width="1.5"/>
+      <g transform="translate(126, 14)">
+        <path d="M7 16H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h4M12 12l4-4-4-4M16 8H6" fill="none" stroke="#F8FAFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="26" y="12" class="ui-font" font-size="13" font-weight="600" fill="#F8FAFC">Log Out Account</text>
+      </g>
+      <text x="183" y="66" class="ui-font" font-size="9" fill="#64748B" text-anchor="middle">
+        Sync-in University Portal • v2.4.1 (Build 182)
+      </text>
+    </g>
+
+    <!-- ==================== BOTTOM NAV (PROFILE TAB ACTIVE) ==================== -->
+    <g transform="translate(32, 735)">
+      <line x1="0" y1="0" x2="366" y2="0" stroke="#1E293B" stroke-width="1"/>
+      <!-- Tab 1: Home -->
+      <g transform="translate(45, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <path d="M-8 4L0 -4L8 4V12H-8Z"/>
+      </g>
+      <!-- Tab 2: Scanner -->
+      <g transform="translate(140, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <rect x="-7" y="-7" width="14" height="14" rx="2"/>
+        <rect x="-3" y="-3" width="6" height="6"/>
+      </g>
+      <!-- Tab 3: Records -->
+      <g transform="translate(235, 24)" fill="none" stroke="#64748B" stroke-width="2">
+        <path d="M-6 -8h8l5 5v11h-13z"/>
+      </g>
+      <!-- Tab 4: Profile (ACTIVE) -->
+      <g transform="translate(325, 24)">
+        <circle cx="0" cy="-3" r="5" fill="#38BDF8"/>
+        <path d="M-7 9c0-3.5 3-5 7-5s7 1.5 7 5" stroke="#38BDF8" stroke-width="2" fill="none"/>
+        <circle cx="0" cy="18" r="2.5" fill="#38BDF8"/>
+      </g>
+    </g>
+  </g>
+
+</svg>

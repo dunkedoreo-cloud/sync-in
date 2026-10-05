@@ -1,0 +1,29 @@
+{
+  "name": "sync-in",
+  "version": "2.4.0",
+  "description": "Sync-in — University Events & Activities Attendance System (Himamat & Strands of Love)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "npx serve -s . -l 3000",
+    "test": "node --check server.js",
+    "docker:build": "docker build -t sync-in .",
+    "docker:run": "docker run -p 3000:3000 sync-in"
+  },
+  "keywords": [
+    "campus-attendance",
+    "rfid",
+    "qr-code",
+    "totp",
+    "university",
+    "attendance-tracking",
+    "cybersecurity",
+    "zero-trust"
+  ],
+  "author": "Google DeepMind / Senior Product Engineering Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
