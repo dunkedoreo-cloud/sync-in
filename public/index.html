@@ -103,7 +103,7 @@
       </button>
 
       <!-- Cybersecurity Operations & Threat Sentinel Button -->
-      <button onclick="openSecurityHubModal()" id="btnCyberShieldHeader" class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-sky-950/60 border hairline-border border-slate-700 dark:border-sky-700 hover:bg-slate-800 dark:hover:bg-sky-900/60 text-white dark:text-sky-300 font-semibold text-[11px] flex items-center gap-1.5 transition-all shadow-xs" title="Open Cybersecurity Operations Center & Attack Defense HUD">
+      <button onclick="openSecurityHubModal()" id="btnCyberShieldHeader" class="px-3 py-1.5 rounded-xl bg-sky-50 dark:bg-sky-950/60 border hairline-border border-sky-300 dark:border-sky-700 hover:bg-sky-100 dark:hover:bg-sky-900/60 text-sky-800 dark:text-sky-300 font-semibold text-[11px] flex items-center gap-1.5 transition-all shadow-xs" title="Open Cybersecurity Operations Center & Attack Defense HUD">
         <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         <span>Cyber Shield: Active</span>
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -170,8 +170,8 @@
     <div id="phone1" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
       
       <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-900 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-800"></div>
+      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
+        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
       </div>
 
       <!-- Phone Body -->
@@ -213,22 +213,22 @@
 
         <!-- DYNAMIC ISLAND / LOCK SCREEN CUT-OFF WIDGET -->
         <div class="px-2 mb-2">
-          <div class="p-2.5 rounded-2xl bg-slate-900 dark:bg-slate-950 text-white border hairline-border border-slate-800 shadow-sm flex items-center justify-between">
+          <div class="p-2.5 rounded-2xl bg-rose-50/90 dark:bg-slate-900/90 text-slate-800 dark:text-white border hairline-border border-rose-200/80 dark:border-rose-900/40 shadow-xs flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center">
-                <svg class="w-3.5 h-3.5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div class="w-6 h-6 rounded-full bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[8.5px] font-bold uppercase tracking-wider text-rose-400">Gate Cut-off</span>
-                  <span class="text-[8px] font-mono text-slate-400">08:30:00 AM</span>
+                  <span class="text-[8.5px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">Gate Cut-off</span>
+                  <span class="text-[8px] font-mono text-slate-500 dark:text-slate-400">08:30:00 AM</span>
                 </div>
-                <p class="text-[10px] font-bold text-white tracking-tight leading-tight">
-                  <span id="dynamicIslandCountdown" class="text-rose-300">07m 45s</span> remaining • Gate 2 Gym
+                <p class="text-[10px] font-bold text-slate-800 dark:text-white tracking-tight leading-tight">
+                  <span id="dynamicIslandCountdown" class="text-rose-600 dark:text-rose-300 font-extrabold">07m 45s</span> remaining • Gate 2 Gym
                 </p>
               </div>
             </div>
-            <span class="text-[7.5px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 shrink-0">Live</span>
+            <span class="text-[7.5px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 shrink-0">Live</span>
           </div>
         </div>
 
@@ -468,8 +468,8 @@
     <div id="phone2" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
       
       <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-900 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-800"></div>
+      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
+        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
       </div>
 
       <!-- Phone Body -->
@@ -516,17 +516,17 @@
         <!-- ==================== VIEW 1: LIVE GCASH-STYLE VIEWFINDER ==================== -->
         <div id="p2ViewScanner" class="flex-1 flex flex-col justify-between px-2">
           <!-- Viewfinder Frame -->
-          <div class="relative w-full h-64 bg-slate-950 rounded-3xl p-3 border-2 border-slate-800 flex flex-col items-center justify-between overflow-hidden shadow-inner">
+          <div class="relative w-full h-64 bg-slate-100 dark:bg-slate-950 rounded-3xl p-3 border-2 border-slate-200 dark:border-slate-800 flex flex-col items-center justify-between overflow-hidden shadow-inner">
             <!-- Simulated Camera Preview Texture -->
-            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/95 via-slate-950/70 to-slate-900/95 opacity-90"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-200/50 via-slate-100/30 to-slate-200/50 dark:from-slate-900/95 dark:via-slate-950/70 dark:to-slate-900/95 opacity-90"></div>
             
             <!-- Top Camera Controls -->
-            <div class="relative z-10 w-full flex items-center justify-between px-2 text-white">
-              <span class="text-[9.5px] font-semibold tracking-wide bg-black/60 px-2 py-0.5 rounded-full border border-white/10 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <div class="relative z-10 w-full flex items-center justify-between px-2 text-slate-700 dark:text-white">
+              <span class="text-[9.5px] font-semibold tracking-wide bg-white/90 dark:bg-black/60 px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 flex items-center gap-1.5 shadow-2xs">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
                 <span>Live Viewfinder</span>
               </span>
-              <button onclick="toggleTorch(this)" id="btnTorch" class="text-[9.5px] font-medium bg-black/60 hover:bg-black/90 px-2 py-0.5 rounded-full border border-white/10 flex items-center gap-1 transition-colors">
+              <button onclick="toggleTorch(this)" id="btnTorch" class="text-[9.5px] font-medium bg-white/90 hover:bg-white dark:bg-black/60 dark:hover:bg-black/90 text-slate-800 dark:text-white px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 flex items-center gap-1 transition-colors shadow-2xs">
                 <svg class="w-3 h-3 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 <span>Torch: Off</span>
               </button>
@@ -535,31 +535,31 @@
             <!-- Optical Targeting Reticle & Laser -->
             <div class="relative z-10 w-44 h-44 flex items-center justify-center my-auto cursor-pointer" onclick="simulateScanSuccess()" title="Click to scan Admin Standee">
               <!-- Corner Brackets (Glowing Sky Blue) -->
-              <div class="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-sky-400 rounded-tl-sm"></div>
-              <div class="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-sky-400 rounded-tr-sm"></div>
-              <div class="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-sky-400 rounded-bl-sm"></div>
-              <div class="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-sky-400 rounded-br-sm"></div>
+              <div class="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-sky-500 dark:border-sky-400 rounded-tl-sm"></div>
+              <div class="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-sky-500 dark:border-sky-400 rounded-tr-sm"></div>
+              <div class="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-sky-500 dark:border-sky-400 rounded-bl-sm"></div>
+              <div class="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-sky-500 dark:border-sky-400 rounded-br-sm"></div>
 
               <!-- Animated Scanning Laser Line -->
-              <div class="absolute left-2 right-2 h-0.5 bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,1)] laser-line pointer-events-none"></div>
+              <div class="absolute left-2 right-2 h-0.5 bg-sky-500 dark:bg-sky-400 shadow-[0_0_12px_rgba(14,165,233,0.8)] laser-line pointer-events-none"></div>
 
               <!-- Center Target Reticle -->
-              <div class="w-28 h-28 border border-dashed border-sky-400/40 rounded-2xl flex flex-col items-center justify-center p-2 text-center">
-                <svg class="w-8 h-8 text-sky-400/70 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                <span class="text-[9px] text-sky-300 font-semibold leading-tight">Admin Standee QR Target</span>
+              <div class="w-28 h-28 border border-dashed border-sky-400/60 dark:border-sky-400/40 rounded-2xl flex flex-col items-center justify-center p-2 text-center bg-white/60 dark:bg-transparent shadow-xs backdrop-blur-2xs">
+                <svg class="w-8 h-8 text-sky-600 dark:text-sky-400/70 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                <span class="text-[9px] text-sky-700 dark:text-sky-300 font-semibold leading-tight">Admin Standee QR Target</span>
               </div>
             </div>
 
             <!-- Viewfinder Bottom Helper -->
             <div class="relative z-10 text-center">
-              <p class="text-[9.5px] text-slate-300 font-medium">SSG Marshal Audio-Visual Chime Enabled</p>
-              <p class="text-[8px] text-slate-400 mt-0.5">Dead phone? Physical RFID card tap active at Booth 1</p>
+              <p class="text-[9.5px] text-slate-600 dark:text-slate-300 font-medium">SSG Marshal Audio-Visual Chime Enabled</p>
+              <p class="text-[8px] text-slate-400 dark:text-slate-400 mt-0.5">Dead phone? Physical RFID card tap active at Booth 1</p>
             </div>
           </div>
 
           <!-- Action Buttons -->
           <div class="space-y-1.5 mt-2.5">
-            <button onclick="simulateScanSuccess()" class="w-full py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-95 transition-opacity flex items-center justify-center gap-2 shadow-sm">
+            <button onclick="simulateScanSuccess()" class="w-full py-2.5 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-95 transition-opacity flex items-center justify-center gap-2 shadow-sm">
               <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
               <span>Scan Admin Standee QR (Play Chime)</span>
             </button>
@@ -625,7 +625,7 @@
 
           <!-- Reset Button -->
           <div class="mt-2.5">
-            <button onclick="resetGateScanner()" class="w-full py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-95 transition-opacity flex items-center justify-center gap-1.5 shadow-sm">
+            <button onclick="resetGateScanner()" class="w-full py-2.5 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-95 transition-opacity flex items-center justify-center gap-1.5 shadow-sm">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               <span>Scan Again / Reset Camera</span>
             </button>
@@ -662,8 +662,8 @@
     <div id="phone3" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
       
       <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-900 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-800"></div>
+      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
+        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
       </div>
 
       <!-- Phone Body -->
@@ -797,7 +797,7 @@
         <div id="phone3ViewRecords" class="hidden flex-1 flex flex-col min-h-0">
           <!-- Filter Tabs -->
           <div class="px-2 mb-2 flex items-center gap-1 overflow-x-auto pb-1 no-scrollbar text-[8.5px] font-semibold">
-            <button onclick="setObligationFilter('all')" id="tabBtnAll" class="px-2.5 py-1 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 shrink-0 transition-all">All</button>
+            <button onclick="setObligationFilter('all')" id="tabBtnAll" class="px-2.5 py-1 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 shrink-0 transition-all">All</button>
             <button onclick="setObligationFilter('missed')" id="tabBtnMissed" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Missed (1)</button>
             <button onclick="setObligationFilter('events')" id="tabBtnEvents" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Events (14)</button>
             <button onclick="setObligationFilter('fines')" id="tabBtnFines" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Fines (₱150)</button>
@@ -934,7 +934,7 @@
             </div>
             <p class="text-[8.5px] text-slate-500 dark:text-slate-400 mb-2">Items held at SSG Turnstile Booth 3. Blind proof verification required before claim.</p>
             <div class="flex gap-1 text-[8.5px] font-semibold">
-              <button onclick="setLostFoundFilter('found')" id="lfBtnFound" class="flex-1 py-1 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-center transition-all">Found at Event (3)</button>
+              <button onclick="setLostFoundFilter('found')" id="lfBtnFound" class="flex-1 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-center transition-all">Found at Event (3)</button>
               <button onclick="setLostFoundFilter('report')" id="lfBtnReport" class="flex-1 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-center transition-all">+ Report Lost</button>
             </div>
           </div>
@@ -999,7 +999,7 @@
             <input type="text" id="reportItemName" placeholder="Item Name (e.g. Blue Umbrella)" class="w-full px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-700/60 border hairline-border border-slate-200 dark:border-slate-600 focus:outline-none">
             <input type="text" id="reportLastLocation" placeholder="Last seen location (e.g. Gym 2nd Floor)" class="w-full px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-700/60 border hairline-border border-slate-200 dark:border-slate-600 focus:outline-none">
             <textarea id="reportDescription" rows="2" placeholder="Distinctive features / scratches..." class="w-full px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-700/60 border hairline-border border-slate-200 dark:border-slate-600 focus:outline-none"></textarea>
-            <button onclick="submitLostItemReport()" class="w-full py-1.5 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-[9px]">Submit to SSG Marshals</button>
+            <button onclick="submitLostItemReport()" class="w-full py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-[9px]">Submit to SSG Marshals</button>
           </div>
         </div>
 
@@ -1095,7 +1095,7 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="exportFacultyAttendanceCSV()" class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-2 shadow-xs">
+          <button onclick="exportFacultyAttendanceCSV()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-2 shadow-xs">
             <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span>Export Gradebook CSV</span>
           </button>
@@ -1105,7 +1105,7 @@
 
     <!-- Course Section Selector -->
     <div class="flex items-center gap-2 mb-4 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold">
-      <button onclick="setFacultySection('it301a')" id="secBtn_it301a" class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 transition-all shadow-xs shrink-0">
+      <button onclick="setFacultySection('it301a')" id="secBtn_it301a" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-all shadow-xs shrink-0">
         IT 301A: Web Systems &amp; Tech (32 Students)
       </button>
       <button onclick="setFacultySection('cs202')" id="secBtn_cs202" class="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border hairline-border border-slate-200 dark:border-slate-700 transition-all hover:bg-slate-50 shrink-0">
@@ -1322,7 +1322,7 @@
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">
             Reader automatically captures the hardware chip UID. No manual typing required.
           </p>
-          <button onclick="simulateRfidCardTap()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-xs">
+          <button onclick="simulateRfidCardTap()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-xs">
             <span>Tap Sample Card (Alexandra Chen)</span>
           </button>
         </div>
@@ -1381,7 +1381,7 @@
           <h4 class="text-base font-bold text-slate-900 dark:text-white">Community Service Slots ("Sweat Equity")</h4>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Admin-customizable service slots allowing students to work off fines without cash</p>
         </div>
-        <button onclick="openNewServiceSlotModal()" class="px-3.5 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5 self-start">
+        <button onclick="openNewServiceSlotModal()" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5 self-start">
           <span>+ Create New Service Slot</span>
         </button>
       </div>
@@ -1481,7 +1481,7 @@
       </div>
       <h3 class="text-lg font-bold text-slate-900 dark:text-white" id="modalTitle">Checkpoint Recorded</h3>
       <p class="text-[11px] text-slate-400 mt-1 mb-4" id="modalDescription">Strands of Love • Time Out recorded at 04:30 PM</p>
-      <button onclick="closeModal()" class="w-full py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs">Done</button>
+      <button onclick="closeModal()" class="w-full py-2 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-medium text-xs">Done</button>
     </div>
   </div>
 
@@ -1503,7 +1503,7 @@
         <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Official Admin Rolling QR Display (Gymnasium Entrance)</p>
 
         <!-- Dynamic Rolling QR Standee Display Box -->
-        <div class="p-4 rounded-2xl bg-slate-950 text-white flex flex-col items-center justify-center relative overflow-hidden mb-4 border border-slate-800">
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white flex flex-col items-center justify-center relative overflow-hidden mb-4 border border-slate-200 dark:border-slate-800">
           <!-- Rolling Timer Pill -->
           <div class="mb-3 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] font-bold flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -1601,7 +1601,7 @@
           </div>
         </div>
 
-        <button onclick="restoreKioskStandee()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight transition-opacity">
+        <button onclick="restoreKioskStandee()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight transition-opacity">
           Restore Active Standee Mode
         </button>
       </div>
@@ -1766,7 +1766,7 @@
         </div>
       </div>
 
-      <button onclick="alert('Digital Clearance Certificate downloaded as verifiable PDF.')" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs">
+      <button onclick="alert('Digital Clearance Certificate downloaded as verifiable PDF.')" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs">
         Download Signed Clearance PDF
       </button>
     </div>
@@ -1849,7 +1849,7 @@
         </div>
       </div>
 
-      <button onclick="submitExcuseAppeal()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs">
+      <button onclick="submitExcuseAppeal()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs">
         Submit Appeal for SSG Approval
       </button>
     </div>
@@ -1897,7 +1897,7 @@
         </div>
       </div>
 
-      <button onclick="submitNewServiceSlot()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs">
+      <button onclick="submitNewServiceSlot()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs">
         Add Service Slot to Catalog
       </button>
     </div>
@@ -1958,7 +1958,7 @@
       </div>
 
       <div class="space-y-2">
-        <button onclick="submitAdminAuth()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-1.5">
+        <button onclick="submitAdminAuth()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-1.5">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           <span>Authenticate &amp; Issue Session Token</span>
         </button>
@@ -2135,7 +2135,7 @@
               <span class="text-[9px] font-mono text-amber-600 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-full">OWASP A03</span>
             </div>
             <p class="text-[10px] text-slate-400">Injects arbitrary JavaScript (<code class="font-mono text-[9px]">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>) into the service catalog description.</p>
-            <button onclick="runXssTest()" class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
+            <button onclick="runXssTest()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
               <span>Execute XSS Attack Simulation</span>
             </button>
             <div id="outXssTest" class="hidden p-2 rounded-xl bg-white dark:bg-slate-900 border hairline-border border-slate-200 dark:border-slate-700 font-mono text-[9.5px] space-y-1"></div>
@@ -2148,7 +2148,7 @@
               <span class="text-[9px] font-mono text-amber-600 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-full">OWASP A07</span>
             </div>
             <p class="text-[10px] text-slate-400">Simulates student sending a screenshot of their active QR pass to a friend at home to scan twice at turnstile.</p>
-            <button onclick="runReplayAttackTest()" class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
+            <button onclick="runReplayAttackTest()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
               <span>Execute Replay Attack Simulation</span>
             </button>
             <div id="outReplayTest" class="hidden p-2 rounded-xl bg-white dark:bg-slate-900 border hairline-border border-slate-200 dark:border-slate-700 font-mono text-[9.5px] space-y-1"></div>
@@ -2161,7 +2161,7 @@
               <span class="text-[9px] font-mono text-amber-600 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-full">OWASP A01</span>
             </div>
             <p class="text-[10px] text-slate-400">Simulates student executing privileged admin functions (<code class="font-mono text-[9px]">confirmRfidAttendance()</code>) directly in DevTools console without admin token.</p>
-            <button onclick="runPrivilegeEscalationTest()" class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
+            <button onclick="runPrivilegeEscalationTest()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
               <span>Execute Console Privilege Attack</span>
             </button>
             <div id="outPrivilegeTest" class="hidden p-2 rounded-xl bg-white dark:bg-slate-900 border hairline-border border-slate-200 dark:border-slate-700 font-mono text-[9.5px] space-y-1"></div>
@@ -2174,7 +2174,7 @@
               <span class="text-[9px] font-mono text-amber-600 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-full">CWE-799</span>
             </div>
             <p class="text-[10px] text-slate-400">Rapidly hammers the NFC reader buffer with 5 malformed and rapid card taps in sub-second intervals.</p>
-            <button onclick="runRfidBruteForceTest()" class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
+            <button onclick="runRfidBruteForceTest()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
               <span>Execute RFID Brute-Force Simulation</span>
             </button>
             <div id="outRfidTest" class="hidden p-2 rounded-xl bg-white dark:bg-slate-900 border hairline-border border-slate-200 dark:border-slate-700 font-mono text-[9.5px] space-y-1"></div>
@@ -2187,7 +2187,7 @@
               <span class="text-[9px] font-mono text-amber-600 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-full">CWE-1236</span>
             </div>
             <p class="text-[10px] text-slate-400">Attempts to inject Excel remote code execution commands (<code class="font-mono text-[9px]">=cmd|'/C calc'!A0</code>) through student name fields in roster exports.</p>
-            <button onclick="runCsvInjectionTest()" class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
+            <button onclick="runCsvInjectionTest()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center gap-1.5">
               <span>Execute CSV Formula Attack Test</span>
             </button>
             <div id="outCsvTest" class="hidden p-2 rounded-xl bg-white dark:bg-slate-900 border hairline-border border-slate-200 dark:border-slate-700 font-mono text-[9.5px] space-y-1"></div>
@@ -2811,7 +2811,7 @@
       };
       const activeBtn = document.getElementById(activeBtnMap[tabKey] || 'tabBtnAll');
       if (activeBtn) {
-        activeBtn.className = 'px-2.5 py-1 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 shrink-0 transition-all';
+        activeBtn.className = 'px-2.5 py-1 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 shrink-0 transition-all';
       }
 
       const sFines = document.getElementById('sectionFines');
@@ -3003,7 +3003,7 @@
       btn.innerHTML = torchSvg + `<span>Torch: ${torchOn ? 'ON' : 'Off'}</span>`;
       btn.className = torchOn
         ? 'text-[9.5px] font-bold bg-amber-400 text-slate-900 px-2 py-0.5 rounded-full border border-amber-300 flex items-center gap-1 transition-colors'
-        : 'text-[9.5px] font-medium bg-black/60 hover:bg-black/90 px-2 py-0.5 rounded-full border border-white/10 flex items-center gap-1 transition-colors';
+        : 'text-[9.5px] font-medium bg-white/90 hover:bg-white dark:bg-black/60 dark:hover:bg-black/90 text-slate-800 dark:text-white px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 flex items-center gap-1 transition-colors shadow-2xs';
     }
 
     // Trigger Gate Scan Success: Plays Chime and shows high-contrast Green SSG Pass
@@ -3188,13 +3188,13 @@
       });
 
       if (sec === 'it301a') {
-        if (b301) b301.className = 'px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 transition-all shadow-xs shrink-0';
+        if (b301) b301.className = 'px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-all shadow-xs shrink-0';
         if (sLabel) sLabel.innerText = 'IT 301A';
       } else if (sec === 'cs202') {
-        if (b202) b202.className = 'px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 transition-all shadow-xs shrink-0';
+        if (b202) b202.className = 'px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-all shadow-xs shrink-0';
         if (sLabel) sLabel.innerText = 'CS 202';
       } else if (sec === 'it101') {
-        if (b101) b101.className = 'px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 transition-all shadow-xs shrink-0';
+        if (b101) b101.className = 'px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-all shadow-xs shrink-0';
         if (sLabel) sLabel.innerText = 'IT 101';
       }
     }
@@ -3555,12 +3555,12 @@
       const form = document.getElementById('lfReportForm');
 
       if (tab === 'found') {
-        if (btnF) btnF.className = 'flex-1 py-1 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-center transition-all';
+        if (btnF) btnF.className = 'flex-1 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-center transition-all';
         if (btnR) btnR.className = 'flex-1 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-center transition-all';
         if (feed) feed.classList.remove('hidden');
         if (form) form.classList.add('hidden');
       } else {
-        if (btnR) btnR.className = 'flex-1 py-1 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-center transition-all';
+        if (btnR) btnR.className = 'flex-1 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-center transition-all';
         if (btnF) btnF.className = 'flex-1 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-center transition-all';
         if (feed) feed.classList.add('hidden');
         if (form) form.classList.remove('hidden');
