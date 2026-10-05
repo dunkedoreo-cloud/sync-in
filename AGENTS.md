@@ -26,9 +26,20 @@ All agent actions in this workspace are strictly governed by the following core 
 
 ---
 
-## 2. Imported Skills Suite (mattpocock/skills)
+## 2. Matt Pocock Skills Suite (38 Skills)
 
-This project has 38 skills imported from Matt Pocock's repository (`https://github.com/mattpocock/skills`) located in `.agents/skills/`:
+Located in `.agents/skills/` and globally installed:
 - **Engineering**: `ask-matt`, `code-review`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-with-docs`, `implement`, `implement-spec`, `improve-codebase-architecture`, `pr`, `prototype`, `research`, `retro`, `setup-matt-pocock-skills`, `tdd`, `to-spec`, `to-tickets`, `triage`, `wayfinder`, `wizard`.
 - **Productivity**: `grill-me`, `grilling`, `handoff`, `teach`, `to-questionnaire`, `wait-what`, `writing-for-agents`.
 - **Quality & Workflows**: `chief-of-staff`, `claude-handoff`, `loop-me`, `setup-ts-deep-modules`, `writing-beats`, `writing-fragments`, `writing-shape`, `git-guardrails-claude-code`, `migrate-to-shoehorn`, `scaffold-exercises`, `setup-pre-commit`.
+
+---
+
+## 3. Anthropic Cybersecurity Skills Suite (818 Skills)
+
+Located in `.agents/skills/cybersecurity-skills-suite/` and installed system-wide in `~/.gemini/config/plugins/cybersecurity-skills` and `~/.gemini/config/skills/`:
+- **Domain Coverage**: 34 cybersecurity domains mapped to MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, MITRE D3FEND, and MITRE F3.
+- **Search Tool**:
+  ```bash
+  node .agents/skills/cybersecurity-skills-suite/scripts/search_skills.js "<query>"
+  ```
