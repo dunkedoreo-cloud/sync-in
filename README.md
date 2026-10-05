@@ -1,11 +1,12 @@
 # Sync-in: University Events & Activities Attendance Ecosystem
 
 <p align="center">
-  <img src="docs/sync_in_mockup_events.svg" alt="Sync-in Presentation Showcase" width="100%">
+  <img src="docs/sync_in_mockup_events_dark.svg" alt="Sync-in Presentation Showcase (Pure Obsidian Dark Mode)" width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/"><img src="https://img.shields.io/badge/Status-Production%20Ready-emerald?style=for-the-badge&logo=github" alt="Status"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Theme-Pure%20Dark%20Mode-slate?style=for-the-badge" alt="Theme"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-sky?style=for-the-badge" alt="License"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D18.0.0-slate?style=for-the-badge&logo=node.js" alt="Node.js"></a>
   <a href="Dockerfile"><img src="https://img.shields.io/badge/Docker-Alpine%20Ready-blue?style=for-the-badge&logo=docker" alt="Docker"></a>

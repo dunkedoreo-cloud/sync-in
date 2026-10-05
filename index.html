@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
     }
   </style>
 </head>
-<body class="font-sans-clean antialiased bg-[#FBFBFC] dark:bg-[#080B11] text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen p-4 md:p-8" id="bodyRoot">
+<body class="font-sans-clean antialiased bg-[#080B11] text-slate-200 min-h-screen p-4 md:p-8" id="bodyRoot">
 
   <!-- TOP MINIMAL NAVIGATION & CONTROLS -->
   <header class="max-w-6xl mx-auto mb-10 flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border hairline-border border-slate-200/80 dark:border-slate-800 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
@@ -67,14 +67,10 @@
         </button>
       </div>
 
-      <!-- Theme Switcher -->
-      <div class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-0.5 rounded-xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs">
-        <button id="btnLightMode" onclick="setTheme('light')" class="px-2.5 py-1.5 rounded-lg transition-all bg-white dark:bg-transparent text-slate-900 dark:text-slate-400 shadow-xs font-medium text-[11px]">
-          Light
-        </button>
-        <button id="btnDarkMode" onclick="setTheme('dark')" class="px-2.5 py-1.5 rounded-lg transition-all text-slate-500 dark:text-white dark:bg-slate-700/90 font-medium text-[11px]">
-          Dark
-        </button>
+      <!-- Pure Obsidian Dark Mode Indicator -->
+      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 border hairline-border border-slate-700/60 text-slate-300 text-[11px] font-semibold shadow-xs">
+        <svg class="w-3.5 h-3.5 text-sky-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <span>Dark Mode</span>
       </div>
 
       <!-- Campus Emergency Safety Protocol Simulator Button -->
@@ -2539,27 +2535,14 @@
     let currentEvent = 'Strands of Love';
     let currentMode = 'out';
 
+    // Pure Obsidian Dark Mode Engine (Permanently Enforced)
+    document.documentElement.classList.add('dark');
     function setTheme(mode) {
+      document.documentElement.classList.add('dark');
       const root = document.getElementById('bodyRoot');
-      const btnLight = document.getElementById('btnLightMode');
-      const btnDark = document.getElementById('btnDarkMode');
-
-      if (mode === 'dark') {
-        document.documentElement.classList.add('dark');
+      if (root) {
         root.classList.remove('bg-[#FBFBFC]', 'text-slate-800');
         root.classList.add('bg-[#080B11]', 'text-slate-200');
-        btnDark.classList.add('bg-slate-700/90', 'text-white');
-        btnDark.classList.remove('text-slate-500');
-        btnLight.classList.remove('bg-white', 'text-slate-900', 'shadow-xs');
-        btnLight.classList.add('text-slate-400');
-      } else {
-        document.documentElement.classList.remove('dark');
-        root.classList.add('bg-[#FBFBFC]', 'text-slate-800');
-        root.classList.remove('bg-[#080B11]', 'text-slate-200');
-        btnLight.classList.add('bg-white', 'text-slate-900', 'shadow-xs');
-        btnLight.classList.remove('text-slate-400');
-        btnDark.classList.remove('bg-slate-700/90', 'text-white');
-        btnDark.classList.add('text-slate-500');
       }
     }
 
