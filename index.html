@@ -44,8 +44,20 @@
       animation: opticalScan 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
     }
 
-    .hairline-border {
-      border-width: 0.75px;
+    .hairline-border:not(.border-b):not(.border-t):not(.border-l):not(.border-r) {
+      border-width: 1px;
+    }
+    .hairline-border.border-b {
+      border-top-width: 0 !important;
+      border-left-width: 0 !important;
+      border-right-width: 0 !important;
+      border-bottom-width: 1px !important;
+    }
+    .hairline-border.border-t {
+      border-bottom-width: 0 !important;
+      border-left-width: 0 !important;
+      border-right-width: 0 !important;
+      border-top-width: 1px !important;
     }
   </style>
 </head>
@@ -328,7 +340,7 @@
             </div>
 
             <!-- TIME IN & TIME OUT DATA (CLEAN & NATURAL) -->
-            <div class="grid grid-cols-2 gap-2 pt-2 border-t hairline-border border-slate-100 dark:border-slate-800">
+            <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
               <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80">
                 <span class="block text-[8px] uppercase tracking-wider text-slate-400 font-semibold">Time In</span>
                 <span class="text-xs font-bold text-slate-800 dark:text-slate-100 block mt-0.5">08:15 AM</span>
@@ -377,7 +389,7 @@
             </div>
 
             <!-- TIME IN & TIME OUT DATA (CLEAN & NATURAL) -->
-            <div class="grid grid-cols-2 gap-2 pt-2 border-t hairline-border border-slate-100 dark:border-slate-800">
+            <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
               <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80">
                 <span class="block text-[8px] uppercase tracking-wider text-slate-400 font-semibold">Time In</span>
                 <span class="text-xs font-bold text-slate-800 dark:text-slate-100 block mt-0.5">01:30 PM</span>
@@ -441,7 +453,7 @@
       </div>
 
       <!-- Touch-Optimized Bottom Navigation (Phone 1: Events Active) -->
-      <nav class="mt-4 pt-2.5 border-t hairline-border border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
+      <nav class="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
         <button onclick="setView('screen1')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center text-sky-600 dark:text-sky-400 font-bold transition-colors">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           <span class="text-[8.5px] mt-0.5 font-bold">Events</span>
@@ -610,7 +622,7 @@
                 <span class="text-slate-500 dark:text-slate-400">Recorded Time:</span>
                 <span id="passTimestampText" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">08:14:22 AM (On-Time)</span>
               </div>
-              <div class="flex items-center justify-between pt-1 border-t hairline-border border-slate-100 dark:border-slate-800 text-[8.5px]">
+              <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-800 text-[8.5px]">
                 <span class="text-slate-400">Admin Cryptogram:</span>
                 <span class="font-mono text-slate-500">HM-8841-SEC • <span id="passSecurityTicker" class="text-emerald-600 font-bold">12s</span></span>
               </div>
@@ -634,7 +646,7 @@
       </div>
 
       <!-- Touch-Optimized Bottom Navigation (Phone 2: Scanner Active) -->
-      <nav class="mt-4 pt-2.5 border-t hairline-border border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
+      <nav class="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
         <button onclick="setView('screen1')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           <span class="text-[8.5px] mt-0.5">Events</span>
@@ -753,11 +765,11 @@
               <span class="text-slate-500 dark:text-slate-400">Student Email</span>
               <span class="font-semibold text-slate-800 dark:text-slate-200 font-mono text-[9px]">a.chen@university.edu.ph</span>
             </div>
-            <div class="flex items-center justify-between pt-1 border-t hairline-border border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-800">
               <span class="text-slate-500 dark:text-slate-400">Program Adviser</span>
               <span class="font-semibold text-slate-800 dark:text-slate-200">Engr. M. De Castro, MSIT</span>
             </div>
-            <div class="flex items-center justify-between pt-1 border-t hairline-border border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-800">
               <span class="text-slate-500 dark:text-slate-400">Specialization Track</span>
               <span class="font-bold text-sky-600 dark:text-sky-400">Systems &amp; Network Tech</span>
             </div>
@@ -770,11 +782,11 @@
               <span class="text-slate-800 dark:text-slate-200 font-semibold">Event Reminders (15m before)</span>
               <span class="w-8 h-4.5 bg-sky-500 rounded-full flex items-center justify-end px-0.5"><span class="w-3.5 h-3.5 bg-white rounded-full shadow-xs"></span></span>
             </div>
-            <div class="flex items-center justify-between pt-1.5 border-t hairline-border border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-between pt-1.5 border-t border-slate-100 dark:border-slate-800">
               <span class="text-slate-800 dark:text-slate-200 font-semibold">Offline QR Token Caching</span>
               <span class="w-8 h-4.5 bg-sky-500 rounded-full flex items-center justify-end px-0.5"><span class="w-3.5 h-3.5 bg-white rounded-full shadow-xs"></span></span>
             </div>
-            <div class="flex items-center justify-between pt-1.5 border-t hairline-border border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-between pt-1.5 border-t border-slate-100 dark:border-slate-800">
               <span class="text-slate-800 dark:text-slate-200 font-semibold">Biometric Lock (Face ID)</span>
               <span class="w-8 h-4.5 bg-sky-500 rounded-full flex items-center justify-end px-0.5"><span class="w-3.5 h-3.5 bg-white rounded-full shadow-xs"></span></span>
             </div>
@@ -874,7 +886,7 @@
                     <svg class="w-2.5 h-2.5 text-slate-600 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                   </span>
                 </div>
-                <div class="pt-1.5 border-t hairline-border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <div>
                     <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">Strands of Love</h5>
                     <p class="text-[8px] text-slate-500 dark:text-slate-400">Oct 15 • In: 01:30 PM | Pending Out</p>
@@ -884,7 +896,7 @@
                     <svg class="w-2.5 h-2.5 text-sky-500 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                   </span>
                 </div>
-                <div class="pt-1.5 border-t hairline-border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <div>
                     <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">CCS General Assembly</h5>
                     <p class="text-[8px] text-slate-500 dark:text-slate-400">Sep 18 • AVR 1 • Complete</p>
@@ -908,7 +920,7 @@
                     <p class="text-[8px] text-slate-500 dark:text-slate-400">Gymnasium Gates 2 &amp; 3 turnstiles open for attendance scan.</p>
                   </div>
                 </div>
-                <div class="pt-1.5 border-t hairline-border border-slate-100 dark:border-slate-800 flex items-start gap-2">
+                <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex items-start gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1 shrink-0"></span>
                   <div>
                     <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">Strands of Love: Hair Donation Booth</h5>
@@ -1006,7 +1018,7 @@
       </div>
 
       <!-- Touch-Optimized Bottom Navigation (Phone 3: Profile Active) -->
-      <nav class="mt-3 pt-2.5 border-t hairline-border border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
+      <nav class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
         <button onclick="setView('screen1')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           <span class="text-[8.5px] mt-0.5">Events</span>
@@ -1118,7 +1130,7 @@
 
     <!-- Active Event Roster Card -->
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b hairline-border border-slate-200 dark:border-slate-800 gap-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-slate-200 dark:border-slate-800 gap-3">
         <div>
           <span class="text-[10px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">Linked Campus Activity</span>
           <h4 class="text-base font-bold text-slate-900 dark:text-white" id="facultyEventTitle">Himamat 2026: General Assembly Checkpoint</h4>
@@ -1148,7 +1160,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs">
           <thead>
-            <tr class="border-b hairline-border border-slate-100 dark:border-slate-800 text-[10.5px] uppercase tracking-wider text-slate-400 font-bold">
+            <tr class="border-b border-slate-100 dark:border-slate-800 text-[10.5px] uppercase tracking-wider text-slate-400 font-bold">
               <th class="py-2.5 px-3">Student Name</th>
               <th class="py-2.5 px-3">Student ID</th>
               <th class="py-2.5 px-3">Himamat Time In</th>
@@ -1226,14 +1238,14 @@
   <!-- ============================================================================== -->
   <div id="roleViewAdmin" class="hidden max-w-5xl mx-auto mb-16 space-y-5">
     <!-- Tablet & Laptop Optimization Notice -->
-    <div class="flex items-center justify-between p-3 rounded-2xl bg-sky-50/80 dark:bg-sky-950/40 border hairline-border border-sky-200/80 dark:border-sky-800/80 text-xs text-sky-900 dark:text-sky-200">
+    <div class="flex items-center justify-between p-3 rounded-2xl bg-sky-50/80 dark:bg-sky-950/40 border border-sky-200/80 dark:border-sky-800/80 text-xs text-sky-900 dark:text-sky-200">
       <div class="flex items-center gap-2.5">
         <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><line x1="2" y1="20" x2="22" y2="20" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
         <div>
-          <span class="font-bold">SSG Admin Command • Engineered for Tablet Kiosks (iPad) &amp; Laptops</span>
-          <p class="text-[10.5px] text-sky-600 dark:text-sky-300">Turnstile RFID reader standee, sweat equity management, live polling &amp; crisis operations.</p>
+          <span class="font-bold">SSG Admin Command • Master Operations Suite</span>
+          <p class="text-[10.5px] text-sky-600 dark:text-sky-300">Turnstile hardware standees, Event CRUD, Student Attendee Rosters &amp; Crisis Management.</p>
         </div>
       </div>
       <span class="hidden sm:inline-block text-[9.5px] font-mono font-bold uppercase tracking-wider bg-sky-200/60 dark:bg-sky-900/60 text-sky-800 dark:text-sky-200 px-2.5 py-1 rounded-full shrink-0">
@@ -1241,14 +1253,8 @@
       </span>
     </div>
 
-    <!-- Mobile advisory if viewed on phone -->
-    <div class="sm:hidden p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-[10.5px] flex items-center gap-2">
-      <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <span>SSG Command Center is optimized for tablet kiosks &amp; laptops. For RFID hardware operations, use an iPad or laptop.</span>
-    </div>
-
     <!-- Admin Top Banner -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
         <div class="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold text-lg flex items-center justify-center border border-sky-500/20">
           <svg class="w-6 h-6 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -1256,218 +1262,331 @@
         <div>
           <div class="flex items-center gap-2">
             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Supreme Student Government (SSG)</h3>
-            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Command Active</span>
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Unified Database Online</span>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Master Operations: Gate Verification, RFID Fallback, Service Slots &amp; Crisis Management</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Master Operations: Gate Verification, Event CRUD, Attendee Registry &amp; Crisis Directives</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="openAdminKioskModal()" class="px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center gap-1.5">
+        <button onclick="openAdminKioskModal()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center gap-1.5">
           <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           <span>Open Standee Kiosk</span>
         </button>
-        <button onclick="openEmergencyModal()" class="px-3.5 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center gap-1.5">
+        <button onclick="openEmergencyModal()" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center gap-1.5">
           <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-          <span>Crisis Protocol</span>
+          <span>Crisis Drill Protocol</span>
         </button>
       </div>
     </div>
 
-    <!-- Quick Telemetry Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Turnstile Count</span>
-        <span class="text-xl font-bold text-slate-900 dark:text-white">1,420 Cleared</span>
-        <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block mt-0.5">99.1% On-Time</span>
-      </div>
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Dead-Phone RFID Taps</span>
-        <span class="text-xl font-bold text-slate-900 dark:text-white" id="adminRfidCount">18 Logged</span>
-        <span class="text-[10px] text-sky-600 dark:text-sky-400 font-semibold block mt-0.5">UBYTeS Protocol</span>
-      </div>
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Service Hours Slots</span>
-        <span class="text-xl font-bold text-slate-900 dark:text-white" id="adminServiceSlotCount">3 Active</span>
-        <span class="text-[10px] text-slate-500 font-semibold block mt-0.5">27 / 45 Enrolled</span>
-      </div>
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Live Event Voting</span>
-        <span class="text-xl font-bold text-slate-900 dark:text-white" id="adminVotingStatusLabel">Locked</span>
-        <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block mt-0.5">Awaiting Publish</span>
-      </div>
+    <!-- ADMIN NAVIGATION SUB-TABS -->
+    <div class="flex items-center gap-2 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 overflow-x-auto text-xs font-semibold">
+      <button onclick="setAdminSubTab('kiosk')" id="admTabKiosk" class="px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all">
+        <svg class="w-4 h-4 text-sky-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><line x1="2" y1="20" x2="22" y2="20" stroke-width="2"/></svg>
+        <span>Hardware Kiosk &amp; Telemetry</span>
+      </button>
+      <button onclick="setAdminSubTab('events')" id="admTabEvents" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all">
+        <svg class="w-4 h-4 text-sky-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span>Events Manager (CRUD)</span>
+      </button>
+      <button onclick="setAdminSubTab('attendees')" id="admTabAttendees" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all">
+        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <span>Attendee Roster Table</span>
+        <span id="admAttendeeBadgeCount" class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">12</span>
+      </button>
+      <button onclick="setAdminSubTab('announcements')" id="admTabAnnouncements" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all">
+        <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+        <span>Announcements &amp; Crisis</span>
+      </button>
     </div>
 
-    <!-- Section A: RFID Hardware Tap Station (UBYTeS Style) -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl">
-      <div class="flex items-center justify-between pb-3 mb-4 border-b hairline-border border-slate-200 dark:border-slate-800">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <h4 class="text-base font-bold text-slate-900 dark:text-white">RFID Hardware Tap Fallback Station</h4>
-          </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">For students with dead batteries or broken screens (UBYTeS Auto-Detect Flow)</p>
+    <!-- ==================== SUB-VIEW 1: KIOSK & TELEMETRY ==================== -->
+    <div id="admViewKiosk" class="space-y-5">
+      <!-- Quick Telemetry Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Turnstile Count</span>
+          <span class="text-xl font-bold text-slate-900 dark:text-white" id="admKpiTurnstileCount">1,420 Cleared</span>
+          <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block mt-0.5">99.1% On-Time</span>
         </div>
-        <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
-          Reader: ACR122U • COM4
-        </span>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Dead-Phone RFID Taps</span>
+          <span class="text-xl font-bold text-slate-900 dark:text-white" id="adminRfidCount">18 Logged</span>
+          <span class="text-[10px] text-sky-600 dark:text-sky-400 font-semibold block mt-0.5">UBYTeS Protocol</span>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Service Hours Slots</span>
+          <span class="text-xl font-bold text-slate-900 dark:text-white" id="adminServiceSlotCount">3 Active</span>
+          <span class="text-[10px] text-slate-500 font-semibold block mt-0.5">27 / 45 Enrolled</span>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Live Event Voting</span>
+          <span class="text-xl font-bold text-slate-900 dark:text-white" id="adminVotingStatusLabel">Locked</span>
+          <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block mt-0.5">Awaiting Publish</span>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-        <!-- Tap Trigger Card -->
-        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700 text-center">
-          <div class="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center mx-auto mb-3">
-            <svg class="w-7 h-7 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"/><circle cx="9" cy="10" r="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8h2m-2 4h2M7 16h10"/></svg>
+      <!-- Section A: RFID Hardware Tap Station (UBYTeS Style) -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <h4 class="text-base font-bold text-slate-900 dark:text-white">RFID Hardware Tap Fallback Station</h4>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">For students with dead batteries or broken screens (UBYTeS Auto-Detect Flow)</p>
           </div>
-          <h5 class="text-sm font-bold text-slate-900 dark:text-white">Tap Student Physical RFID Card</h5>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">
-            Reader automatically captures the hardware chip UID. No manual typing required.
-          </p>
-          <button onclick="simulateRfidCardTap()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-xs">
-            <span>Tap Sample Card (Alexandra Chen)</span>
+          <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
+            Reader: ACR122U • COM4
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <!-- Tap Trigger Card -->
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-7 h-7 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"/><circle cx="9" cy="10" r="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8h2m-2 4h2M7 16h10"/></svg>
+            </div>
+            <h5 class="text-sm font-bold text-slate-900 dark:text-white">Tap Student Physical RFID Card</h5>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">
+              Reader automatically captures the hardware chip UID. No manual typing required.
+            </p>
+            <button onclick="simulateRfidCardTap()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight transition-all flex items-center justify-center gap-2 shadow-xs">
+              <span>Tap Sample Card (Alexandra Chen)</span>
+            </button>
+          </div>
+
+          <!-- Detected Record & Double-Check Confirmation Card -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-xs" id="rfidDetectionBox">
+            <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-2">Hardware Reader Buffer</span>
+            
+            <div id="rfidIdlePrompt" class="text-center py-6 text-slate-400 text-xs">
+              <div class="w-8 h-8 mx-auto mb-1.5 flex items-center justify-center text-slate-400">
+                <svg class="w-6 h-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.393 9.393c5.857-5.857 15.355-5.857 21.214 0"/></svg>
+              </div>
+              Awaiting card proximity on NFC pad...
+            </div>
+
+            <div id="rfidDetectedContent" class="hidden space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-700">
+                <span class="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold" id="detectedRfidUid">UID: 04:9A:E2:81:B4</span>
+                <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full">Database Match Found</span>
+              </div>
+
+              <!-- Matched Student Details (NO PHOTO - STRICT PRIVACY) -->
+              <div class="space-y-1 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Student Name:</span>
+                  <span class="font-bold text-slate-900 dark:text-white" id="detectedStudentName">Alexandra Marie Chen</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Student ID:</span>
+                  <span class="font-mono font-bold text-slate-900 dark:text-white" id="detectedStudentId">2024-112551-A27</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Course &amp; Year:</span>
+                  <span class="font-semibold text-slate-700 dark:text-slate-300" id="detectedStudentProgram">BSIT • 2nd Year Regular</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Photo Policy:</span>
+                  <span class="text-[10px] text-slate-500 font-medium">Privacy Preserved (DPA 2012)</span>
+                </div>
+              </div>
+
+              <!-- Double-Check Marshal Confirmation Button (UBYTeS Style) -->
+              <button onclick="confirmRfidAttendance()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Confirm &amp; Log Attendance (Play Chime)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Community Service Slots Configurator ("Sweat Equity") -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Community Service Slots ("Sweat Equity")</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Admin-customizable service slots allowing students to work off fines without cash</p>
+          </div>
+          <button onclick="openNewServiceSlotModal()" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5 self-start">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Create New Service Slot</span>
           </button>
         </div>
 
-        <!-- Detected Record & Double-Check Confirmation Card -->
-        <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700 shadow-xs" id="rfidDetectionBox">
-          <span class="block text-[9px] uppercase tracking-wider font-bold text-slate-400 mb-2">Hardware Reader Buffer</span>
-          
-          <div id="rfidIdlePrompt" class="text-center py-6 text-slate-400 text-xs">
-            <div class="w-8 h-8 mx-auto mb-1.5 flex items-center justify-center text-slate-400">
-              <svg class="w-6 h-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.393 9.393c5.857-5.857 15.355-5.857 21.214 0"/></svg>
-            </div>
-            Awaiting card proximity on NFC pad...
+        <!-- Slots Table / List -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="adminServiceSlotsContainer">
+          <!-- Dynamically populated from DB -->
+        </div>
+      </div>
+
+      <!-- Section C: Live In-Event Voting Publisher -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Live In-Event Voting Publisher</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Controls student voting access. Unlocks only when published and attendee is verified.</p>
           </div>
+          <button onclick="toggleAdminVotingPublish()" id="btnAdminVotingToggle" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center gap-1.5 self-start">
+            <span>Publish &amp; Unlock Voting Now</span>
+          </button>
+        </div>
 
-          <div id="rfidDetectedContent" class="hidden space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b hairline-border border-slate-100 dark:border-slate-700">
-              <span class="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold" id="detectedRfidUid">UID: 04:9A:E2:81:B4</span>
-              <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full">Database Match Found</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-slate-900 dark:text-white">Bet #01: Candidate A (CCS)</span>
+              <span class="font-mono font-bold text-sky-600" id="voteTallyA">412 votes</span>
             </div>
-
-            <!-- Matched Student Details (NO PHOTO - STRICT PRIVACY) -->
-            <div class="space-y-1 text-xs">
-              <div class="flex justify-between">
-                <span class="text-slate-400">Student Name:</span>
-                <span class="font-bold text-slate-900 dark:text-white" id="detectedStudentName">Alexandra Marie Chen</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">Student ID:</span>
-                <span class="font-mono font-bold text-slate-900 dark:text-white" id="detectedStudentId">2024-112551-A27</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">Course &amp; Year:</span>
-                <span class="font-semibold text-slate-700 dark:text-slate-300" id="detectedStudentProgram">BSIT • 2nd Year Regular</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">Photo Policy:</span>
-                <span class="text-[10px] text-slate-500 font-medium">Privacy Preserved (DPA 2012)</span>
-              </div>
+            <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div class="h-full bg-sky-500 rounded-full" style="width: 44%"></div>
             </div>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-slate-900 dark:text-white">Bet #04: Candidate B (CEA)</span>
+              <span class="font-mono font-bold text-emerald-600" id="voteTallyB">528 votes</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 56%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <!-- Double-Check Marshal Confirmation Button (UBYTeS Style) -->
-            <button onclick="confirmRfidAttendance()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center justify-center gap-1.5">
-              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>Confirm &amp; Log Attendance (Play Chime)</span>
+    <!-- ==================== SUB-VIEW 2: EVENT MANAGEMENT (CRUD) ==================== -->
+    <div id="admViewEvents" class="hidden space-y-5">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Events Management Hub</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Add, update, or remove university activities, gate cutoff schedules, and voting rules.</p>
+          </div>
+          <button onclick="openCreateEventModal()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5 self-start">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Add New Event</span>
+          </button>
+        </div>
+
+        <!-- Events Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="admEventsListContainer">
+          <!-- Dynamically populated from SyncInDB.getEvents() -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SUB-VIEW 3: ATTENDEE ROSTER TABLE ==================== -->
+    <div id="admViewAttendees" class="hidden space-y-5">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="text-base font-bold text-slate-900 dark:text-white">Student Attendance Roster &amp; User Registry</h4>
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800" id="admRosterRecordCount">12 Records</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Real-time database ledger of verified student attendees across turnstiles and gates.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="exportAttendeesCSV()" class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs tracking-tight transition-colors shadow-2xs flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Export CSV</span>
+            </button>
+            <button onclick="openCreateAttendeeModal()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+              <span>+ Add Attendee</span>
             </button>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Section B: Community Service Slots Configurator ("Sweat Equity") -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b hairline-border border-slate-200 dark:border-slate-800 gap-3">
-        <div>
-          <h4 class="text-base font-bold text-slate-900 dark:text-white">Community Service Slots ("Sweat Equity")</h4>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Admin-customizable service slots allowing students to work off fines without cash</p>
-        </div>
-        <button onclick="openNewServiceSlotModal()" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5 self-start">
-          <span>+ Create New Service Slot</span>
-        </button>
-      </div>
-
-      <!-- Slots Table / List -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="adminServiceSlotsContainer">
-        <!-- Slot 1 -->
-        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-[9px] font-bold uppercase text-sky-600 bg-sky-50 dark:bg-sky-950/60 px-2 py-0.5 rounded-full">Main Library</span>
-              <span class="text-xs font-bold text-emerald-600">₱200 Offset</span>
-            </div>
-            <h5 class="text-xs font-bold text-slate-900 dark:text-white">Library Archiving &amp; Book Shelving</h5>
-            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">2.0 Hours • Supervising Head: Ms. Ramos</p>
+        <!-- Filter & Search Controls Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+          <div class="relative flex items-center">
+            <svg class="w-3.5 h-3.5 absolute left-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="admAttendeeSearchInput" oninput="filterAdminAttendees()" placeholder="Search name, student ID, course..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500">
           </div>
-          <div class="mt-3 pt-2 border-t hairline-border border-slate-200 dark:border-slate-700 flex items-center justify-between text-[10px]">
-            <span class="text-slate-500 font-semibold">Enrolled: 8 / 10</span>
-            <span class="text-emerald-600 font-bold">2 Slots Left</span>
+          <div>
+            <select id="admAttendeeEventFilter" onchange="filterAdminAttendees()" class="w-full px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+              <option value="all">All Events</option>
+              <option value="Himamat">Himamat 2026</option>
+              <option value="Strands of Love">Strands of Love</option>
+              <option value="Convocation">Annual Convocation</option>
+              <option value="Tech Summit">Tech Innovation Summit</option>
+            </select>
+          </div>
+          <div>
+            <select id="admAttendeeDeptFilter" onchange="filterAdminAttendees()" class="w-full px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+              <option value="all">All Departments / Colleges</option>
+              <option value="Computer Studies">College of Computer Studies</option>
+              <option value="Engineering">College of Engineering</option>
+              <option value="Business">College of Business &amp; Accountancy</option>
+              <option value="Nursing">College of Nursing</option>
+              <option value="Arts">College of Arts &amp; Sciences</option>
+              <option value="Teacher Education">College of Teacher Education</option>
+            </select>
           </div>
         </div>
 
-        <!-- Slot 2 -->
-        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-[9px] font-bold uppercase text-sky-600 bg-sky-50 dark:bg-sky-950/60 px-2 py-0.5 rounded-full">PE Department</span>
-              <span class="text-xs font-bold text-emerald-600">₱150 Offset</span>
-            </div>
-            <h5 class="text-xs font-bold text-slate-900 dark:text-white">Gym Bleacher Clean-up Crew</h5>
-            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">1.5 Hours • Post-Himamat Assembly Clean</p>
-          </div>
-          <div class="mt-3 pt-2 border-t hairline-border border-slate-200 dark:border-slate-700 flex items-center justify-between text-[10px]">
-            <span class="text-slate-500 font-semibold">Enrolled: 14 / 15</span>
-            <span class="text-amber-600 font-bold">1 Slot Left</span>
-          </div>
-        </div>
-
-        <!-- Slot 3 -->
-        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-[9px] font-bold uppercase text-sky-600 bg-sky-50 dark:bg-sky-950/60 px-2 py-0.5 rounded-full">Grounds</span>
-              <span class="text-xs font-bold text-emerald-600">₱300 Offset</span>
-            </div>
-            <h5 class="text-xs font-bold text-slate-900 dark:text-white">Campus Tree Planting &amp; Greening</h5>
-            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">3.0 Hours • Quadrangle Perimeter</p>
-          </div>
-          <div class="mt-3 pt-2 border-t hairline-border border-slate-200 dark:border-slate-700 flex items-center justify-between text-[10px]">
-            <span class="text-slate-500 font-semibold">Enrolled: 5 / 20</span>
-            <span class="text-emerald-600 font-bold">15 Slots Left</span>
-          </div>
+        <!-- Full-Featured Responsive Attendance Table -->
+        <div class="overflow-x-auto rounded-2xl border border-slate-200/80 dark:border-slate-800">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-700">
+              <tr>
+                <th class="py-3 px-3.5">Student Name</th>
+                <th class="py-3 px-3.5">Student ID</th>
+                <th class="py-3 px-3.5">Course</th>
+                <th class="py-3 px-3.5">Year Level</th>
+                <th class="py-3 px-3.5">Department</th>
+                <th class="py-3 px-3.5">Event</th>
+                <th class="py-3 px-3.5">Time In / Out</th>
+                <th class="py-3 px-3.5">Method</th>
+                <th class="py-3 px-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admAttendeesTableBody" class="divide-y divide-slate-100 dark:divide-slate-800/60 bg-white dark:bg-slate-900">
+              <!-- Dynamically rendered rows from SyncInDB.getAttendees() -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <!-- Section C: Live Event Voting Publisher -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b hairline-border border-slate-200 dark:border-slate-800 gap-3">
-        <div>
-          <h4 class="text-base font-bold text-slate-900 dark:text-white">Live In-Event Voting Publisher</h4>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Controls student voting access. Unlocks only when published and attendee is verified.</p>
+    <!-- ==================== SUB-VIEW 4: ANNOUNCEMENTS & CRISIS ==================== -->
+    <div id="admViewAnnouncements" class="hidden space-y-5">
+      <!-- Announcements Section -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Campus Notices &amp; Announcements Manager</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Publish bulletins, attendance obligations, and administrative memos to student apps.</p>
+          </div>
+          <button onclick="openCreateAnnouncementModal()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5 self-start">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Create Announcement</span>
+          </button>
         </div>
-        <button onclick="toggleAdminVotingPublish()" id="btnAdminVotingToggle" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs tracking-tight transition-colors shadow-xs flex items-center gap-1.5 self-start">
-          <span>Publish &amp; Unlock Voting Now</span>
-        </button>
+
+        <div class="space-y-3" id="admAnnouncementsListContainer">
+          <!-- Dynamically populated from SyncInDB.getAnnouncements() -->
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-bold text-slate-900 dark:text-white">Bet #01: Candidate A (CCS)</span>
-            <span class="font-mono font-bold text-sky-600" id="voteTallyA">412 votes</span>
-          </div>
-          <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-            <div class="h-full bg-sky-500 rounded-full" style="width: 44%"></div>
+      <!-- Crisis Protocols Section -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+              <h4 class="text-base font-bold text-slate-900 dark:text-white">Campus Crisis Safety Protocols &amp; Drill Operations</h4>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Configure directives for Active Threats, School Shooting drills, and Natural Hazards.</p>
           </div>
         </div>
-        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-bold text-slate-900 dark:text-white">Bet #04: Candidate B (CEA)</span>
-            <span class="font-mono font-bold text-emerald-600" id="voteTallyB">528 votes</span>
-          </div>
-          <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-            <div class="h-full bg-emerald-500 rounded-full" style="width: 56%"></div>
-          </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="admProtocolsListContainer">
+          <!-- Dynamically populated from SyncInDB.getProtocols() -->
         </div>
       </div>
     </div>
@@ -1760,7 +1879,7 @@
             <svg class="w-3 h-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
           </span>
         </div>
-        <div class="flex items-center justify-between border-t hairline-border border-slate-200 dark:border-slate-700 pt-1.5 text-[10px]">
+        <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-1.5 text-[10px]">
           <span class="text-slate-400">Cryptographic Hash:</span>
           <span class="font-mono text-slate-500">#SHA256-CLR-9921-A</span>
         </div>
@@ -1932,7 +2051,7 @@
           <span class="text-slate-500 font-medium">Security Policy:</span>
           <span class="text-slate-700 dark:text-slate-300 font-semibold text-[11px]">Least-Privilege Cryptographic Challenge</span>
         </div>
-        <p class="text-[10px] text-slate-400 leading-relaxed pt-1 border-t hairline-border border-slate-200/60 dark:border-slate-700/60">
+        <p class="text-[10px] text-slate-400 leading-relaxed pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
           Privileged role modification requires administrative credential exchange. Access tokens are cryptographically signed with short TTL.
         </p>
       </div>
@@ -1981,7 +2100,7 @@
       </button>
 
       <!-- Modal Header -->
-      <div class="flex items-center gap-3 mb-4 pb-3 border-b hairline-border border-slate-200 dark:border-slate-800 shrink-0">
+      <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-200 dark:border-slate-800 shrink-0">
         <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
           <svg class="w-6 h-6 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
@@ -3347,7 +3466,7 @@
             <h5 class="text-xs font-bold text-slate-900 dark:text-white">${title}</h5>
             <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">${hours} Hours • Admin Configured</p>
           </div>
-          <div class="mt-3 pt-2 border-t hairline-border border-slate-200 dark:border-slate-700 flex items-center justify-between text-[10px]">
+          <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-[10px]">
             <span class="text-slate-500 font-semibold">Enrolled: 0 / 15</span>
             <span class="text-emerald-600 font-bold">15 Slots Left</span>
           </div>
@@ -3795,5 +3914,240 @@
       updateKpiCounters();
     }
 </script>
+
+  <!-- ==================== ADMIN MODAL 1: EVENT FORM (CREATE / EDIT) ==================== -->
+  <div id="modalEventForm" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-lg w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <h4 class="text-base font-bold text-slate-900 dark:text-white" id="modalEventTitle">Add New University Event</h4>
+        <button onclick="closeEventModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="formEvent" onsubmit="event.preventDefault(); saveEventForm();" class="space-y-3 text-xs">
+        <input type="hidden" id="inputEventId" value="">
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Event Title *</label>
+          <input type="text" id="inputEventTitle" required placeholder="e.g. Himamat 2026: Campus Fellowship" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Category</label>
+            <select id="inputEventCategory" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="Campus Fellowship">Campus Fellowship</option>
+              <option value="Cultural Festival">Cultural Festival</option>
+              <option value="Student Assembly">Student Assembly</option>
+              <option value="Sports Fest">Sports Fest</option>
+              <option value="Academic Conference">Academic Conference</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Event Date</label>
+            <input type="text" id="inputEventDate" placeholder="e.g. October 14, 2026" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Location / Gate</label>
+          <input type="text" id="inputEventLocation" placeholder="e.g. University Gymnasium Gate 2" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Time In Cutoff</label>
+            <input type="text" id="inputEventTimeInCutoff" placeholder="e.g. 08:30:00 AM" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Time Out Cutoff</label>
+            <input type="text" id="inputEventTimeOutCutoff" placeholder="e.g. 05:00:00 PM" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Status</label>
+            <select id="inputEventStatus" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="Active">Active</option>
+              <option value="Upcoming">Upcoming</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 pt-6">
+            <input type="checkbox" id="inputEventVotingEnabled" class="rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <label for="inputEventVotingEnabled" class="font-semibold text-slate-700 dark:text-slate-300">Enable In-Event Voting</label>
+          </div>
+        </div>
+        <div class="pt-3 flex gap-2">
+          <button type="button" onclick="closeEventModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold transition-colors">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-colors">Save Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ADMIN MODAL 2: ATTENDEE FORM (CREATE / EDIT) ==================== -->
+  <div id="modalAttendeeForm" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-lg w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <h4 class="text-base font-bold text-slate-900 dark:text-white" id="modalAttendeeTitle">Add Student Attendee Record</h4>
+        <button onclick="closeAttendeeModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="formAttendee" onsubmit="event.preventDefault(); saveAttendeeForm();" class="space-y-3 text-xs">
+        <input type="hidden" id="inputAttId" value="">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Student Full Name *</label>
+            <input type="text" id="inputAttName" required placeholder="e.g. Juan Dela Cruz" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Student ID *</label>
+            <input type="text" id="inputAttStudId" required placeholder="e.g. 2024-118820-A01" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-1 focus:ring-sky-500">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Course</label>
+            <input type="text" id="inputAttCourse" placeholder="e.g. BS Information Technology" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Year Level</label>
+            <select id="inputAttYear" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="4th Year">4th Year</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Department / College</label>
+          <select id="inputAttDepartment" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+            <option value="College of Computer Studies">College of Computer Studies</option>
+            <option value="College of Engineering">College of Engineering</option>
+            <option value="College of Business & Accountancy">College of Business &amp; Accountancy</option>
+            <option value="College of Nursing">College of Nursing</option>
+            <option value="College of Arts & Sciences">College of Arts &amp; Sciences</option>
+            <option value="College of Teacher Education">College of Teacher Education</option>
+            <option value="College of Hospitality & Tourism">College of Hospitality &amp; Tourism</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Attended Event</label>
+          <select id="inputAttEventName" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+            <!-- Dynamically populated from events -->
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Check-in Method</label>
+            <select id="inputAttMethod" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="QR Scan">QR Scan</option>
+              <option value="RFID Tap">RFID Tap</option>
+              <option value="Manual Marshal">Manual Marshal</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Status</label>
+            <select id="inputAttStatus" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="Cleared">Cleared</option>
+              <option value="Pending Out">Pending Out</option>
+            </select>
+          </div>
+        </div>
+        <div class="pt-3 flex gap-2">
+          <button type="button" onclick="closeAttendeeModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold transition-colors">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-colors">Save Attendee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ADMIN MODAL 3: ANNOUNCEMENT FORM ==================== -->
+  <div id="modalAnnouncementForm" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-lg w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <h4 class="text-base font-bold text-slate-900 dark:text-white" id="modalAnnTitle">Post Campus Announcement</h4>
+        <button onclick="closeAnnouncementModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="formAnnouncement" onsubmit="event.preventDefault(); saveAnnouncementForm();" class="space-y-3 text-xs">
+        <input type="hidden" id="inputAnnId" value="">
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Announcement Title *</label>
+          <input type="text" id="inputAnnTitle" required placeholder="e.g. Convocation Attendance Clearance Notice" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Category</label>
+            <select id="inputAnnCategory" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="SSG Advisory">SSG Advisory</option>
+              <option value="General Notice">General Notice</option>
+              <option value="Dean's Memo">Dean's Memo</option>
+              <option value="Community Service">Community Service</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Priority</label>
+            <select id="inputAnnPriority" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Message Body *</label>
+          <textarea id="inputAnnContent" required rows="4" placeholder="Enter bulletin content..." class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
+        </div>
+        <div class="pt-3 flex gap-2">
+          <button type="button" onclick="closeAnnouncementModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold transition-colors">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-colors">Publish Announcement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ADMIN MODAL 4: CRISIS PROTOCOL FORM ==================== -->
+  <div id="modalProtocolForm" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-lg w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <h4 class="text-base font-bold text-slate-900 dark:text-white" id="modalProtoTitle">Edit Crisis Protocol</h4>
+        <button onclick="closeProtocolModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="formProtocol" onsubmit="event.preventDefault(); saveProtocolForm();" class="space-y-3 text-xs">
+        <input type="hidden" id="inputProtoId" value="">
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Protocol Title *</label>
+          <input type="text" id="inputProtoName" required class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Threat Level</label>
+            <select id="inputProtoThreatLevel" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+              <option value="CRITICAL">CRITICAL</option>
+              <option value="HIGH">HIGH</option>
+              <option value="ELEVATED">ELEVATED</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Safe Assembly Zones</label>
+            <input type="text" id="inputProtoSafeZones" placeholder="e.g. Grandstand, AVR" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Action Directives (one instruction per line)</label>
+          <textarea id="inputProtoDirectives" rows="5" placeholder="Enter step-by-step instructions..." class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
+        </div>
+        <div class="pt-3 flex gap-2">
+          <button type="button" onclick="closeProtocolModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold transition-colors">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition-colors">Save Protocol</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>

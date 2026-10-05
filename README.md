@@ -138,11 +138,16 @@ Sync-in features an enterprise-grade **Zero-Trust Defense-in-Depth Subsystem (`S
 
 ---
 
-## 📡 Built-In REST API Endpoints
+## 📡 Built-In REST API & Unified Database Endpoints
 
-The included `server.js` provides lightweight REST endpoints for mobile apps and turnstile hardware:
+The included `server.js` provides lightweight REST endpoints and persistent JSON database storage (`data/database.json`) for mobile apps and turnstile hardware:
 
-* `GET /api/health` — Service health status, uptime, and shield metrics.
+* `GET /api/health` — Service health status, uptime, database record counts, and shield metrics.
+* `GET /api/db` — Full snapshot of events, announcements, crisis protocols, and attendees.
+* `GET /api/events` | `POST /api/events` | `PUT /api/events` | `DELETE /api/events?id=...` — Complete Events CRUD.
+* `GET /api/attendees` | `POST /api/attendees` | `PUT /api/attendees` | `DELETE /api/attendees?id=...` — Student Attendee Roster directory (Name, Student ID, Course, Year, Department, Event).
+* `GET /api/announcements` | `POST /api/announcements` | `PUT /api/announcements` | `DELETE /api/announcements?id=...` — Campus announcements & bulletins CRUD.
+* `GET /api/protocols` | `PUT /api/protocols` | `POST /api/protocols/broadcast` — Crisis safety protocols & live emergency drill broadcasting.
 * `POST /api/checkin` — Checkpoint attendance verification and ledger signing.
 * `POST /api/rfid/tap` — ISO 14443-A card UID validation with RA 10173 privacy masking.
 * `GET /api/audit-ledger` — Retrieves the immutable SHA-256 blockchain audit trail.
@@ -159,10 +164,12 @@ sync-in/
 │   │   └── ci.yml             # Quality assurance & Docker build tests
 │   ├── ISSUE_TEMPLATE/        # Standardized GitHub issue templates
 │   └── PULL_REQUEST_TEMPLATE.md
+├── data/
+│   └── database.json          # Persistent JSON database (Events, Attendees, Notices, Protocols)
 ├── docs/                      # Visual presentation mockups & SDLC diagrams
 ├── public/                    # Production web assets & favicon
 ├── index.html                 # Standalone web application entry point
-├── server.js                  # Production zero-dependency Node.js HTTP server
+├── server.js                  # Production zero-dependency Node.js HTTP server & REST DB API
 ├── package.json               # Node.js configuration & scripts
 ├── Dockerfile                 # Multi-stage production container
 ├── docker-compose.yml         # Container orchestration

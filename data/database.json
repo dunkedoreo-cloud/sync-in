@@ -1,0 +1,319 @@
+{
+  "events": [
+    {
+      "id": "evt_himamat_2026",
+      "title": "Himamat 2026: Campus Fellowship",
+      "category": "Campus Fellowship",
+      "date": "October 14, 2026",
+      "timeInCutoff": "08:30:00 AM",
+      "timeOutCutoff": "05:00:00 PM",
+      "location": "University Gymnasium Gate 2",
+      "status": "Active",
+      "votingEnabled": false,
+      "createdAt": "2026-10-01T08:00:00.000Z"
+    },
+    {
+      "id": "evt_strands_2026",
+      "title": "Strands of Love: Cultural Gala",
+      "category": "Cultural Festival",
+      "date": "October 16, 2026",
+      "timeInCutoff": "01:30:00 PM",
+      "timeOutCutoff": "06:30:00 PM",
+      "location": "University Auditorium & Plenary",
+      "status": "Upcoming",
+      "votingEnabled": false,
+      "createdAt": "2026-10-02T09:30:00.000Z"
+    },
+    {
+      "id": "evt_convocation_2026",
+      "title": "Annual University Convocation",
+      "category": "Student Assembly",
+      "date": "October 22, 2026",
+      "timeInCutoff": "08:00:00 AM",
+      "timeOutCutoff": "12:00:00 PM",
+      "location": "Main University Grandstand",
+      "status": "Upcoming",
+      "votingEnabled": false,
+      "createdAt": "2026-10-03T10:15:00.000Z"
+    },
+    {
+      "id": "evt_tech_summit_2026",
+      "title": "CCS Tech Innovation Summit",
+      "category": "Academic Conference",
+      "date": "November 05, 2026",
+      "timeInCutoff": "09:00:00 AM",
+      "timeOutCutoff": "04:30:00 PM",
+      "location": "IT Building AVR 1 & 2",
+      "status": "Upcoming",
+      "votingEnabled": false,
+      "createdAt": "2026-10-04T11:00:00.000Z"
+    }
+  ],
+  "announcements": [
+    {
+      "id": "ann_01",
+      "title": "Himamat 2026 Attendance Clearance Protocol",
+      "category": "SSG Advisory",
+      "priority": "High",
+      "content": "All students must register Time In before 08:30 AM at assigned gate standees. Fine penalty of ₱150 applies for missed assemblies. Clearance holds will be applied immediately post-event.",
+      "date": "Oct 05, 2026",
+      "createdAt": "2026-10-05T08:00:00.000Z"
+    },
+    {
+      "id": "ann_02",
+      "title": "Lost & Found Turnstile Booth 3 Active",
+      "category": "General Notice",
+      "priority": "Normal",
+      "content": "Items recovered during campus fellowship can be claimed at Booth 3 after blind-proof ownership verification. Do not post detailed item photos online.",
+      "date": "Oct 04, 2026",
+      "createdAt": "2026-10-04T14:20:00.000Z"
+    },
+    {
+      "id": "ann_03",
+      "title": "Sweat Equity Service Hours Sign-ups Open",
+      "category": "Community Service",
+      "priority": "Normal",
+      "content": "Students with attendance fines may sign up for library or campus greening slots to offset penalties without cash payments. Coordinate with SSG Booth 1.",
+      "date": "Oct 03, 2026",
+      "createdAt": "2026-10-03T09:00:00.000Z"
+    }
+  ],
+  "protocols": [
+    {
+      "id": "proto_shooting",
+      "title": "Tactical Silent Threat / Active Shooter Drill",
+      "type": "Tactical Threat",
+      "threatLevel": "CRITICAL",
+      "safeZones": "Classrooms, AVR, Gym Interior Barricade",
+      "directives": [
+        "Lock and barricade all doors immediately with heavy furniture.",
+        "Silence all mobile devices (zero sound/vibration).",
+        "Turn off all lights and digital projectors (OLED Blackout mode).",
+        "Stay flat on floor away from doors and exterior windows.",
+        "Await official SSG & Marshal all-clear broadcast before unlocking."
+      ],
+      "activeBroadcast": false,
+      "updatedAt": "2026-10-05T12:00:00.000Z"
+    },
+    {
+      "id": "proto_hazard",
+      "title": "Hazard Evacuation (Earthquake / Structural Incident)",
+      "type": "Natural Hazard",
+      "threatLevel": "HIGH",
+      "safeZones": "University Athletic Oval & Open Grandstand",
+      "directives": [
+        "Duck, Cover, and Hold during initial tremors.",
+        "Evacuate through designated structural stairwells — DO NOT use elevators.",
+        "Proceed calmly to the Open Field Assembly Area.",
+        "Faculty marshals take headcounts using Faculty Attendance Portal."
+      ],
+      "activeBroadcast": false,
+      "updatedAt": "2026-10-05T12:00:00.000Z"
+    },
+    {
+      "id": "proto_fire",
+      "title": "Fire Alarm & Rapid Suppression Protocol",
+      "type": "Emergency Fire",
+      "threatLevel": "ELEVATED",
+      "safeZones": "Quadrangle Perimeter Assembly Point",
+      "directives": [
+        "Sound local pull station alarms immediately upon sighting smoke.",
+        "Low-crawl below smoke line if smoke is detected in egress corridors.",
+        "Marshal turnstile gates auto-unlock to free perimeter egress paths.",
+        "Report missing students immediately via Emergency Hub."
+      ],
+      "activeBroadcast": false,
+      "updatedAt": "2026-10-05T12:00:00.000Z"
+    }
+  ],
+  "attendees": [
+    {
+      "id": "att_001",
+      "name": "Alexandra Marie Chen",
+      "studId": "2024-112551-A27",
+      "course": "BS Information Technology",
+      "year": "3rd Year",
+      "department": "College of Computer Studies",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:14:22 AM",
+      "timeOut": "04:45:10 PM",
+      "method": "QR Scan",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_002",
+      "name": "Marcus John Bautista",
+      "studId": "2024-118932-B14",
+      "course": "BS Computer Science",
+      "year": "2nd Year",
+      "department": "College of Computer Studies",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:22:15 AM",
+      "timeOut": "04:52:00 PM",
+      "method": "RFID Tap",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_003",
+      "name": "Klarisse Anne Santos",
+      "studId": "2023-104421-E08",
+      "course": "BS Information Systems",
+      "year": "4th Year",
+      "department": "College of Computer Studies",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:05:40 AM",
+      "timeOut": "05:01:12 PM",
+      "method": "QR Scan",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_004",
+      "name": "David Joshua Reyes",
+      "studId": "2025-120014-C03",
+      "course": "BS Civil Engineering",
+      "year": "1st Year",
+      "department": "College of Engineering",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:29:10 AM",
+      "timeOut": "--",
+      "method": "RFID Tap",
+      "status": "Pending Out"
+    },
+    {
+      "id": "att_005",
+      "name": "Patricia Nicole Lim",
+      "studId": "2024-115672-A19",
+      "course": "BS Business Administration",
+      "year": "2nd Year",
+      "department": "College of Business & Accountancy",
+      "eventName": "Strands of Love: Cultural Gala",
+      "timeIn": "01:10:05 PM",
+      "timeOut": "06:30:18 PM",
+      "method": "QR Scan",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_006",
+      "name": "Gabriel Ethan Villanueva",
+      "studId": "2023-108892-F11",
+      "course": "BS Nursing",
+      "year": "3rd Year",
+      "department": "College of Nursing",
+      "eventName": "Strands of Love: Cultural Gala",
+      "timeIn": "01:25:33 PM",
+      "timeOut": "06:40:02 PM",
+      "method": "Manual Marshal",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_007",
+      "name": "Sophia Isabel Delgado",
+      "studId": "2025-124451-D05",
+      "course": "BA Communication",
+      "year": "1st Year",
+      "department": "College of Arts & Sciences",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:18:50 AM",
+      "timeOut": "04:55:30 PM",
+      "method": "QR Scan",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_008",
+      "name": "Christian Paul De Leon",
+      "studId": "2024-117820-B33",
+      "course": "BS Mechanical Engineering",
+      "year": "2nd Year",
+      "department": "College of Engineering",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:28:44 AM",
+      "timeOut": "--",
+      "method": "RFID Tap",
+      "status": "Pending Out"
+    },
+    {
+      "id": "att_009",
+      "name": "Hannah Beatrice Tan",
+      "studId": "2024-113309-A02",
+      "course": "BS Accountancy",
+      "year": "2nd Year",
+      "department": "College of Business & Accountancy",
+      "eventName": "Strands of Love: Cultural Gala",
+      "timeIn": "01:15:20 PM",
+      "timeOut": "06:15:40 PM",
+      "method": "QR Scan",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_010",
+      "name": "Angelo Rafael Morales",
+      "studId": "2023-109923-C21",
+      "course": "BS Secondary Education",
+      "year": "3rd Year",
+      "department": "College of Teacher Education",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:11:05 AM",
+      "timeOut": "04:40:15 PM",
+      "method": "Manual Marshal",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_011",
+      "name": "Mikaela Andrea Gomez",
+      "studId": "2025-123381-E14",
+      "course": "BS Hospitality Management",
+      "year": "1st Year",
+      "department": "College of Hospitality & Tourism",
+      "eventName": "Strands of Love: Cultural Gala",
+      "timeIn": "01:20:10 PM",
+      "timeOut": "06:22:45 PM",
+      "method": "QR Scan",
+      "status": "Cleared"
+    },
+    {
+      "id": "att_012",
+      "name": "Vincent Edward Soriano",
+      "studId": "2024-116670-C09",
+      "course": "BS Electrical Engineering",
+      "year": "2nd Year",
+      "department": "College of Engineering",
+      "eventName": "Himamat 2026: Campus Fellowship",
+      "timeIn": "08:20:12 AM",
+      "timeOut": "04:48:30 PM",
+      "method": "RFID Tap",
+      "status": "Cleared"
+    }
+  ],
+  "serviceSlots": [
+    {
+      "id": "slot_01",
+      "department": "Main Library",
+      "title": "Library Archiving & Book Shelving",
+      "hours": "2.0 Hours",
+      "supervisor": "Ms. Ramos",
+      "offset": "₱200 Offset",
+      "enrolled": 8,
+      "capacity": 10
+    },
+    {
+      "id": "slot_02",
+      "department": "PE Department",
+      "title": "Gym Bleacher Clean-up Crew",
+      "hours": "1.5 Hours",
+      "supervisor": "Coach Santos",
+      "offset": "₱150 Offset",
+      "enrolled": 14,
+      "capacity": 15
+    },
+    {
+      "id": "slot_03",
+      "department": "Grounds",
+      "title": "Campus Tree Planting & Greening",
+      "hours": "3.0 Hours",
+      "supervisor": "Mr. Dizon",
+      "offset": "₱300 Offset",
+      "enrolled": 5,
+      "capacity": 20
+    }
+  ]
+}
