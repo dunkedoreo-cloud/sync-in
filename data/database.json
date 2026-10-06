@@ -315,5 +315,61 @@
       "enrolled": 5,
       "capacity": 20
     }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud_1791258597718_urqm",
+      "timestamp": "2026-10-06T03:49:57.718Z",
+      "action": "BATCH_ROSTER_IMPORTED",
+      "actorRole": "Registrar / Admin",
+      "actorId": "127.0.0.1",
+      "details": "Imported 1 new student records into master attendance ledger.",
+      "hash": "c1708d16dc59"
+    },
+    {
+      "id": "aud_1791258597628_qs01",
+      "timestamp": "2026-10-06T03:49:57.628Z",
+      "action": "AUTH_SUCCESS",
+      "actorRole": "SSG Admin",
+      "actorId": "127.0.0.1",
+      "details": "Authenticated into admin role.",
+      "hash": "25e087233c69"
+    },
+    {
+      "id": "aud_001",
+      "timestamp": "2026-10-06T00:15:22.000Z",
+      "action": "SYSTEM_BOOT",
+      "actorRole": "System Daemon",
+      "actorId": "SERVER_GATEWAY_NODE_1",
+      "details": "Sync-in Campus Attendance Gateway initialized with 7/7 security shields.",
+      "hash": "9f83ab29c48e"
+    },
+    {
+      "id": "aud_002",
+      "timestamp": "2026-10-06T00:30:10.000Z",
+      "action": "EVENT_ACTIVATION",
+      "actorRole": "SSG Admin",
+      "actorId": "admin_ssg_01",
+      "details": "Active kiosk event set to Himamat 2026: Campus Fellowship.",
+      "hash": "3d82bc19a41e"
+    },
+    {
+      "id": "aud_003",
+      "timestamp": "2026-10-06T01:14:22.000Z",
+      "action": "ATTENDEE_VERIFIED",
+      "actorRole": "Kiosk Gate Terminal",
+      "actorId": "GYM_GATE_2",
+      "details": "Student Alexandra Marie Chen (2024-112551-A27) verified via RFID turnstile tap.",
+      "hash": "a127bc44f910"
+    },
+    {
+      "id": "aud_004",
+      "timestamp": "2026-10-06T01:45:00.000Z",
+      "action": "PROTOCOL_STANDBY",
+      "actorRole": "Safety Marshal",
+      "actorId": "marshal_04",
+      "details": "Active Threat Protocol in Standby. 3 designated safety shelters ready.",
+      "hash": "77c2aa12b4e9"
+    }
   ]
 }

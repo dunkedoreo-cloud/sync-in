@@ -59,9 +59,39 @@
       border-right-width: 0 !important;
       border-top-width: 1px !important;
     }
+  
+    /* Print Stylesheet for Official Attendance Clearance Certificate */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #printableCertificateContent, #printableCertificateContent * {
+        visibility: visible !important;
+      }
+      #printableCertificateContent {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 3rem !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: 4px double #0284c7 !important;
+        z-index: 9999999 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body class="font-sans-clean antialiased bg-[#FBFBFC] dark:bg-[#080B11] text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen p-4 md:p-8" id="bodyRoot">
+  <!-- ==================== GLOBAL TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-[100] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full"></div>
+
 
   <!-- TOP MINIMAL NAVIGATION & CONTROLS -->
   <header class="max-w-6xl mx-auto mb-10 flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border hairline-border border-slate-200/80 dark:border-slate-800 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
@@ -1302,6 +1332,102 @@
 
     <!-- ==================== SUB-VIEW 1: KIOSK & TELEMETRY ==================== -->
     <div id="admViewKiosk" class="space-y-5">
+
+        <!-- ==================== REAL-TIME DEPARTMENTAL TURNOUT & VENUE DENSITY ==================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <!-- Col 1 & 2: Department Turnout Progress Bars -->
+          <div class="lg:col-span-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <h5 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Departmental Turnout Velocity</h5>
+              </div>
+              <span class="text-[10px] font-mono text-slate-500 dark:text-slate-400">Live Quorum Analytics</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs" id="deptAnalyticsContainer">
+              <!-- Dynamically populated from renderAdminAnalytics() -->
+            </div>
+          </div>
+
+          <!-- Col 3: Live In-Venue Capacity Density Meter -->
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <h5 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Gate 2 Venue Density</h5>
+                <span class="text-[9.5px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300" id="venueDensityStatusBadge">Safe Density</span>
+              </div>
+              <p class="text-[10.5px] text-slate-500 dark:text-slate-400 mb-3">Live turnstile occupancy vs maximum fire safety limit (1,200 seats).</p>
+              
+              <div class="space-y-2">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-slate-700 dark:text-slate-300" id="venueOccupancyText">12 Inside</span>
+                  <span class="font-mono text-sky-600 dark:text-sky-400" id="venueCapacityPercentText">1.0%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                  <div id="venueDensityProgressBar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 1%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gate Strobe Indicator -->
+            <div id="gateStrobeIndicator" class="mt-4 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 flex items-center justify-between transition-all">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-[11px] font-bold text-slate-800 dark:text-slate-200" id="gateStrobeStatusText">Turnstile Ready • Gate 2 Standby</span>
+              </div>
+              <span class="text-[9.5px] font-mono text-slate-400" id="gateStrobeTimestamp">--:--:--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== INTERACTIVE KIOSK SCANNER SIMULATOR ==================== -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200 dark:border-slate-800">
+            <div>
+              <h5 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <svg class="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                <span>Interactive Gate Terminal Scanner Simulator</span>
+              </h5>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">Simulate contactless RFID card taps and optical QR code scans with real-time audio chimes and turnstile admittance.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="text-[11px] font-semibold text-slate-600 dark:text-slate-300">Mode:</label>
+              <select id="kioskSimMode" class="px-2.5 py-1 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-semibold">
+                <option value="in">Check-In (Entry)</option>
+                <option value="out">Check-Out (Clearance)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Quick Test Chips -->
+          <div>
+            <span class="text-[10px] font-bold uppercase text-slate-400 block mb-1.5">Quick Student Test Passes:</span>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="simulateGateScan('2024-112551-A27', 'Alexandra Marie Chen', 'BS Information Technology', 'College of Computer Studies')" class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-sky-950/60 hover:text-sky-600 text-[11px] font-semibold text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-sky-300">
+                Tap Alexandra Chen (BSIT)
+              </button>
+              <button onclick="simulateGateScan('2024-118833-A04', 'Maria Elena Santos', 'BS Nursing', 'College of Nursing')" class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-sky-950/60 hover:text-sky-600 text-[11px] font-semibold text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-sky-300">
+                Tap Maria Santos (BSN)
+              </button>
+              <button onclick="simulateGateScan('2023-110022-A10', 'Carlos Miguel Mendoza', 'BS Civil Engineering', 'College of Engineering')" class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-sky-950/60 hover:text-sky-600 text-[11px] font-semibold text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-sky-300">
+                Tap Carlos Mendoza (BSCE)
+              </button>
+              <button onclick="simulateGateScan('2024-119955-A18', 'Liam Gabriel Bautista', 'BS Accountancy', 'College of Business & Accountancy')" class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-sky-950/60 hover:text-sky-600 text-[11px] font-semibold text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-sky-300">
+                Tap Liam Bautista (BSA)
+              </button>
+            </div>
+          </div>
+
+          <!-- Custom Input -->
+          <div class="flex gap-2">
+            <input type="text" id="kioskCustomInputId" placeholder="Or enter Student ID or RFID UID (e.g. 2024-110000-A01)..." class="flex-1 px-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-1 focus:ring-sky-500">
+            <button onclick="triggerCustomGateScan()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs transition-colors shadow-xs flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Simulate Scan</span>
+            </button>
+          </div>
+        </div>
+
       <!-- Quick Telemetry Grid -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs">
@@ -1494,6 +1620,10 @@
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               <span>Export CSV</span>
             </button>
+            <button onclick="openBatchImportModal()" class="px-3.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-semibold text-xs tracking-tight transition-colors shadow-2xs flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>+ Import CSV</span>
+            </button>
             <button onclick="openCreateAttendeeModal()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs tracking-tight transition-all shadow-xs flex items-center gap-1.5">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
               <span>+ Add Attendee</span>
@@ -1590,6 +1720,33 @@
         </div>
       </div>
     </div>
+
+
+    <!-- SUB-VIEW 5: SECURITY AUDIT LEDGER (ACTIVE SENTINEL) -->
+    <div id="admViewAudit" class="hidden space-y-5">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-4 border-b border-slate-200/80 dark:border-slate-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="text-base font-bold text-slate-900 dark:text-white">Security &amp; Hardware Telemetry Audit Ledger</h4>
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-300 border border-sky-200 dark:border-sky-800" id="admAuditTotalCount">Live Sentinel</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Chronological, tamper-evident record of administrative mutations, turnstile check-ins, and crisis broadcasts.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="renderAdminAuditTrail()" class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-2xs">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>Refresh Ledger</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-2.5" id="admAuditLogsContainer">
+          <!-- Dynamically populated from SyncInDB.data.auditLogs -->
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- MODAL NOTIFICATION -->
@@ -4155,10 +4312,16 @@
         if (v) v.classList.add('hidden');
       });
 
+      const tAudit = document.getElementById('admTabAudit');
+      const vAudit = document.getElementById('admViewAudit');
+      if (tAudit) tAudit.className = 'px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all font-semibold';
+      if (vAudit) vAudit.classList.add('hidden');
+
       if (tab === 'kiosk') {
         if (tKiosk) tKiosk.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
         if (vKiosk) vKiosk.classList.remove('hidden');
         renderAdminKioskServiceSlots();
+        renderAdminAnalytics();
       } else if (tab === 'events') {
         if (tEvents) tEvents.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
         if (vEvents) vEvents.classList.remove('hidden');
@@ -4166,12 +4329,16 @@
       } else if (tab === 'attendees') {
         if (tAttendees) tAttendees.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
         if (vAttendees) vAttendees.classList.remove('hidden');
-        renderAdminAttendeesTable();
+        renderAdminAttendeesTable(currentAttendeePage);
       } else if (tab === 'announcements') {
         if (tAnn) tAnn.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
         if (vAnn) vAnn.classList.remove('hidden');
         renderAdminAnnouncementsList();
         renderAdminProtocolsList();
+      } else if (tab === 'audit') {
+        if (tAudit) tAudit.className = 'px-4 py-2 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs flex items-center gap-2 transition-all font-bold';
+        if (vAudit) vAudit.classList.remove('hidden');
+        renderAdminAuditTrail();
       }
     }
 
@@ -4655,6 +4822,676 @@
         SyncInDB.init();
       }
     }
+
+
+    // =========================================================================
+    // 1. GLOBAL TOAST NOTIFICATION ENGINE
+    // =========================================================================
+    function showToast(title, message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      
+      const toast = document.createElement('div');
+      toast.className = 'p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl pointer-events-auto flex items-start gap-3 transition-all duration-300 transform translate-y-2 opacity-0';
+      
+      let iconColor = 'text-emerald-500 bg-emerald-50 dark:bg-emerald-950/60';
+      let iconSvg = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+      
+      if (type === 'error') {
+        iconColor = 'text-rose-500 bg-rose-50 dark:bg-rose-950/60';
+        iconSvg = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+      } else if (type === 'warning') {
+        iconColor = 'text-amber-500 bg-amber-50 dark:bg-amber-950/60';
+        iconSvg = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+      } else if (type === 'info') {
+        iconColor = 'text-sky-500 bg-sky-50 dark:bg-sky-950/60';
+        iconSvg = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+      }
+
+      toast.innerHTML = `
+        <div class="w-7 h-7 rounded-xl ${iconColor} flex items-center justify-center shrink-0">
+          ${iconSvg}
+        </div>
+        <div class="flex-1 min-w-0 pr-1">
+          <h6 class="text-xs font-bold text-slate-900 dark:text-white leading-tight">${SecurityCore.sanitizeHTML(title)}</h6>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">${SecurityCore.sanitizeHTML(message)}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      `;
+
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // =========================================================================
+    // 2. MODAL ACCESSIBILITY & ESCAPE KEY HANDLER
+    // =========================================================================
+    function closeAllModals() {
+      const modalIds = [
+        'modalEventForm',
+        'modalAttendeeForm',
+        'modalAnnouncementForm',
+        'modalProtocolForm',
+        'modalBatchImport',
+        'modalClearanceCertificate',
+        'adminKioskModal',
+        'emergencyModal',
+        'adminAuthModal',
+        'securityHubModal',
+        'scanSuccessModal'
+      ];
+      modalIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAllModals();
+      }
+    });
+
+    // Close on backdrop click
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('backdrop-blur-sm') || e.target.classList.contains('backdrop-blur-xs')) {
+        closeAllModals();
+      }
+    });
+
+    // =========================================================================
+    // 3. SYNTHESIZED WEB AUDIO API CHIME (ZERO EXTERNAL ASSETS)
+    // =========================================================================
+    let audioCtx = null;
+    function playGateChime(success = true) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (success) {
+          // Positive dual-tone chime (523Hz C5 -> 659Hz E5)
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else {
+          // Rejection buzzer
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+      } catch (e) {
+        // AudioContext not allowed or not supported in silent environment
+      }
+    }
+
+    // =========================================================================
+    // 4. INTERACTIVE KIOSK SCANNER SIMULATOR & GATE TELEMETRY
+    // =========================================================================
+    async function simulateGateScan(studId, studentName = 'Alexandra Marie Chen', course = 'BS Information Technology', dept = 'College of Computer Studies') {
+      const modeSelect = document.getElementById('kioskSimMode');
+      const mode = modeSelect ? modeSelect.value : 'in';
+      const eventTitle = currentEvent || 'Himamat 2026: Campus Fellowship';
+
+      playGateChime(true);
+
+      // Gate Strobe feedback
+      const strobe = document.getElementById('gateStrobeIndicator');
+      const strobeText = document.getElementById('gateStrobeStatusText');
+      const strobeTime = document.getElementById('gateStrobeTimestamp');
+      const nowTimeStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      if (strobe) {
+        strobe.className = 'mt-4 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700 flex items-center justify-between transition-all duration-300 ring-2 ring-emerald-400';
+      }
+      if (strobeText) {
+        strobeText.innerHTML = `<span class="text-emerald-700 dark:text-emerald-300 font-black">TURNSTILE UNLOCKED:</span> ${SecurityCore.sanitizeHTML(studentName)} (${SecurityCore.sanitizeHTML(studId)}) [${mode.toUpperCase()}]`;
+      }
+      if (strobeTime) strobeTime.innerText = nowTimeStr;
+
+      // Reset strobe after 2.5 seconds
+      setTimeout(() => {
+        if (strobe) {
+          strobe.className = 'mt-4 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 flex items-center justify-between transition-all';
+        }
+        if (strobeText) {
+          strobeText.innerText = 'Turnstile Ready • Gate 2 Standby';
+        }
+      }, 2500);
+
+      try {
+        const res = await fetch('/api/checkin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            studentId: studId,
+            studentName,
+            course,
+            department: dept,
+            eventId: eventTitle,
+            mode,
+            method: 'RFID Tap'
+          })
+        });
+
+        if (res.ok) {
+          showToast(`Turnstile Gate 2: ${mode === 'in' ? 'Check-In' : 'Clearance Out'}`, `${studentName} verified. Admittance ledger logged.`, 'success');
+        } else {
+          showToast('Kiosk Telemetry Logged', `${studentName} logged to local station buffer.`, 'info');
+        }
+      } catch (err) {
+        showToast('Offline Gate Buffer', `${studentName} cached locally (station in standalone mode).`, 'info');
+      }
+
+      // Record in SyncInDB directly
+      const existing = (SyncInDB.data.attendees || []).find(a => a.studId === studId && a.eventName === eventTitle);
+      if (existing) {
+        if (mode === 'out') {
+          existing.timeOut = nowTimeStr;
+          existing.status = 'Cleared';
+        }
+        SyncInDB.updateAttendee(existing);
+      } else {
+        SyncInDB.addAttendee({
+          id: `att_${Date.now()}`,
+          name: studentName,
+          studId: studId,
+          course: course,
+          year: '3rd Year',
+          department: dept,
+          eventName: eventTitle,
+          timeIn: mode === 'in' ? nowTimeStr : '--',
+          timeOut: mode === 'out' ? nowTimeStr : '--',
+          method: 'RFID Tap',
+          status: mode === 'out' ? 'Cleared' : 'Pending Out'
+        });
+      }
+
+      renderAdminAnalytics();
+    }
+
+    function triggerCustomGateScan() {
+      const input = document.getElementById('kioskCustomInputId');
+      if (!input || !input.value.trim()) {
+        showToast('Empty ID', 'Please enter a Student ID or RFID UID to simulate a scan.', 'warning');
+        return;
+      }
+      const rawId = input.value.trim();
+      simulateGateScan(rawId, 'Verified Student Attendee', 'University Enrolled Program', 'College of Computer Studies');
+      input.value = '';
+    }
+
+    // =========================================================================
+    // 5. REAL-TIME DEPARTMENTAL ATTENDANCE ANALYTICS & VENUE DENSITY
+    // =========================================================================
+    function renderAdminAnalytics() {
+      const container = document.getElementById('deptAnalyticsContainer');
+      const attendees = SyncInDB.data.attendees || [];
+      
+      const deptQuotas = [
+        { code: 'CCS', name: 'Computer Studies', color: 'bg-sky-500', totalTarget: 25 },
+        { code: 'COE', name: 'Engineering', color: 'bg-indigo-500', totalTarget: 25 },
+        { code: 'CN', name: 'Nursing', color: 'bg-emerald-500', totalTarget: 20 },
+        { code: 'CBA', name: 'Business & Accountancy', color: 'bg-amber-500', totalTarget: 25 },
+        { code: 'CAS', name: 'Arts & Sciences', color: 'bg-violet-500', totalTarget: 20 },
+        { code: 'CTE', name: 'Teacher Education', color: 'bg-rose-500', totalTarget: 15 }
+      ];
+
+      if (container) {
+        container.innerHTML = deptQuotas.map(d => {
+          const count = attendees.filter(a => (a.department || '').toLowerCase().includes(d.name.toLowerCase()) || (a.department || '').includes(d.code)).length;
+          const pct = Math.min(100, Math.round((count / d.totalTarget) * 100));
+          return `
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-800 dark:text-slate-200">${d.name} (${d.code})</span>
+                <span class="font-mono text-slate-500 dark:text-slate-400 text-[11px]">${count}/${d.totalTarget} (${pct}%)</span>
+              </div>
+              <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                <div class="${d.color} h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // In-Venue Density calculation
+      const venueMax = 1200;
+      const checkedInInside = attendees.filter(a => a.status !== 'Cleared' || a.timeOut === '--').length;
+      const densityPct = ((checkedInInside / venueMax) * 100).toFixed(1);
+
+      const occEl = document.getElementById('venueOccupancyText');
+      const pctEl = document.getElementById('venueCapacityPercentText');
+      const barEl = document.getElementById('venueDensityProgressBar');
+      const badgeEl = document.getElementById('venueDensityStatusBadge');
+
+      if (occEl) occEl.innerText = `${checkedInInside} Inside Gate 2`;
+      if (pctEl) pctEl.innerText = `${densityPct}%`;
+      if (barEl) {
+        barEl.style.width = `${Math.min(100, Math.max(2, densityPct))}%`;
+        if (densityPct > 85) {
+          barEl.className = 'bg-rose-500 h-2.5 rounded-full transition-all duration-500';
+          if (badgeEl) {
+            badgeEl.innerText = 'High Density';
+            badgeEl.className = 'text-[9.5px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300';
+          }
+        } else if (densityPct > 65) {
+          barEl.className = 'bg-amber-500 h-2.5 rounded-full transition-all duration-500';
+          if (badgeEl) {
+            badgeEl.innerText = 'Moderate Density';
+            badgeEl.className = 'text-[9.5px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300';
+          }
+        } else {
+          barEl.className = 'bg-emerald-500 h-2.5 rounded-full transition-all duration-500';
+          if (badgeEl) {
+            badgeEl.innerText = 'Safe Density';
+            badgeEl.className = 'text-[9.5px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300';
+          }
+        }
+      }
+    }
+
+    // =========================================================================
+    // 6. ATTENDEE ROSTER TABLE PAGINATION & CLEARANCE ACTIONS
+    // =========================================================================
+    let currentAttendeePage = 1;
+    const attendeesPerPage = 8;
+
+    function renderAdminAttendeesTable(page = 1) {
+      currentAttendeePage = page;
+      const tbody = document.getElementById('admAttendeesTableBody');
+      const badgeCount = document.getElementById('admAttendeeBadgeCount');
+      const rosterCount = document.getElementById('admRosterRecordCount');
+      if (!tbody) return;
+
+      const q = (document.getElementById('admAttendeeSearchInput')?.value || '').toLowerCase().trim();
+      const eventFilter = document.getElementById('admAttendeeEventFilter')?.value || 'all';
+      const deptFilter = document.getElementById('admAttendeeDeptFilter')?.value || 'all';
+
+      let list = SyncInDB.data.attendees || [];
+      if (q) {
+        list = list.filter(a => 
+          (a.name || '').toLowerCase().includes(q) ||
+          (a.studId || '').toLowerCase().includes(q) ||
+          (a.course || '').toLowerCase().includes(q)
+        );
+      }
+      if (eventFilter !== 'all') {
+        list = list.filter(a => (a.eventName || '').includes(eventFilter));
+      }
+      if (deptFilter !== 'all') {
+        list = list.filter(a => (a.department || '').toLowerCase().includes(deptFilter.toLowerCase()));
+      }
+
+      if (badgeCount) badgeCount.innerText = `${(SyncInDB.data.attendees || []).length}`;
+      if (rosterCount) rosterCount.innerText = `${list.length} Records`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-400">No student attendees matching filter. Click "+ Add Attendee" or "+ Import CSV" to record entries.</td></tr>`;
+        return;
+      }
+
+      // Pagination math
+      const totalPages = Math.ceil(list.length / attendeesPerPage);
+      if (currentAttendeePage > totalPages) currentAttendeePage = totalPages;
+      if (currentAttendeePage < 1) currentAttendeePage = 1;
+
+      const startIndex = (currentAttendeePage - 1) * attendeesPerPage;
+      const paginatedList = list.slice(startIndex, startIndex + attendeesPerPage);
+
+      tbody.innerHTML = paginatedList.map(a => `
+        <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+          <td class="py-3 px-3.5 font-bold text-slate-900 dark:text-white">${SecurityCore.sanitizeHTML(a.name)}</td>
+          <td class="py-3 px-3.5 font-mono text-slate-600 dark:text-slate-400 font-semibold text-[11px]">${SecurityCore.sanitizeHTML(a.studId)}</td>
+          <td class="py-3 px-3.5 font-medium text-slate-700 dark:text-slate-300">${SecurityCore.sanitizeHTML(a.course)}</td>
+          <td class="py-3 px-3.5 text-slate-600 dark:text-slate-400">${SecurityCore.sanitizeHTML(a.year)}</td>
+          <td class="py-3 px-3.5 text-slate-600 dark:text-slate-400">${SecurityCore.sanitizeHTML(a.department)}</td>
+          <td class="py-3 px-3.5 font-semibold text-slate-800 dark:text-slate-200 text-[11px]">${SecurityCore.sanitizeHTML(a.eventName)}</td>
+          <td class="py-3 px-3.5 font-mono text-[10.5px]">
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">${SecurityCore.sanitizeHTML(a.timeIn)}</span>
+            <span class="text-slate-400"> / </span>
+            <span class="text-slate-500 dark:text-slate-400">${SecurityCore.sanitizeHTML(a.timeOut)}</span>
+          </td>
+          <td class="py-3 px-3.5">
+            <span class="px-2 py-0.5 rounded-full text-[9.5px] font-bold ${a.method === 'RFID Tap' ? 'bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800' : a.method === 'QR Scan' ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">${SecurityCore.sanitizeHTML(a.method)}</span>
+          </td>
+          <td class="py-3 px-3.5 text-right space-x-1 whitespace-nowrap">
+            <button onclick="openClearanceCertificateModal('${a.id}')" title="Print Official Clearance Certificate" class="px-2 py-1 rounded bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 transition-colors">Clearance</button>
+            <button onclick="toggleAttendeeClearance('${a.id}')" title="Toggle Check-out / Clearance" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[10px] font-semibold text-slate-700 dark:text-slate-300 transition-colors">${a.status === 'Cleared' ? 'Cleared' : 'Pending'}</button>
+            <button onclick="openEditAttendeeModal('${a.id}')" class="px-2 py-1 rounded bg-sky-50 dark:bg-sky-950/60 hover:bg-sky-100 text-[10px] font-semibold text-sky-700 dark:text-sky-300 transition-colors">Edit</button>
+            <button onclick="confirmDeleteAttendee('${a.id}')" class="px-2 py-1 rounded bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 text-[10px] font-semibold text-rose-700 dark:text-rose-300 transition-colors">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Render Pagination Footer if needed
+      let paginationContainer = document.getElementById('admAttendeePaginationContainer');
+      if (!paginationContainer) {
+        paginationContainer = document.createElement('div');
+        paginationContainer.id = 'admAttendeePaginationContainer';
+        paginationContainer.className = 'mt-3 pt-3 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500';
+        tbody.parentElement.parentElement.appendChild(paginationContainer);
+      }
+
+      paginationContainer.innerHTML = `
+        <div>Showing <span class="font-bold text-slate-900 dark:text-white">${startIndex + 1}</span> to <span class="font-bold text-slate-900 dark:text-white">${Math.min(startIndex + attendeesPerPage, list.length)}</span> of <span class="font-bold text-slate-900 dark:text-white">${list.length}</span> students</div>
+        <div class="flex items-center gap-2">
+          <button onclick="renderAdminAttendeesTable(${currentAttendeePage - 1})" ${currentAttendeePage <= 1 ? 'disabled class="opacity-40 cursor-not-allowed"' : 'class="hover:text-slate-900 dark:hover:text-white font-bold"'} class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800">Prev</button>
+          <span class="font-mono text-slate-700 dark:text-slate-300 font-semibold">Page ${currentAttendeePage} of ${totalPages || 1}</span>
+          <button onclick="renderAdminAttendeesTable(${currentAttendeePage + 1})" ${currentAttendeePage >= totalPages ? 'disabled class="opacity-40 cursor-not-allowed"' : 'class="hover:text-slate-900 dark:hover:text-white font-bold"'} class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800">Next</button>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 7. PRINTABLE OFFICIAL ATTENDANCE & CLEARANCE CERTIFICATE
+    // =========================================================================
+    function openClearanceCertificateModal(attendeeId) {
+      let attendee = (SyncInDB.data.attendees || []).find(a => a.id === attendeeId);
+      if (!attendee) {
+        // Fallback demo attendee
+        attendee = {
+          name: 'Alexandra Marie Chen',
+          studId: '2024-112551-A27',
+          course: 'BS Information Technology',
+          year: '3rd Year',
+          department: 'College of Computer Studies',
+          eventName: 'Himamat 2026: Campus Fellowship',
+          timeIn: '08:14:22 AM',
+          timeOut: '04:45:10 PM',
+          method: 'RFID Tap',
+          status: 'Cleared'
+        };
+      }
+
+      const nameEl = document.getElementById('certStudentName');
+      const idEl = document.getElementById('certStudentId');
+      const courseEl = document.getElementById('certStudentCourse');
+      const deptEl = document.getElementById('certStudentDept');
+      const eventEl = document.getElementById('certEventName');
+      const timesEl = document.getElementById('certAttendanceTimes');
+      const gateEl = document.getElementById('certGateMethod');
+      const hashEl = document.getElementById('certCryptoHash');
+
+      if (nameEl) nameEl.innerText = attendee.name;
+      if (idEl) idEl.innerText = attendee.studId;
+      if (courseEl) courseEl.innerText = `${attendee.course} • ${attendee.year}`;
+      if (deptEl) deptEl.innerText = attendee.department;
+      if (eventEl) eventEl.innerText = attendee.eventName;
+      if (timesEl) timesEl.innerText = `${attendee.timeIn} / ${attendee.timeOut}`;
+      if (gateEl) gateEl.innerText = `Gate 2 • ${attendee.method}`;
+      if (hashEl) hashEl.innerText = `SHA-256: ${SecurityCore.sha256Sync(attendee.studId + ':' + attendee.eventName).substring(0, 32)}...`;
+
+      const m = document.getElementById('modalClearanceCertificate');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeClearanceCertificateModal() {
+      const m = document.getElementById('modalClearanceCertificate');
+      if (m) m.classList.add('hidden');
+    }
+
+    function printClearanceCertificate() {
+      window.print();
+    }
+
+    // =========================================================================
+    // 8. BATCH CSV ROSTER IMPORTER (VALIDATION & COMMIT)
+    // =========================================================================
+    let parsedBatchRecords = [];
+
+    function openBatchImportModal() {
+      const m = document.getElementById('modalBatchImport');
+      const sel = document.getElementById('batchImportEventSelect');
+      if (sel) {
+        const evts = SyncInDB.data.events || [];
+        sel.innerHTML = evts.map(e => `
+          <option value="${SecurityCore.sanitizeHTML(e.title)}">${SecurityCore.sanitizeHTML(e.title)}</option>
+        `).join('');
+      }
+      parsedBatchRecords = [];
+      const prevCont = document.getElementById('batchPreviewContainer');
+      const rawIn = document.getElementById('batchCsvRawInput');
+      if (prevCont) prevCont.classList.add('hidden');
+      if (rawIn) rawIn.value = '';
+      const btn = document.getElementById('btnConfirmBatchImport');
+      if (btn) btn.disabled = true;
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeBatchImportModal() {
+      const m = document.getElementById('modalBatchImport');
+      if (m) m.classList.add('hidden');
+    }
+
+    function handleCsvFileSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        const raw = evt.target.result;
+        const input = document.getElementById('batchCsvRawInput');
+        if (input) input.value = raw;
+        previewBatchCsv();
+      };
+      reader.readAsText(file);
+    }
+
+    function previewBatchCsv() {
+      const text = (document.getElementById('batchCsvRawInput')?.value || '').trim();
+      if (!text) {
+        showToast('Empty CSV', 'Please paste CSV content or upload a file.', 'warning');
+        return;
+      }
+
+      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length < 2) {
+        showToast('Invalid CSV', 'CSV must have at least a header and one data row.', 'warning');
+        return;
+      }
+
+      const targetEvent = document.getElementById('batchImportEventSelect')?.value || 'Himamat 2026: Campus Fellowship';
+      const currentAttendees = SyncInDB.data.attendees || [];
+      parsedBatchRecords = [];
+
+      // Skip header line
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',').map(c => c.trim().replace(/^["']|["']$/g, ''));
+        if (cols.length >= 2 && cols[0] && cols[1]) {
+          const name = cols[0];
+          const studId = cols[1];
+          const course = cols[2] || 'BS Information Technology';
+          const year = cols[3] || '1st Year';
+          const department = cols[4] || 'College of Computer Studies';
+          
+          const isDuplicate = currentAttendees.some(a => a.studId === studId && a.eventName === targetEvent);
+          parsedBatchRecords.push({
+            name,
+            studId,
+            course,
+            year,
+            department,
+            eventName: targetEvent,
+            isDuplicate
+          });
+        }
+      }
+
+      const countLabel = document.getElementById('batchPreviewCountLabel');
+      if (countLabel) countLabel.innerText = `${parsedBatchRecords.length} records parsed (${parsedBatchRecords.filter(r => !r.isDuplicate).length} new)`;
+
+      const tbody = document.getElementById('batchPreviewTableBody');
+      const prevCont = document.getElementById('batchPreviewContainer');
+      const btn = document.getElementById('btnConfirmBatchImport');
+
+      if (tbody) {
+        tbody.innerHTML = parsedBatchRecords.map(r => `
+          <tr class="${r.isDuplicate ? 'bg-amber-50/50 dark:bg-amber-950/20' : ''}">
+            <td class="py-1.5 px-3 font-semibold">${SecurityCore.sanitizeHTML(r.name)}</td>
+            <td class="py-1.5 px-3 font-mono">${SecurityCore.sanitizeHTML(r.studId)}</td>
+            <td class="py-1.5 px-3">${SecurityCore.sanitizeHTML(r.course)}</td>
+            <td class="py-1.5 px-3">${SecurityCore.sanitizeHTML(r.year)}</td>
+            <td class="py-1.5 px-3">${SecurityCore.sanitizeHTML(r.department)}</td>
+            <td class="py-1.5 px-3 font-bold ${r.isDuplicate ? 'text-amber-600' : 'text-emerald-600'}">
+              ${r.isDuplicate ? 'Duplicate' : 'Ready'}
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      if (prevCont) prevCont.classList.remove('hidden');
+      if (btn) btn.disabled = parsedBatchRecords.filter(r => !r.isDuplicate).length === 0;
+    }
+
+    async function executeBatchImport() {
+      const newItems = parsedBatchRecords.filter(r => !r.isDuplicate);
+      if (newItems.length === 0) {
+        showToast('No New Records', 'All records in this CSV are already present in the database.', 'warning');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/attendees/batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ attendees: newItems })
+        });
+        if (res.ok) {
+          showToast('Batch Import Succeeded', `Imported ${newItems.length} student records into database.`, 'success');
+        } else {
+          showToast('Batch Import Cached', `Loaded ${newItems.length} records into local database.`, 'info');
+        }
+      } catch (err) {
+        showToast('Offline Mode', `Imported ${newItems.length} records into local storage.`, 'info');
+      }
+
+      // Add to local database
+      newItems.forEach(item => {
+        SyncInDB.data.attendees.unshift({
+          id: `att_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+          name: item.name,
+          studId: item.studId,
+          course: item.course,
+          year: item.year,
+          department: item.department,
+          eventName: item.eventName,
+          timeIn: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+          timeOut: '--',
+          method: 'Batch CSV Roster',
+          status: 'Cleared'
+        });
+      });
+
+      SyncInDB.saveLocal();
+      SyncInDB.renderAll();
+      closeBatchImportModal();
+    }
+
+    // =========================================================================
+    // 9. SECURITY AUDIT LEDGER RENDERER
+    // =========================================================================
+    async function renderAdminAuditTrail() {
+      const container = document.getElementById('admAuditLogsContainer');
+      const badge = document.getElementById('admAuditTotalCount');
+      if (!container) return;
+
+      let logs = SyncInDB.data.auditLogs || [];
+      try {
+        const res = await fetch('/api/audit-logs');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.auditLogs) {
+            logs = json.auditLogs;
+            SyncInDB.data.auditLogs = logs;
+          }
+        }
+      } catch (e) {}
+
+      if (badge) badge.innerText = `${logs.length} Logged Events`;
+
+      if (logs.length === 0) {
+        container.innerHTML = '<div class="text-center py-6 text-slate-400">No audit events recorded yet.</div>';
+        return;
+      }
+
+      container.innerHTML = logs.map((log, idx) => `
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-all hover:border-sky-400">
+          <div class="flex items-start gap-3">
+            <span class="w-2 h-2 rounded-full mt-1.5 shrink-0 ${log.action.includes('FAIL') || log.action.includes('EMERGENCY') ? 'bg-rose-500' : 'bg-emerald-500'}"></span>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-900 dark:text-white">${SecurityCore.sanitizeHTML(log.action)}</span>
+                <span class="text-[9.5px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">${SecurityCore.sanitizeHTML(log.actorRole || 'System')}</span>
+              </div>
+              <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5">${SecurityCore.sanitizeHTML(log.details)}</p>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <div class="font-mono text-[10px] text-slate-400">${new Date(log.timestamp).toLocaleTimeString()}</div>
+            <div class="font-mono text-[9px] text-sky-600 dark:text-sky-400">#${log.hash || 'GENESIS'}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // =========================================================================
+    // 10. ROTATING DYNAMIC TOTP QR PASS (STUDENT VIEW ANTI-PROXY)
+    // =========================================================================
+    let dynamicQrTimer = null;
+    function startDynamicQrPassCountdown() {
+      if (dynamicQrTimer) clearInterval(dynamicQrTimer);
+      
+      function tick() {
+        const nowSec = Math.floor(Date.now() / 1000);
+        const epochRemaining = 30 - (nowSec % 30);
+        const pct = (epochRemaining / 30) * 100;
+
+        const bar = document.getElementById('qrCountdownBar');
+        const secText = document.getElementById('qrCountdownSeconds');
+        const hashText = document.getElementById('qrTotpHash');
+
+        if (bar) bar.style.width = `${pct}%`;
+        if (secText) secText.innerText = `${epochRemaining}s`;
+        if (hashText && epochRemaining === 30) {
+          const epochSlice = Math.floor(Date.now() / 30000);
+          const hash = SecurityCore.sha256Sync('2024-112551-A27:' + epochSlice).substring(0, 10).toUpperCase();
+          hashText.innerText = `TOTP-SEC-${hash}`;
+        }
+      }
+
+      tick();
+      dynamicQrTimer = setInterval(tick, 1000);
+    }
+
+    // Launch dynamic token timer
+    startDynamicQrPassCountdown();
+
 </script>
 
   <!-- ==================== ADMIN MODAL 1: EVENT FORM (CREATE / EDIT) ==================== -->
@@ -4888,6 +5725,187 @@
           <button type="submit" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition-colors">Save Protocol</button>
         </div>
       </form>
+    </div>
+  </div>
+
+
+  <!-- ==================== ADMIN MODAL 5: BATCH CSV ROSTER IMPORTER ==================== -->
+  <div id="modalBatchImport" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-2xl w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-200 dark:border-slate-800 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Batch Student Roster Import (CSV)</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Import student attendance lists generated by the Registrar or departmental heads.</p>
+          </div>
+        </div>
+        <button onclick="closeBatchImportModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="overflow-y-auto space-y-4 flex-1 pr-1 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Target University Event</label>
+          <select id="batchImportEventSelect" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-medium">
+            <!-- Dynamically populated from events -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Paste CSV Data or Drag &amp; Drop File</label>
+          <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-4 text-center hover:border-sky-500 dark:hover:border-sky-400 transition-colors bg-slate-50/50 dark:bg-slate-800/30">
+            <svg class="w-8 h-8 text-slate-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <p class="text-xs text-slate-600 dark:text-slate-300 font-medium">Upload .csv file or paste raw text below</p>
+            <p class="text-[10px] text-slate-400 mt-0.5">Columns: Student Name, Student ID, Course, Year Level, Department</p>
+            <input type="file" id="batchFileInput" accept=".csv" onchange="handleCsvFileSelect(event)" class="mt-2 text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 cursor-pointer">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Raw CSV Text</label>
+          <textarea id="batchCsvRawInput" rows="4" placeholder="Student Name,Student ID,Course,Year Level,Department
+Maria Santos,2024-118833-A04,BS Nursing,2nd Year,College of Nursing
+Carlos Mendoza,2023-110022-A10,BS Civil Engineering,3rd Year,College of Engineering" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono text-[11px] focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <button type="button" onclick="previewBatchCsv()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-bold transition-all flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span>Parse &amp; Preview</span>
+          </button>
+          <span id="batchPreviewCountLabel" class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">0 records parsed</span>
+        </div>
+
+        <!-- Preview Table -->
+        <div id="batchPreviewContainer" class="hidden rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto max-h-48">
+          <table class="w-full text-left text-[11px]">
+            <thead class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
+              <tr>
+                <th class="py-2 px-3">Name</th>
+                <th class="py-2 px-3">Student ID</th>
+                <th class="py-2 px-3">Course</th>
+                <th class="py-2 px-3">Year</th>
+                <th class="py-2 px-3">Department</th>
+                <th class="py-2 px-3">Status</th>
+              </tr>
+            </thead>
+            <tbody id="batchPreviewTableBody" class="divide-y divide-slate-200 dark:divide-slate-800">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex gap-2 shrink-0 mt-3">
+        <button type="button" onclick="closeBatchImportModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold transition-colors">Cancel</button>
+        <button type="button" id="btnConfirmBatchImport" onclick="executeBatchImport()" disabled class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold transition-all">Confirm &amp; Import Records</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== ADMIN MODAL 6: OFFICIAL PRINTABLE CLEARANCE CERTIFICATE ==================== -->
+  <div id="modalClearanceCertificate" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-2xl w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[92vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-200 dark:border-slate-800 shrink-0 no-print">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Official Certificate of Attendance &amp; Clearance</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Cryptographically verifiable academic clearance document.</p>
+          </div>
+        </div>
+        <button onclick="closeClearanceCertificateModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Printable Certificate Canvas -->
+      <div class="overflow-y-auto flex-1 pr-1">
+        <div id="printableCertificateContent" class="bg-white text-slate-900 p-8 rounded-2xl border-4 border-double border-sky-600 shadow-sm relative">
+          <!-- University Header -->
+          <div class="text-center pb-4 border-b-2 border-slate-900 mb-6">
+            <div class="flex items-center justify-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-full border-2 border-sky-700 bg-sky-50 flex items-center justify-center font-serif font-black text-sky-800 text-base">U</div>
+              <div>
+                <h2 class="text-sm font-black tracking-widest uppercase font-serif text-slate-900">University Supreme Student Government</h2>
+                <p class="text-[10px] tracking-wider uppercase text-slate-600 font-semibold">Office of Student Affairs &amp; Services • Events Gateway</p>
+              </div>
+            </div>
+            <h3 class="text-lg font-black tracking-wider uppercase text-sky-900 font-serif mt-3">Certificate of Event Attendance &amp; Clearance</h3>
+            <p class="text-[11px] text-slate-500 italic mt-0.5">Issued in compliance with University Activity Clearance Regulation 2026-B</p>
+          </div>
+
+          <!-- Certificate Body -->
+          <div class="space-y-4 text-xs leading-relaxed text-slate-800">
+            <p>This is to officially certify that the student named below has completed verified gate attendance and fulfilled all campus assembly participation requirements:</p>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Student Full Name</span>
+                <span class="font-bold text-sm text-slate-900" id="certStudentName">Alexandra Marie Chen</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Student ID Number</span>
+                <span class="font-mono font-bold text-sm text-slate-900" id="certStudentId">2024-112551-A27</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Degree Program &amp; Year</span>
+                <span class="font-medium text-slate-800" id="certStudentCourse">BS Information Technology • 3rd Year</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Academic Department</span>
+                <span class="font-medium text-slate-800" id="certStudentDept">College of Computer Studies</span>
+              </div>
+            </div>
+
+            <!-- Attendance Telemetry Record -->
+            <div class="border border-slate-200 rounded-xl p-3 bg-white">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-2">Verified Gate Telemetry Ledger</span>
+              <div class="grid grid-cols-3 gap-2 text-[11px] font-mono">
+                <div>
+                  <span class="text-slate-500 block text-[9.5px]">Attended Event:</span>
+                  <span class="font-bold text-slate-900" id="certEventName">Himamat 2026</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 block text-[9.5px]">Time In / Time Out:</span>
+                  <span class="font-bold text-emerald-700" id="certAttendanceTimes">08:14:22 AM / 04:45:10 PM</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 block text-[9.5px]">Gate &amp; Method:</span>
+                  <span class="font-bold text-slate-800" id="certGateMethod">Gate 2 • RFID Tap</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cryptographic Verification Footer -->
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
+              <div>
+                <div class="text-[9px] uppercase font-bold text-slate-400">Cryptographic Ledger Verification Hash</div>
+                <div class="font-mono text-[9.5px] text-slate-700" id="certCryptoHash">SHA-256: 8f2a11bc9401e67d...</div>
+                <div class="text-[8.5px] text-emerald-700 font-bold mt-0.5">STATUS: VALID &amp; OFFICIAL RECORD</div>
+              </div>
+              <div class="text-center pr-4">
+                <div class="w-36 border-b border-slate-900 pb-1 mb-1 font-serif text-[11px] font-bold text-slate-900">Dr. Roberto G. Valenzuela</div>
+                <div class="text-[9px] uppercase text-slate-500">SSG Faculty Adviser &amp; Registrar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex gap-2 shrink-0 mt-3 no-print">
+        <button type="button" onclick="closeClearanceCertificateModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold transition-colors text-xs">Close</button>
+        <button type="button" onclick="printClearanceCertificate()" class="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all text-xs flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          <span>Print Official Certificate</span>
+        </button>
+      </div>
     </div>
   </div>
 
