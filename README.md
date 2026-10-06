@@ -20,6 +20,20 @@
 </p>
 
 <p align="center">
+  <a href="https://dunkedoreo-cloud.github.io/sync-in/"><img src="https://img.shields.io/badge/🚀%20Live%20Application-Open%20Web%20App-0284c7?style=for-the-badge" alt="Open Live App"></a>
+  <a href="https://dunkedoreo-cloud.github.io/sync-in/?portal=teacher"><img src="https://img.shields.io/badge/👨‍🏫%20Teacher%20Portal-Open%20Gate%20Scanner-4f46e5?style=for-the-badge" alt="Teacher Portal"></a>
+  <a href="https://dunkedoreo-cloud.github.io/sync-in/?portal=admin"><img src="https://img.shields.io/badge/🛡️%20Admin%20Portal-SSG%20Command%20Center-059669?style=for-the-badge" alt="Admin Portal"></a>
+</p>
+
+### 🌐 Direct Portal Access Links
+
+| Portal Role | Direct URL | Access Key / Passcode | Purpose |
+| :--- | :--- | :--- | :--- |
+| **🎓 Student App (Default)** | [Open Student Portal](https://dunkedoreo-cloud.github.io/sync-in/) | Public (No passcode needed) | Dynamic rolling QR passes, personal checkpoint timeline, excuse appeals, SSG voting, lost & found. |
+| **👨‍🏫 Teacher / Marshal Portal** | [Open Teacher Portal](https://dunkedoreo-cloud.github.io/sync-in/?portal=teacher) | `TEACH-2026` | Live device camera QR scanner, turnstile gate telemetry & audio chimes, class attendance verification. |
+| **🛡️ SSG Admin Command** | [Open Admin Portal](https://dunkedoreo-cloud.github.io/sync-in/?portal=admin) | `SSG-ADMIN-2026` | Gymnasium venue density gauge, turnout analytics, attendee CRUD, batch CSV import, printable certificates, security audit ledger. |
+
+<p align="center">
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-role-ergonomics--device-compatibility">Role Ergonomics</a> •
   <a href="#-security-architecture">Cybersecurity</a> •

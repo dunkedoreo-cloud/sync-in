@@ -90,1015 +90,930 @@
 </head>
 <body class="font-sans-clean antialiased bg-[#FBFBFC] dark:bg-[#080B11] text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen p-4 md:p-8" id="bodyRoot">
   <!-- ==================== GLOBAL TOAST NOTIFICATION CONTAINER ==================== -->
-  <div id="toastContainer" class="fixed top-5 right-5 z-[100] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full"></div>
+  
+  <!-- ============================================================================== -->
+  <!-- UNIVERSITY APPLICATION FOOTER                                                  -->
+  <!-- ============================================================================== -->
+  <footer class="max-w-7xl mx-auto px-4 py-8 border-t hairline-border border-slate-200/80 dark:border-slate-800 text-center text-xs text-slate-400 space-y-3">
+    <div class="flex flex-wrap items-center justify-center gap-6 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+      <span>University Supreme Student Government</span>
+      <span>&bull;</span>
+      <span>Himamat 2026 &amp; Strands of Love</span>
+      <span>&bull;</span>
+      <span>Zero-Trust Architecture</span>
+      <span>&bull;</span>
+      <span>RA 10173 Compliant</span>
+    </div>
+    <p class="text-[11px] text-slate-400">Sync-in Campus Gateway v2.6.0 &bull; All attendance logs cryptographically signed.</p>
+    <div class="pt-2">
+      <button onclick="openStaffAccessModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all text-[11px] font-semibold border hairline-border border-slate-200 dark:border-slate-700">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span>Staff &amp; Faculty Portal Gateway</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: NOTIFICATIONS CENTER                                                    -->
+  <!-- ============================================================================== -->
+  <div id="modalNotifications" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full border hairline-border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 relative">
+      <div class="flex items-center justify-between pb-4 border-b hairline-border border-slate-200/80 dark:border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Campus Broadcasts &amp; Alerts</h3>
+        </div>
+        <button onclick="closeModal('modalNotifications')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between py-3 text-xs text-slate-400">
+        <span>Recent Notices (3 Unread)</span>
+        <button onclick="markAllNotificationsRead()" class="text-sky-600 dark:text-sky-400 font-semibold hover:underline">Mark All as Read</button>
+      </div>
+
+      <div class="space-y-3 max-h-80 overflow-y-auto pr-1" id="notifListContainer">
+        <div class="p-3.5 rounded-2xl bg-sky-50/60 dark:bg-sky-950/40 border hairline-border border-sky-200/80 dark:border-sky-800/80 space-y-1">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-900 dark:text-white">Himamat 2026: Morning Check-in Open</span>
+            <span class="text-[10px] text-sky-600 dark:text-sky-400 font-semibold">10m ago</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">All turnstiles at Gate 2 and Gymnasium Main are now active. Please prepare your Dynamic QR Pass.</p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-900 dark:text-white">Clearance Checkpoint Recorded</span>
+            <span class="text-[10px] text-slate-400">45m ago</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">Your Morning IN timestamp was logged at Gate 2 (07:42 AM). Clearance progress: 100%.</p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-900 dark:text-white">SSG Spirit Award Voting Open</span>
+            <span class="text-[10px] text-slate-400">2h ago</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">Cast your official ballot for the most spirited college before 4:00 PM today.</p>
+        </div>
+      </div>
+
+      <div class="pt-4 mt-4 border-t hairline-border border-slate-200/80 dark:border-slate-800 flex justify-end">
+        <button onclick="closeModal('modalNotifications')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: APPLICATION SETTINGS & PREFERENCES                                      -->
+  <!-- ============================================================================== -->
+  <div id="modalAppSettings" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full border hairline-border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b hairline-border border-slate-200/80 dark:border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-slate-500/10 text-slate-600 dark:text-slate-400 flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Settings &amp; Preferences</h3>
+        </div>
+        <button onclick="closeModal('modalAppSettings')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 py-4 text-xs">
+        <!-- Appearance Theme -->
+        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+          <div>
+            <div class="font-bold text-slate-900 dark:text-white">Display Theme</div>
+            <div class="text-[11px] text-slate-400">Obsidian Dark Mode vs Clean Light Mode</div>
+          </div>
+          <div class="flex items-center gap-1 bg-slate-200 dark:bg-slate-700 p-1 rounded-xl">
+            <button onclick="setTheme('light')" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-600">Light</button>
+            <button onclick="setTheme('dark')" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-600">Dark</button>
+          </div>
+        </div>
+
+        <!-- Audio Effects Toggle -->
+        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+          <div>
+            <div class="font-bold text-slate-900 dark:text-white">Gate Chime Audio</div>
+            <div class="text-[11px] text-slate-400">Synthesized dual-sine acoustic feedback on turnstile scan</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="settingSoundToggle" checked onchange="toggleSoundSetting(this.checked)" class="sr-only peer" />
+            <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-sky-600"></div>
+          </label>
+        </div>
+
+        <!-- Active Student Switcher -->
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white">Active Student Profile</div>
+          <div class="text-[11px] text-slate-400">Switch profile for attendance simulation and clearance records</div>
+          <select id="settingStudentSelector" onchange="switchStudentProfile(this.value)" class="w-full bg-white dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <option value="2024-08192">Sophia Chen — 2024-08192 (BSCS-3A, CEA) [100% Cleared]</option>
+            <option value="2023-01452">Marcus Vance — 2023-01452 (BSCE-2B, CEA) [75% Cleared]</option>
+            <option value="2022-09381">Elena Rostova — 2022-09381 (BSED-4A, CED) [50% Deficit]</option>
+          </select>
+        </div>
+
+        <!-- Direct Shareable Portal Links -->
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-2.5">
+          <div class="font-bold text-slate-900 dark:text-white">Shareable Portal Direct Links</div>
+          <div class="text-[11px] text-slate-400">Share these dedicated links with respective users and personnel:</div>
+
+          <div class="space-y-1.5 font-mono text-[11px]">
+            <div class="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              <span class="truncate text-slate-600 dark:text-slate-300">Student Portal: /</span>
+              <button onclick="copyPortalLink('student')" class="text-sky-600 dark:text-sky-400 font-bold hover:underline shrink-0 ml-2">Copy</button>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              <span class="truncate text-slate-600 dark:text-slate-300">Teacher Portal: ?portal=teacher</span>
+              <button onclick="copyPortalLink('teacher')" class="text-sky-600 dark:text-sky-400 font-bold hover:underline shrink-0 ml-2">Copy</button>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              <span class="truncate text-slate-600 dark:text-slate-300">Admin Portal: ?portal=admin</span>
+              <button onclick="copyPortalLink('admin')" class="text-sky-600 dark:text-sky-400 font-bold hover:underline shrink-0 ml-2">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Local Data Management -->
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="exportAppDataJson()" class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 text-xs font-semibold">
+            Export Backup (JSON)
+          </button>
+          <button onclick="resetAppFactoryDefaults()" class="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 hover:bg-rose-100 text-xs font-semibold">
+            Reset Data Defaults
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: STAFF & FACULTY PORTAL ACCESS GATEWAY (FOOTER TRIGGER)                  -->
+  <!-- ============================================================================== -->
+  <div id="modalStaffAccess" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full border hairline-border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 relative">
+      <div class="flex items-center justify-between pb-4 border-b hairline-border border-slate-200/80 dark:border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Staff &amp; Faculty Access</h3>
+        </div>
+        <button onclick="closeModal('modalStaffAccess')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500 dark:text-slate-400 my-4 leading-relaxed">
+        Select which authorized portal you need to access. Passcode verification is required.
+      </p>
+
+      <div class="space-y-3">
+        <!-- Teacher Portal Option -->
+        <button onclick="promptStaffPortalEntry('faculty')" class="w-full p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 hover:bg-indigo-100/60 dark:hover:bg-indigo-900/40 border hairline-border border-indigo-200/80 dark:border-indigo-800/80 text-left flex items-center justify-between transition-all group">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-5.825-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">Teacher &amp; Gate Marshal Portal</div>
+              <div class="text-[10.5px] text-slate-400">Camera scanner, RFID tap telemetry &amp; class verification</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <!-- Admin Portal Option -->
+        <button onclick="promptStaffPortalEntry('admin')" class="w-full p-4 rounded-2xl bg-sky-50/60 dark:bg-sky-950/40 hover:bg-sky-100/60 dark:hover:bg-sky-900/40 border hairline-border border-sky-200/80 dark:border-sky-800/80 text-left flex items-center justify-between transition-all group">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-sky-600 transition-colors">SSG Admin Command Center</div>
+              <div class="text-[10.5px] text-slate-400">Gym density gauge, attendance analytics, batch import &amp; audit log</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <div class="pt-4 mt-4 border-t hairline-border border-slate-200/80 dark:border-slate-800 flex justify-end">
+        <button onclick="closeModal('modalStaffAccess')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: PORTAL PASSCODE VERIFICATION (TEACHER / ADMIN GATE)                     -->
+  <!-- ============================================================================== -->
+  <div id="modalPortalPasscode" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full border hairline-border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 relative">
+      <div class="text-center space-y-2 mb-4">
+        <div class="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 mx-auto flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white" id="portalPasscodeTitle">Security Passcode Required</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400" id="portalPasscodeSub">Enter authorization credentials to unlock this portal.</p>
+      </div>
+
+      <form onsubmit="handlePortalPasscodeSubmit(event)" class="space-y-4">
+        <input type="hidden" id="targetPortalRole" value="faculty" />
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Access Passcode</label>
+          <input 
+            type="password" 
+            id="portalPasscodeInput" 
+            placeholder="Enter security key..." 
+            class="w-full bg-slate-50 dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono tracking-wider" 
+            required 
+          />
+          <div class="text-[10px] text-slate-400 mt-1" id="portalPasscodeHint">Default: TEACH-2026 or SSG-ADMIN-2026</div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <button type="button" onclick="cancelPortalPasscode()" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold">
+            Cancel
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-md shadow-sky-600/20">
+            Unlock Portal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MODAL: REPORT LOST OR FOUND ITEM                                               -->
+  <!-- ============================================================================== -->
+  <div id="modalReportLost" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full border hairline-border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 relative">
+      <div class="flex items-center justify-between pb-3 border-b hairline-border border-slate-200/80 dark:border-slate-800">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white">Report Discovered Item</h3>
+        <button onclick="closeModal('modalReportLost')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleReportLostSubmit(event)" class="space-y-3.5 py-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Item Title / Description</label>
+          <input type="text" id="reportItemTitle" required placeholder="e.g. Black Umbrella with silver handle" class="w-full bg-slate-50 dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Location Found</label>
+          <input type="text" id="reportItemLocation" required placeholder="e.g. Gym Bleachers row 4" class="w-full bg-slate-50 dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Surrendered To</label>
+          <input type="text" id="reportItemCustodian" required placeholder="e.g. SSG Help Desk / Guard Gate 2" class="w-full bg-slate-50 dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeModal('modalReportLost')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold">Register Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<div id="toastContainer" class="fixed top-5 right-5 z-[100] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full"></div>
 
 
   <!-- TOP MINIMAL NAVIGATION & CONTROLS -->
-  <header class="max-w-6xl mx-auto mb-10 flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border hairline-border border-slate-200/80 dark:border-slate-800 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+    <!-- ============================================================================== -->
+  <!-- PRODUCTION APPLICATION HEADER                                                 -->
+  <!-- ============================================================================== -->
+  <header class="max-w-7xl mx-auto mb-6 px-4 py-3 flex flex-wrap items-center justify-between gap-4 border-b hairline-border border-slate-200/80 dark:border-slate-800/80">
+    <!-- Brand & Portal Identification -->
     <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded-lg bg-sky-500/10 dark:bg-sky-400/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-semibold text-xs tracking-tight">
-        S
+      <div class="w-9 h-9 rounded-2xl bg-sky-500/10 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center border hairline-border border-sky-500/20 shadow-xs">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">Sync-in</span>
-          <span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500">Campus Events</span>
+          <h1 class="text-base font-extrabold tracking-tight text-slate-900 dark:text-white">Sync-in</h1>
+          <span id="headerPortalBadge" class="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border hairline-border border-sky-200 dark:border-sky-800">
+            Student Portal
+          </span>
         </div>
-        <p class="text-[11px] text-slate-400 dark:text-slate-500">Events Attendance: Himamat &amp; Strands of Love</p>
+        <p class="text-[10.5px] text-slate-400 dark:text-slate-500 font-medium">University Events &amp; Attendance Ecosystem</p>
       </div>
     </div>
 
-    <!-- Theme, Role & View Controls -->
-    <div class="flex flex-wrap items-center gap-2">
-      <!-- Ecosystem Role Switcher -->
-      <div class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-0.5 rounded-xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs">
-        <button id="btnRoleStudent" onclick="setRole('student')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700/90 text-slate-900 dark:text-white shadow-xs font-semibold text-[11px] flex items-center gap-1.5 transition-all">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          <span>Student App</span>
-        </button>
-        <button id="btnRoleFaculty" onclick="setRole('faculty')" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 font-medium text-[11px] flex items-center gap-1.5 transition-all">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-5.825-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
-          <span>Faculty Portal</span>
-        </button>
-        <button id="btnRoleAdmin" onclick="setRole('admin')" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 font-medium text-[11px] flex items-center gap-1.5 transition-all">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-          <span>SSG Admin</span>
-        </button>
+    <!-- Global Functional Search Bar -->
+    <div class="relative flex-1 max-w-xs md:max-w-md order-last md:order-none w-full">
+      <div class="relative">
+        <svg class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="11" cy="11" r="8" stroke-width="2"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input 
+          type="text" 
+          id="globalSearchInput" 
+          oninput="handleGlobalSearch(this.value)" 
+          onfocus="handleGlobalSearch(this.value)"
+          placeholder="Search events, checkpoints, attendees, appeals... (Ctrl+K)" 
+          class="w-full bg-slate-100 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80 rounded-xl px-3.5 py-1.5 pl-9 pr-12 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all shadow-2xs"
+        />
+        <kbd class="hidden sm:inline-block absolute right-2.5 top-1/2 -translate-y-1/2 text-[9.5px] font-mono text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-700 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-600">⌘K</kbd>
       </div>
 
-      <!-- Theme Switcher (Light & Dark Mode) -->
-      <div class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-0.5 rounded-xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs">
-        <button id="btnLightMode" onclick="setTheme('light')" class="px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 font-medium text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white" title="Switch to Light Mode">
-          <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-          <span>Light</span>
-        </button>
-        <button id="btnDarkMode" onclick="setTheme('dark')" class="px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 font-medium text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white" title="Switch to Dark Mode">
-          <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-          <span>Dark</span>
-        </button>
+      <!-- Live Search Results Dropdown -->
+      <div id="globalSearchResults" class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 rounded-2xl border hairline-border border-slate-200/80 dark:border-slate-800 shadow-2xl p-2 z-50 max-h-80 overflow-y-auto">
+        <div id="globalSearchResultsContent" class="space-y-1 text-xs"></div>
+      </div>
+    </div>
+
+    <!-- Header Controls: Event Selector, Notifications, Settings, Theme & Profile -->
+    <div class="flex items-center gap-2">
+      <!-- Active Event Selector -->
+      <div class="relative hidden sm:block">
+        <select 
+          id="headerEventSelector" 
+          onchange="switchActiveEvent(this.value)" 
+          class="bg-slate-100 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40 cursor-pointer"
+        >
+          <option value="himamat">Himamat 2026 (Active)</option>
+          <option value="strands">Strands of Love (Upcoming)</option>
+        </select>
       </div>
 
-      <!-- Campus Emergency Safety Protocol Simulator Button -->
-      <button onclick="openEmergencyModal()" class="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 border hairline-border border-rose-300 dark:border-rose-800 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-300 font-semibold text-[11px] flex items-center gap-1.5 transition-all shadow-xs" title="Test Campus Safety Drills: Hazard Evacuation vs Tactical Silent Threat">
-        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-        <span>Safety Protocol</span>
+      <!-- Functional Notification Center Bell -->
+      <button 
+        onclick="openNotificationsModal()" 
+        id="btnNotifBell" 
+        class="relative p-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700/80 transition-all" 
+        title="Notifications &amp; Campus Broadcasts"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
+        <span id="notifBadge" class="absolute -top-1 -right-1 px-1.5 py-0.2 bg-rose-500 text-white text-[9px] font-extrabold rounded-full shadow-xs">3</span>
       </button>
 
-      <!-- Cybersecurity Operations & Threat Sentinel Button -->
-      <button onclick="openSecurityHubModal()" id="btnCyberShieldHeader" class="px-3 py-1.5 rounded-xl bg-sky-50 dark:bg-sky-950/60 border hairline-border border-sky-300 dark:border-sky-700 hover:bg-sky-100 dark:hover:bg-sky-900/60 text-sky-800 dark:text-sky-300 font-semibold text-[11px] flex items-center gap-1.5 transition-all shadow-xs" title="Open Cybersecurity Operations Center & Attack Defense HUD">
-        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        <span>Cyber Shield: Active</span>
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <!-- Functional Settings Modal Button -->
+      <button 
+        onclick="openSettingsModal()" 
+        id="btnSettingsGear" 
+        class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700/80 transition-all" 
+        title="Application Settings &amp; Preferences"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="3" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
       </button>
 
-      <!-- Admin Kiosk Standee Simulator Button -->
-      <button onclick="openAdminKioskModal()" class="px-3 py-1.5 rounded-xl bg-sky-50 dark:bg-sky-950/60 border hairline-border border-sky-300 dark:border-sky-700 hover:bg-sky-100 dark:hover:bg-sky-900/60 text-sky-700 dark:text-sky-300 font-semibold text-[11px] flex items-center gap-1.5 transition-all shadow-xs">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>Standee Kiosk</span>
+      <!-- Theme Switcher Toggle -->
+      <button 
+        onclick="toggleThemeMode()" 
+        id="btnHeaderTheme" 
+        class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700/80 transition-all" 
+        title="Toggle Obsidian Dark / Clean Light Mode"
+      >
+        <svg class="w-4 h-4 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+        <svg class="w-4 h-4 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="5" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+
+      <!-- Student Profile Card in Header -->
+      <div id="headerUserProfile" class="flex items-center gap-2 pl-2 border-l hairline-border border-slate-200 dark:border-slate-800">
+        <div class="w-8 h-8 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold text-xs flex items-center justify-center border border-sky-500/20 shadow-2xs" id="headerUserAvatar">
+          SC
+        </div>
+        <div class="hidden md:block text-left leading-tight">
+          <div class="text-xs font-bold text-slate-900 dark:text-white" id="headerUserName">Sophia Chen</div>
+          <div class="text-[10px] text-slate-400 dark:text-slate-500" id="headerUserSub">BSCS-3A • 2024-08192</div>
+        </div>
+      </div>
+
+      <!-- Staff Exit Button (Only visible in Teacher / Admin mode) -->
+      <button 
+        id="btnExitStaffPortal" 
+        onclick="exitToStudentView()" 
+        class="hidden px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-300 border hairline-border border-rose-200 dark:border-rose-800 text-xs font-semibold hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-all flex items-center gap-1.5 shadow-2xs"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+        <span>Exit Staff Portal</span>
       </button>
     </div>
   </header>
 
-  <!-- SUB-HERO (Clean, Upright, Non-Italic Typography) -->
-  <div class="max-w-4xl mx-auto mb-10 text-center px-4" id="subHeroSection">
-    <p class="text-xs uppercase tracking-[0.2em] font-semibold text-sky-600/90 dark:text-sky-400/90 mb-2" id="heroSubtitle">University Event Tracking &amp; Student Portal</p>
-    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight" id="heroTitle">
-      Effortless Time In &amp; Time Out verification.
-    </h2>
-    <p class="mt-2 text-xs md:text-sm text-slate-400 dark:text-slate-400 max-w-md mx-auto leading-relaxed" id="heroDescription">
-      Sleek contactless QR passes for <span class="text-slate-700 dark:text-slate-300 font-medium">Himamat</span> and <span class="text-slate-700 dark:text-slate-300 font-medium">Strands of Love</span>.
-    </p>
-  </div>
 
   <!-- ============================================================================== -->
-  <!-- ROLE 1 CONTAINER: STUDENT MOBILE INTERFACE (3 PHONES)                           -->
+  <!-- ROLE 1: DEDICATED STUDENT APPLICATION (FULL-WIDTH RESPONSIVE PORTAL)           -->
   <!-- ============================================================================== -->
-  <div id="roleViewStudent">
-    <!-- Cross-Device Responsive Controller for Students (Phone, Tablet, Laptop) -->
-    <div class="max-w-xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 px-4">
-      <!-- Device Preset Indicator & Selector -->
-      <div class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs w-full sm:w-auto justify-center">
-        <!-- Phone View Button -->
-        <button onclick="setDeviceMode('phone')" id="btnDevicePhone" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700/90 text-slate-900 dark:text-white shadow-xs font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all" title="Optimized 1-Screen Mobile Phone View">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="7" y="2" width="10" height="20" rx="2" stroke-width="2"/><line x1="11" y1="18" x2="13" y2="18" stroke-width="2" stroke-linecap="round"/></svg>
-          <span>Phone</span>
-        </button>
-        <!-- Tablet View Button (iPad Dual-Pane) -->
-        <button onclick="setDeviceMode('tablet')" id="btnDeviceTablet" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-all" title="Optimized 2-Pane iPad / Tablet Layout">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="3" stroke-width="2"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg>
-          <span>Tablet (Dual)</span>
-        </button>
-        <!-- Laptop / Desktop Panoramic Tri-View (Hidden on mobile screens < 768px) -->
-        <button onclick="setDeviceMode('laptop')" id="btnDeviceLaptop" class="hidden md:flex flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 font-semibold text-[11px] items-center justify-center gap-1.5 transition-all" title="Panoramic 3-Phone Showcase for Laptops & Desktops">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><line x1="2" y1="20" x2="22" y2="20" stroke-width="2" stroke-linecap="round"/></svg>
-          <span>Laptop (Tri-View)</span>
-        </button>
-      </div>
+  <div id="roleViewStudent" class="max-w-6xl mx-auto mb-16 px-4">
+    <!-- Student Profile & Status Summary Card -->
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <!-- Student Identity -->
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg shadow-sky-500/20 shrink-0 border-2 border-white dark:border-slate-800">
+            SC
+          </div>
+          <div>
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white" id="studentProfileName">Sophia Chen</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border hairline-border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="studentProfileStatus">Cleared / Verified</span>
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5" id="studentProfileDetails">
+              Student ID: <span class="font-mono font-semibold text-slate-700 dark:text-slate-300">2024-08192</span> &bull; 
+              Program: <span class="text-slate-700 dark:text-slate-300">BS Computer Science (3A)</span> &bull; 
+              College: <span class="text-slate-700 dark:text-slate-300">CEA</span>
+            </p>
+          </div>
+        </div>
 
-      <!-- Quick Screen Switcher (For Phone & Tablet focus) -->
-      <div id="phoneScreenTabs" class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs w-full sm:w-auto justify-center">
-        <button onclick="setView('screen1')" id="btnView1" class="flex-1 sm:flex-initial px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700/90 text-slate-900 dark:text-white shadow-xs font-semibold text-[10.5px]">Events</button>
-        <button onclick="setView('screen2')" id="btnView2" class="flex-1 sm:flex-initial px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 font-medium text-[10.5px]">Scanner</button>
-        <button onclick="setView('screen3')" id="btnView3" class="flex-1 sm:flex-initial px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 font-medium text-[10.5px]">Profile &amp; Hub</button>
+        <!-- Clearance Meter & Fast Actions -->
+        <div class="flex flex-wrap items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border hairline-border border-slate-200/60 dark:border-slate-700/60">
+          <div class="text-left">
+            <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Event Clearance</div>
+            <div class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5" id="studentProfilePct">
+              <span>100% Complete</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div class="text-[10px] text-slate-500 dark:text-slate-400">4 of 4 Checkpoints Recorded</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openClearanceCertificateModal('2024-08192')" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-all shadow-md shadow-sky-600/20 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              <span>Print Clearance Slip</span>
+            </button>
+            <button onclick="simulateGateCheckInFast()" class="px-3.5 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-all flex items-center gap-1.5" title="Test Gate Turnstile Tap">
+              <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Tap Gate</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- PHONES CONTAINER -->
-    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center mb-16" id="phonesContainer">
+    <!-- Student Navigation Tabs -->
+    <div class="flex items-center gap-2 border-b hairline-border border-slate-200/80 dark:border-slate-800 pb-3 mb-6 overflow-x-auto" id="studentNavTabs">
+      <button onclick="setStudentTab('pass')" id="tabBtnPass" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-xs shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+        <span>My Dynamic QR Pass</span>
+      </button>
 
-    <!-- ============================================== -->
-    <!-- PHONE 1: EVENTS HUB (HIMAMAT & STRANDS OF LOVE)-->
-    <!-- ============================================== -->
-    <div id="phone1" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
-      
-      <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
+      <button onclick="setStudentTab('schedule')" id="tabBtnSchedule" class="px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold text-xs flex items-center gap-2 transition-all shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span>Events &amp; Checkpoints</span>
+      </button>
+
+      <button onclick="setStudentTab('clearance')" id="tabBtnClearance" class="px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold text-xs flex items-center gap-2 transition-all shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Clearance, Fines &amp; Appeals</span>
+      </button>
+
+      <button onclick="setStudentTab('voting')" id="tabBtnVoting" class="px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold text-xs flex items-center gap-2 transition-all shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        <span>SSG Voting &amp; Surveys</span>
+      </button>
+
+      <button onclick="setStudentTab('lostfound')" id="tabBtnLostFound" class="px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold text-xs flex items-center gap-2 transition-all shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <span>Campus Lost &amp; Found</span>
+      </button>
+    </div>
+
+    <!-- ============================================================================== -->
+    <!-- TAB 1: MY DYNAMIC QR PASS & SMART ID                                           -->
+    <!-- ============================================================================== -->
+    <div id="studentTabPass" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Column: Rolling Anti-Proxy Dynamic QR Clearance Pass -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col items-center justify-between text-center relative overflow-hidden">
+          <div class="w-full flex items-center justify-between mb-4">
+            <span class="text-[10.5px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Security Clearance</span>
+            <span id="qrEventTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800">
+              Himamat 2026 Pass
+            </span>
+          </div>
+
+          <!-- Rolling QR Box with Pulsing Laser & Matrix -->
+          <div class="relative p-6 bg-slate-50 dark:bg-slate-950/80 rounded-3xl border-2 border-slate-200 dark:border-slate-800 shadow-inner flex flex-col items-center justify-center my-2">
+            <!-- Simulated QR SVG Matrix -->
+            <div id="studentQrSvgContainer" class="w-48 h-48 sm:w-56 sm:h-56 bg-white p-3 rounded-2xl shadow-md border border-slate-200 flex items-center justify-center">
+              <svg class="w-full h-full text-slate-900" viewBox="0 0 100 100" fill="currentColor">
+                <!-- Outer Corners -->
+                <rect x="5" y="5" width="26" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+                <rect x="12" y="12" width="12" height="12" rx="2"/>
+                <rect x="69" y="5" width="26" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+                <rect x="76" y="12" width="12" height="12" rx="2"/>
+                <rect x="5" y="69" width="26" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+                <rect x="12" y="76" width="12" height="12" rx="2"/>
+                <!-- Matrix Bits -->
+                <rect x="36" y="8" width="6" height="6"/><rect x="46" y="8" width="6" height="6"/><rect x="56" y="8" width="6" height="6"/>
+                <rect x="36" y="18" width="6" height="6"/><rect x="56" y="18" width="6" height="6"/>
+                <rect x="36" y="28" width="6" height="6"/><rect x="46" y="28" width="6" height="6"/><rect x="56" y="28" width="6" height="6"/>
+                <rect x="8" y="36" width="6" height="6"/><rect x="18" y="36" width="6" height="6"/><rect x="28" y="36" width="6" height="6"/>
+                <rect x="36" y="36" width="8" height="8"/><rect x="48" y="36" width="6" height="6"/><rect x="58" y="36" width="8" height="8"/><rect x="70" y="36" width="6" height="6"/><rect x="80" y="36" width="6" height="6"/>
+                <rect x="8" y="46" width="6" height="6"/><rect x="28" y="46" width="6" height="6"/><rect x="38" y="46" width="6" height="6"/><rect x="48" y="46" width="8" height="8"/><rect x="68" y="46" width="6" height="6"/><rect x="84" y="46" width="6" height="6"/>
+                <rect x="8" y="56" width="6" height="6"/><rect x="18" y="56" width="6" height="6"/><rect x="38" y="56" width="6" height="6"/><rect x="50" y="56" width="6" height="6"/><rect x="62" y="56" width="6" height="6"/><rect x="74" y="56" width="6" height="6"/>
+                <rect x="36" y="68" width="6" height="6"/><rect x="46" y="68" width="6" height="6"/><rect x="58" y="68" width="6" height="6"/><rect x="70" y="68" width="6" height="6"/><rect x="82" y="68" width="6" height="6"/>
+                <rect x="36" y="78" width="6" height="6"/><rect x="50" y="78" width="6" height="6"/><rect x="66" y="78" width="6" height="6"/><rect x="82" y="78" width="6" height="6"/>
+                <rect x="42" y="88" width="6" height="6"/><rect x="54" y="88" width="6" height="6"/><rect x="74" y="88" width="6" height="6"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Rotating TOTP Hash & Live Countdown Timer -->
+          <div class="w-full mt-3 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400 dark:text-slate-500 font-medium">Rolling Hash:</span>
+              <span id="qrTotpHash" class="font-mono font-bold text-sky-600 dark:text-sky-400 text-xs">7F4A-91C2-88E0</span>
+            </div>
+
+            <!-- Progress Bar & Countdown Ring -->
+            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div id="qrCountdownBar" class="bg-gradient-to-r from-sky-500 to-indigo-600 h-full transition-all duration-1000" style="width: 80%;"></div>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 pt-1">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span>Rotating TOTP Token</span>
+              </span>
+              <span class="font-semibold text-slate-700 dark:text-slate-300">
+                Expires in <span id="qrCountdownSeconds" class="font-mono font-bold text-sky-500">24</span>s
+              </span>
+            </div>
+          </div>
+
+          <div class="w-full pt-4 mt-2 border-t hairline-border border-slate-200/80 dark:border-slate-800 flex gap-2">
+            <button onclick="regenerateDynamicQrPass()" class="flex-1 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition-all">
+              Refresh Pass
+            </button>
+            <button onclick="downloadQrPassPng()" class="flex-1 py-2 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-300 text-xs font-semibold hover:bg-sky-100 transition-all">
+              Save to Phone
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Student Smart ID Card Graphic -->
+        <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 border hairline-border border-slate-700 shadow-xl flex flex-col justify-between relative overflow-hidden">
+          <!-- Background Watermark -->
+          <div class="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
+            <svg class="w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 8.7L4.5 7 12 3.3 19.5 7 12 10.7z"/></svg>
+          </div>
+
+          <!-- Card Header -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center font-bold text-sky-400">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/></svg>
+              </div>
+              <div>
+                <div class="text-[10px] tracking-widest uppercase font-bold text-sky-300">UNIVERSITY PASS</div>
+                <div class="text-xs font-bold text-white">Supreme Student Government</div>
+              </div>
+            </div>
+            <div class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[9.5px] font-bold uppercase">
+              RFID / NFC Enabled
+            </div>
+          </div>
+
+          <!-- Card Body: Avatar & Info -->
+          <div class="my-6 flex items-center gap-4">
+            <div class="w-20 h-20 rounded-2xl bg-slate-800 border-2 border-sky-400/50 flex items-center justify-center font-bold text-2xl text-sky-300 shadow-md">
+              SC
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-lg font-black tracking-tight text-white">Sophia Chen</h3>
+              <div class="text-xs font-mono text-sky-300">2024-08192</div>
+              <div class="text-[11px] text-slate-300">College of Engineering &amp; Architecture</div>
+              <div class="text-[10.5px] text-slate-400">BS Computer Science &bull; 3rd Year</div>
+            </div>
+          </div>
+
+          <!-- Card Bottom: Chip Graphic & Tap Button -->
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-6 rounded-md bg-amber-400/80 border border-amber-300/80 flex items-center justify-center shadow-xs">
+                <div class="w-4 h-3 border border-amber-600/50 rounded-xs"></div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">UID: 04:A2:18:7E:5B</span>
+            </div>
+
+            <button onclick="simulateGateCheckInFast()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 transition-all">
+              <svg class="w-4 h-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Tap NFC at Turnstile</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================================== -->
+    <!-- TAB 2: EVENTS & CHECKPOINT TIMELINE                                            -->
+    <!-- ============================================================================== -->
+    <div id="studentTabSchedule" class="hidden space-y-6">
+      <!-- Events Carousel & Selector Container -->
+      <div id="carouselWrapper" onmouseenter="pauseCarousel()" onmouseleave="startCarousel()" class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Active University Events</h3>
+            <span class="text-[10px] font-semibold text-slate-400 dark:text-slate-500">(2 Events Scheduled)</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-slate-500">
+            <span>Countdown:</span>
+            <span id="tokenTimerEvents" class="font-mono font-bold text-sky-500">03:42:18</span>
+          </div>
+        </div>
+
+        <!-- Event Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Slide 1: Himamat 2026 -->
+          <div id="slide1" class="p-5 rounded-2xl bg-gradient-to-br from-sky-50 to-indigo-50/60 dark:from-slate-800/80 dark:to-indigo-950/40 border hairline-border border-sky-200/80 dark:border-sky-800/60 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2 py-0.5 rounded-full text-[9.5px] font-bold uppercase bg-sky-200 dark:bg-sky-900/60 text-sky-800 dark:text-sky-300">Current Active</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400">Oct 06, 2026</span>
+            </div>
+            <h4 class="text-lg font-extrabold text-slate-900 dark:text-white">Himamat 2026: Campus Intramurals</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Annual university-wide athletics, esports, and academic exhibitions.</p>
+            <div class="mt-4 pt-3 border-t hairline-border border-sky-200/60 dark:border-slate-700/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+              <span>Venue: University Gymnasium</span>
+              <span class="font-bold text-emerald-600 dark:text-emerald-400">4 / 4 Checkpoints</span>
+            </div>
+          </div>
+
+          <!-- Slide 2: Strands of Love -->
+          <div id="slide2" class="p-5 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50/60 dark:from-slate-800/80 dark:to-purple-950/40 border hairline-border border-purple-200/80 dark:border-purple-800/60 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2 py-0.5 rounded-full text-[9.5px] font-bold uppercase bg-purple-200 dark:bg-purple-900/60 text-purple-800 dark:text-purple-300">Upcoming</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400">Oct 09, 2026</span>
+            </div>
+            <h4 class="text-lg font-extrabold text-slate-900 dark:text-white">Strands of Love: Benefit Gala</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Philanthropic campus concerts, charity auction, and community service assemblies.</p>
+            <div class="mt-4 pt-3 border-t hairline-border border-purple-200/60 dark:border-slate-700/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+              <span>Venue: University Amphitheater</span>
+              <span class="font-bold text-purple-600 dark:text-purple-400">Registration Open</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Phone Body -->
-      <div class="pt-4 flex-1 flex flex-col">
-        <!-- Status Bar (Desktop Mockup Only) -->
-        <div class="hidden sm:flex justify-between items-center px-2 text-[11px] font-medium text-slate-400 dark:text-slate-500 mb-3 md:mb-5">
-          <span>9:41</span>
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            <div class="w-4 h-2 border border-current rounded-xs p-px flex items-center"><div class="w-full h-full bg-current rounded-[0.5px]"></div></div>
-          </div>
-        </div>
-
-        <!-- App Brand & Minimal Bell -->
-        <div class="px-2 flex items-center justify-between mb-4">
-          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-tight">Sync-in</span>
-          <button class="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors p-1">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-          </button>
-        </div>
-
-        <!-- User Greeting (Clean, Upright, Non-Italic Sans) -->
-        <div class="px-2 mb-4">
-          <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
-            Hello, Alexandra
-          </h3>
-          <p class="text-[11.5px] font-semibold text-sky-600 dark:text-sky-400 mt-0.5">BS Information Technology • College of Computer Studies</p>
-        </div>
-
-        <!-- SEARCH BAR FOR EVENTS -->
-        <div class="px-2 mb-2.5">
-          <div class="relative flex items-center">
-            <svg class="w-3.5 h-3.5 absolute left-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-            <input type="text" id="eventSearchInput" oninput="filterEvents(this.value)" placeholder="Search events (e.g. Himamat, Strands)..." class="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-100/90 dark:bg-slate-800/80 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500">
-          </div>
-        </div>
-
-        <!-- DYNAMIC ISLAND / LOCK SCREEN CUT-OFF WIDGET -->
-        <div class="px-2 mb-2">
-          <div class="p-2.5 rounded-2xl bg-rose-50/90 dark:bg-slate-900/90 text-slate-800 dark:text-white border hairline-border border-rose-200/80 dark:border-rose-900/40 shadow-xs flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30 flex items-center justify-center">
-                <svg class="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-[8.5px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">Gate Cut-off</span>
-                  <span class="text-[8px] font-mono text-slate-500 dark:text-slate-400">08:30:00 AM</span>
-                </div>
-                <p class="text-[10px] font-bold text-slate-800 dark:text-white tracking-tight leading-tight">
-                  <span id="dynamicIslandCountdown" class="text-rose-600 dark:text-rose-300 font-extrabold">07m 45s</span> remaining • Gate 2 Gym
-                </p>
-              </div>
+      <!-- 4-Checkpoint Interactive Timeline -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4">Himamat 2026 &bull; Daily Checkpoint Verification Roster</h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Checkpoint 1: Morning Time In -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 relative">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-slate-500 dark:text-slate-400">01. Morning IN</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">Verified</span>
             </div>
-            <span class="text-[7.5px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 shrink-0">Live</span>
+            <div class="text-sm font-extrabold text-slate-900 dark:text-white">07:42 AM</div>
+            <p class="text-[11px] text-slate-400 mt-1">Gate 2 Turnstile (RFID Tap)</p>
+          </div>
+
+          <!-- Checkpoint 2: Morning Time Out -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 relative">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-slate-500 dark:text-slate-400">02. Morning OUT</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">Verified</span>
+            </div>
+            <div class="text-sm font-extrabold text-slate-900 dark:text-white">11:58 AM</div>
+            <p class="text-[11px] text-slate-400 mt-1">Gate 2 Turnstile (QR Scan)</p>
+          </div>
+
+          <!-- Checkpoint 3: Afternoon Time In -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 relative">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-slate-500 dark:text-slate-400">03. Afternoon IN</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">Verified</span>
+            </div>
+            <div class="text-sm font-extrabold text-slate-900 dark:text-white">01:15 PM</div>
+            <p class="text-[11px] text-slate-400 mt-1">Gym West Kiosk (RFID Tap)</p>
+          </div>
+
+          <!-- Checkpoint 4: Afternoon Time Out -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 relative">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-slate-500 dark:text-slate-400">04. Afternoon OUT</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">Verified</span>
+            </div>
+            <div class="text-sm font-extrabold text-slate-900 dark:text-white">05:02 PM</div>
+            <p class="text-[11px] text-slate-400 mt-1">Gym Main Exit (QR Scan)</p>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- DEAD-BATTERY / PHYSICAL RFID FAST TRACK CARD -->
-        <div class="px-2 mb-2.5">
-          <div onclick="setRole('admin')" title="Tap to test SSG RFID Hardware Tap Station" class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/80 dark:border-slate-700/60 flex items-center justify-between cursor-pointer hover:border-sky-400 dark:hover:border-sky-500 transition-all text-[9.5px]">
-            <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"/><circle cx="9" cy="10" r="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8h2m-2 4h2M7 16h10"/></svg>
-              </div>
-              <div>
-                <span class="font-bold text-slate-800 dark:text-slate-200">Dead Phone Fast Track</span>
-                <p class="text-[8px] text-slate-500 dark:text-slate-400">Physical RFID taps active at SSG Booth 1</p>
-              </div>
-            </div>
-            <span class="text-[8px] font-semibold text-sky-600 dark:text-sky-400 bg-white dark:bg-slate-700 px-1.5 py-0.5 rounded-md shadow-2xs">UBYTeS Tap →</span>
-          </div>
-        </div>
-
-        <!-- ==================== USER TRACKERS ROW (NATURAL NEUTRAL THEME) ==================== -->
-        <div class="px-2 grid grid-cols-2 gap-2 mb-3">
-          <!-- EVENT TRACKER (NATURAL) -->
-          <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs">
-            <span class="block text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-400 mb-1">Event Tracker</span>
-            <div class="flex items-center justify-around py-0.5">
-              <div class="text-center">
-                <span class="block text-base font-bold text-slate-900 dark:text-white leading-none">14</span>
-                <span class="text-[8px] font-medium text-slate-500 dark:text-slate-400 uppercase mt-0.5 block">Attended</span>
-              </div>
-              <div class="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
-              <div class="text-center">
-                <span class="block text-base font-bold text-slate-900 dark:text-white leading-none">1</span>
-                <span class="text-[8px] font-medium text-slate-500 dark:text-slate-400 uppercase mt-0.5 block">Missed</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- FINE TRACKER (CLICKABLE - NATURAL NEUTRAL) -->
-          <div onclick="openObligationsTab()" title="Tap to view missed events, fines &amp; announcements" class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs cursor-pointer hover:border-slate-400 dark:hover:border-slate-500 transition-all flex flex-col justify-between">
+    <!-- ============================================================================== -->
+    <!-- TAB 3: CLEARANCE, FINES & APPEALS                                              -->
+    <!-- ============================================================================== -->
+    <div id="studentTabClearance" class="hidden space-y-6">
+      <div id="phone3ViewRecords" class="space-y-6">
+        <div id="recordsContentBody" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Clearance Overview & Fines Ledger -->
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl space-y-4">
             <div class="flex items-center justify-between">
-              <span class="text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-400">Fine Tracker</span>
-              <svg class="w-2.5 h-2.5 text-slate-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </div>
-            <div class="mt-0.5">
-              <span class="text-base font-bold text-slate-900 dark:text-white font-sans-clean leading-none">₱150.00</span>
-              <p class="text-[8px] text-slate-500 dark:text-slate-400 font-medium leading-tight mt-0.5">1 Missed Event • Tap details</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION HEADER WITH ARROWS -->
-        <div class="px-2 flex items-center justify-between mb-1.5">
-          <span class="text-[11px] font-bold text-slate-800 dark:text-slate-200 tracking-tight">Featured Event</span>
-          <div class="flex items-center gap-1.5">
-            <button onclick="prevSlide()" title="Previous Event" class="w-5 h-5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors">
-              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-            <span id="slideIndicatorDot" class="text-[9px] font-mono text-slate-400 font-semibold">1 / 2</span>
-            <button onclick="nextSlide()" title="Next Event" class="w-5 h-5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors">
-              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- ==================== 5-SECOND AUTO-SLIDING CAROUSEL CARD ==================== -->
-        <div id="carouselWrapper" onmouseenter="pauseCarousel()" onmouseleave="resumeCarousel()" class="px-2 flex-1 relative overflow-hidden min-h-[265px]">
-          
-          <!-- SLIDE 1: HIMAMAT -->
-          <div id="slide1" class="carousel-slide transition-all duration-500 ease-in-out absolute inset-x-2 top-0 p-3.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-xs">
-            <div class="flex items-start justify-between mb-2">
-              <span class="text-[8.5px] uppercase tracking-wider font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/60 px-2 py-0.5 rounded-full">
-                Campus Fellowship
-              </span>
-              <span class="px-2 py-0.5 rounded-full text-[9px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/60">
-                Completed
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">Financial &amp; Attendance Standing</h3>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                Good Standing
               </span>
             </div>
 
-            <h4 class="text-base font-bold text-slate-900 dark:text-white tracking-tight">Himamat</h4>
-            
-            <!-- WHEN & WHERE -->
-            <div class="space-y-1 my-2 text-[10px]">
-              <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
-                <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                <span class="font-medium">Oct 15, 2026 • 08:00 AM – 12:00 PM</span>
-              </div>
-              <div class="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-medium">
-                <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span>Grand Gymnasium, Gates 2 &amp; 3 Turnstiles</span>
+            <!-- Fines Card Box -->
+            <div id="sectionSettings" class="hidden"></div><div id="sectionFines" class="transition-all duration-300">
+              <div id="finesCardBox" class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Total Outstanding Balance</div>
+                <div class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 my-1">₱0.00</div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Zero attendance deficits recorded for Himamat 2026. All checkpoints satisfied.</p>
               </div>
             </div>
 
-            <!-- TIME LIMITS & LATE RULES POLICY BANNER -->
-            <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/80 dark:border-slate-700/60 text-[9px] mb-2.5">
-              <span class="font-bold text-slate-800 dark:text-slate-200">Late Cut-off Policy:</span>
-              <p class="text-slate-600 dark:text-slate-400 leading-snug">Time In closes 08:45 AM • Late fine ₱50 if after 08:30 AM</p>
+            <div id="sectionMissed" class="text-xs text-slate-500 dark:text-slate-400">
+              No missed sessions detected. Your clearance status is automatically updated upon gate check-in.
             </div>
 
-            <!-- TIME IN & TIME OUT DATA (CLEAN & NATURAL) -->
-            <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-              <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80">
-                <span class="block text-[8px] uppercase tracking-wider text-slate-400 font-semibold">Time In</span>
-                <span class="text-xs font-bold text-slate-800 dark:text-slate-100 block mt-0.5">08:15 AM</span>
-                <span class="text-[8px] text-slate-500 dark:text-slate-400 font-medium">On-Time • No Fine</span>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80">
-                <span class="block text-[8px] uppercase tracking-wider text-slate-400 font-semibold">Time Out</span>
-                <span class="text-xs font-bold text-slate-800 dark:text-slate-100 block mt-0.5">11:45 AM</span>
-                <span class="text-[8px] text-slate-500 dark:text-slate-400 font-medium">Cleared Window</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- SLIDE 2: STRANDS OF LOVE -->
-          <div id="slide2" class="carousel-slide transition-all duration-500 ease-in-out absolute inset-x-2 top-0 p-3.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-xs opacity-0 pointer-events-none translate-x-8">
-            <div class="flex items-start justify-between mb-2">
-              <span class="text-[8.5px] uppercase tracking-wider font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/60 px-2 py-0.5 rounded-full">
-                Outreach &amp; Advocacy
-              </span>
-              <button onclick="selectEventForPass('Strands of Love', 'out')" class="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-sky-500 hover:bg-sky-600 text-white transition-colors">
-                Scan Pass →
+            <div class="pt-2">
+              <button onclick="openClearanceCertificateModal('2024-08192')" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-all shadow-md shadow-sky-600/20 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>Print Official Clearance Certificate</span>
               </button>
             </div>
-
-            <h4 class="text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
-              Strands of Love
-              <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-ping"></span>
-            </h4>
-            
-            <!-- WHEN & WHERE -->
-            <div class="space-y-1 my-2 text-[10px]">
-              <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
-                <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                <span class="font-medium">Oct 15, 2026 • 01:00 PM – 05:00 PM</span>
-              </div>
-              <div class="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-medium">
-                <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span>Activity Pavilion, Station 4 Kiosk</span>
-              </div>
-            </div>
-
-            <!-- TIME LIMITS & LATE RULES POLICY BANNER -->
-            <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/80 dark:border-slate-700/60 text-[9px] mb-2.5">
-              <span class="font-bold text-slate-800 dark:text-slate-200">Time Limits &amp; Fines:</span>
-              <p class="text-slate-600 dark:text-slate-400 leading-snug">Time In closed at 01:30 PM • Exit scan window till 05:30 PM</p>
-            </div>
-
-            <!-- TIME IN & TIME OUT DATA (CLEAN & NATURAL) -->
-            <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-              <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80">
-                <span class="block text-[8px] uppercase tracking-wider text-slate-400 font-semibold">Time In</span>
-                <span class="text-xs font-bold text-slate-800 dark:text-slate-100 block mt-0.5">01:30 PM</span>
-                <span class="text-[8px] text-slate-500 dark:text-slate-400 font-medium">Verified On-Time</span>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700/80">
-                <span class="block text-[8px] uppercase tracking-wider text-slate-400 font-semibold">Time Out</span>
-                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 block mt-0.5">Pending Scan</span>
-                <span class="text-[8px] text-slate-400 font-medium">Before 05:30 PM</span>
-              </div>
-            </div>
           </div>
 
-        </div>
+          <!-- Excuse Appeals & Community Service Card -->
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl space-y-4">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Deficit Remediation &amp; Appeals</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              If you miss an event checkpoint due to medical illness, official university representation, or bereavement, file an official appeal or book community service hours.
+            </p>
 
-        <!-- CONDITIONAL LIVE IN-EVENT VOTING CARD -->
-        <div class="px-2 mt-3">
-          <div id="eventVotingCard" class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200 dark:border-slate-700/80 transition-all">
-            <!-- Header -->
-            <div class="flex items-center justify-between mb-1.5">
-              <div class="flex items-center gap-1.5">
-                <span class="text-[8px] uppercase tracking-wider font-bold text-slate-400">Live In-Event Voting</span>
-                <span id="votingStatusBadge" class="text-[7.5px] font-bold px-1.5 py-0.2 rounded bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300">
-                  Locked
-                </span>
-              </div>
-              <span class="text-[8.5px] font-mono text-slate-400" id="votingBallotId">Ballot #HIM-VOTE</span>
-            </div>
-
-            <!-- Content: Locked vs Unlocked -->
-            <div id="votingLockedView">
-              <div class="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-800/80 border hairline-border border-slate-200/60 dark:border-slate-700/60">
-                <div class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 flex items-center justify-center shrink-0">
-                  <svg class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <div class="space-y-3 pt-2">
+              <button onclick="openExcuseAppealModal()" class="w-full p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 border hairline-border border-slate-200/60 dark:border-slate-700/60 text-left flex items-center justify-between transition-all group">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">Submit Excuse Appeal</div>
+                    <div class="text-[10.5px] text-slate-400">Attach doctor notes or excuse letters</div>
+                  </div>
                 </div>
-                <p class="text-[8.5px] text-slate-500 dark:text-slate-400 leading-snug">
-                  Voting for <strong>Mr. &amp; Ms. Himamat 2026</strong> unlocks only when Admin publishes poll and attendee is verified.
-                </p>
-              </div>
-            </div>
+                <svg class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
 
-            <div id="votingUnlockedView" class="hidden space-y-1.5">
-              <p class="text-[9px] font-bold text-slate-900 dark:text-white">Cast Ballot: Mr. &amp; Ms. Himamat 2026</p>
-              <div class="grid grid-cols-2 gap-1.5 text-[8.5px]">
-                <button onclick="castVote('Candidate A - CCS')" id="btnVoteA" class="p-1.5 rounded-xl bg-white dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 text-left hover:border-sky-500 transition-all">
-                  <span class="block font-bold text-slate-900 dark:text-white">Candidate A</span>
-                  <span class="text-slate-500 text-[8px]">CCS (Bet #01)</span>
-                </button>
-                <button onclick="castVote('Candidate B - CEA')" id="btnVoteB" class="p-1.5 rounded-xl bg-white dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 text-left hover:border-sky-500 transition-all">
-                  <span class="block font-bold text-slate-900 dark:text-white">Candidate B</span>
-                  <span class="text-slate-500 text-[8px]">CEA (Bet #04)</span>
-                </button>
-              </div>
-              <p id="voteConfirmationText" class="text-[8px] text-emerald-600 dark:text-emerald-400 font-bold hidden flex items-center justify-center gap-1">
-                <svg class="w-3 h-3 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                <span>1 Official Ballot Cast by Alexandra Chen</span>
-              </p>
+              <button onclick="openServiceSlotsModal()" class="w-full p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 border hairline-border border-slate-200/60 dark:border-slate-700/60 text-left flex items-center justify-between transition-all group">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Book Community Service Slot</div>
+                    <div class="text-[10.5px] text-slate-400">Offset absences via library or campus cleanup duty</div>
+                  </div>
+                </div>
+                <svg class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Touch-Optimized Bottom Navigation (Phone 1: Events Active) -->
-      <nav class="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
-        <button onclick="setView('screen1')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center text-sky-600 dark:text-sky-400 font-bold transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span class="text-[8.5px] mt-0.5 font-bold">Events</span>
-        </button>
-        <button onclick="setView('screen2')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Scanner</span>
-        </button>
-        <button onclick="setView('screen3'); showPhone3View('records');" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Records</span>
-        </button>
-        <button onclick="setView('screen3'); showPhone3View('profile');" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Profile</span>
-        </button>
-      </nav>
-
     </div>
 
-    <!-- ============================================== -->
-    <!-- PHONE 2: QR CHECKPOINT PASS (TIME IN / TIME OUT)-->
-    <!-- ============================================== -->
-    <div id="phone2" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
-      
-      <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
-      </div>
-
-      <!-- Phone Body -->
-      <div class="pt-4 flex-1 flex flex-col">
-        <!-- Status Bar -->
-        <div class="flex justify-between items-center px-2 text-[11px] font-medium text-slate-400 dark:text-slate-500 mb-5">
-          <span>9:41</span>
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3 h-3 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            <div class="w-4 h-2 border border-current rounded-xs p-px flex items-center"><div class="w-full h-full bg-current rounded-[0.5px]"></div></div>
+    <!-- ============================================================================== -->
+    <!-- TAB 4: SSG VOTING & SURVEYS                                                    -->
+    <!-- ============================================================================== -->
+    <div id="studentTabVoting" class="hidden space-y-6">
+      <div id="eventVotingCard" class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl max-w-2xl mx-auto">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Supreme Student Government (SSG) Ballot</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Himamat 2026 Spirit Award &bull; Student Body Election</p>
           </div>
-        </div>
-
-        <!-- App Brand & Checkpoint Tag -->
-        <div class="px-2 flex items-center justify-between mb-2">
-          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-tight">Sync-in</span>
-          <span id="activeEventBadge" class="text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-2 py-0.5 rounded-full">
-            Himamat • Gate 2 Scanner
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800">
+            Active Ballot
           </span>
         </div>
 
-        <!-- Header -->
-        <div class="px-2 text-center mb-2.5">
-          <h3 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
-            Gate Scanner
-          </h3>
-          <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5" id="checkpointSubtitle">
-            Align camera with Admin QR Standee at Gym Gate
-          </p>
-        </div>
+        <div id="votingUnlockedView" class="space-y-4">
+          <p class="text-xs text-slate-600 dark:text-slate-300 font-medium">Which college showed the greatest sportsmanship and cheer spirit?</p>
 
-        <!-- Checkpoint Mode Toggle (Time In / Time Out) -->
-        <div class="px-2 mb-2.5">
-          <div class="p-1 rounded-xl bg-slate-100 dark:bg-slate-800/60 border hairline-border border-slate-200/80 dark:border-slate-700/60 grid grid-cols-2 gap-1 text-[11px]">
-            <button id="btnCheckpointIn" onclick="setCheckpointMode('in')" class="py-1 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white font-bold shadow-2xs text-center transition-all">
-              Time In
-            </button>
-            <button id="btnCheckpointOut" onclick="setCheckpointMode('out')" class="py-1 rounded-lg text-slate-500 dark:text-slate-400 text-center font-medium transition-all">
-              Time Out
-            </button>
-          </div>
-        </div>
+          <div class="space-y-2.5" id="votingOptionsList">
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+              <input type="radio" name="spiritVote" value="CEA" class="text-sky-600 focus:ring-sky-500 w-4 h-4" checked />
+              <div class="flex-1 text-xs font-semibold text-slate-800 dark:text-slate-200">College of Engineering &amp; Architecture (CEA)</div>
+              <span class="text-[11px] font-mono font-bold text-slate-400">42%</span>
+            </label>
 
-        <!-- ==================== VIEW 1: LIVE GCASH-STYLE VIEWFINDER ==================== -->
-        <div id="p2ViewScanner" class="flex-1 flex flex-col justify-between px-2">
-          <!-- Viewfinder Frame -->
-          <div class="relative w-full h-64 bg-slate-100 dark:bg-slate-950 rounded-3xl p-3 border-2 border-slate-200 dark:border-slate-800 flex flex-col items-center justify-between overflow-hidden shadow-inner">
-            <!-- Simulated Camera Preview Texture -->
-            <div class="absolute inset-0 bg-gradient-to-b from-slate-200/50 via-slate-100/30 to-slate-200/50 dark:from-slate-900/95 dark:via-slate-950/70 dark:to-slate-900/95 opacity-90"></div>
-            
-            <!-- Top Camera Controls -->
-            <div class="relative z-10 w-full flex items-center justify-between px-2 text-slate-700 dark:text-white">
-              <span class="text-[9.5px] font-semibold tracking-wide bg-white/90 dark:bg-black/60 px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 flex items-center gap-1.5 shadow-2xs">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                <span>Live Viewfinder</span>
-              </span>
-              <button onclick="toggleTorch(this)" id="btnTorch" class="text-[9.5px] font-medium bg-white/90 hover:bg-white dark:bg-black/60 dark:hover:bg-black/90 text-slate-800 dark:text-white px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 flex items-center gap-1 transition-colors shadow-2xs">
-                <svg class="w-3 h-3 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                <span>Torch: Off</span>
-              </button>
-            </div>
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+              <input type="radio" name="spiritVote" value="CAS" class="text-sky-600 focus:ring-sky-500 w-4 h-4" />
+              <div class="flex-1 text-xs font-semibold text-slate-800 dark:text-slate-200">College of Arts &amp; Sciences (CAS)</div>
+              <span class="text-[11px] font-mono font-bold text-slate-400">28%</span>
+            </label>
 
-            <!-- Optical Targeting Reticle & Laser -->
-            <div class="relative z-10 w-44 h-44 flex items-center justify-center my-auto cursor-pointer" onclick="simulateScanSuccess()" title="Click to scan Admin Standee">
-              <!-- Corner Brackets (Glowing Sky Blue) -->
-              <div class="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-sky-500 dark:border-sky-400 rounded-tl-sm"></div>
-              <div class="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-sky-500 dark:border-sky-400 rounded-tr-sm"></div>
-              <div class="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-sky-500 dark:border-sky-400 rounded-bl-sm"></div>
-              <div class="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-sky-500 dark:border-sky-400 rounded-br-sm"></div>
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+              <input type="radio" name="spiritVote" value="CBA" class="text-sky-600 focus:ring-sky-500 w-4 h-4" />
+              <div class="flex-1 text-xs font-semibold text-slate-800 dark:text-slate-200">College of Business Administration (CBA)</div>
+              <span class="text-[11px] font-mono font-bold text-slate-400">19%</span>
+            </label>
 
-              <!-- Animated Scanning Laser Line -->
-              <div class="absolute left-2 right-2 h-0.5 bg-sky-500 dark:bg-sky-400 shadow-[0_0_12px_rgba(14,165,233,0.8)] laser-line pointer-events-none"></div>
-
-              <!-- Center Target Reticle -->
-              <div class="w-28 h-28 border border-dashed border-sky-400/60 dark:border-sky-400/40 rounded-2xl flex flex-col items-center justify-center p-2 text-center bg-white/60 dark:bg-transparent shadow-xs backdrop-blur-2xs">
-                <svg class="w-8 h-8 text-sky-600 dark:text-sky-400/70 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                <span class="text-[9px] text-sky-700 dark:text-sky-300 font-semibold leading-tight">Admin Standee QR Target</span>
-              </div>
-            </div>
-
-            <!-- Viewfinder Bottom Helper -->
-            <div class="relative z-10 text-center">
-              <p class="text-[9.5px] text-slate-600 dark:text-slate-300 font-medium">SSG Marshal Audio-Visual Chime Enabled</p>
-              <p class="text-[8px] text-slate-400 dark:text-slate-400 mt-0.5">Dead phone? Physical RFID card tap active at Booth 1</p>
-            </div>
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+              <input type="radio" name="spiritVote" value="CED" class="text-sky-600 focus:ring-sky-500 w-4 h-4" />
+              <div class="flex-1 text-xs font-semibold text-slate-800 dark:text-slate-200">College of Education (CED)</div>
+              <span class="text-[11px] font-mono font-bold text-slate-400">11%</span>
+            </label>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="space-y-1.5 mt-2.5">
-            <button onclick="simulateScanSuccess()" class="w-full py-2.5 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-95 transition-opacity flex items-center justify-center gap-2 shadow-sm">
-              <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-              <span>Scan Admin Standee QR (Play Chime)</span>
-            </button>
-            <button onclick="openAdminKioskModal()" class="w-full py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-[10.5px] transition-colors flex items-center justify-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-slate-700 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              <span>View Admin Standee / Kiosk Screen</span>
+          <div class="pt-2">
+            <button onclick="submitStudentVote()" class="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition-all shadow-md shadow-sky-600/20">
+              Cast Official Student Vote
             </button>
           </div>
         </div>
 
-        <!-- ==================== VIEW 2: SSG GATE CLEARANCE PASS (POST-SCAN) ==================== -->
-        <div id="p2ViewPass" class="hidden flex-1 flex flex-col justify-between px-2 transition-all duration-300">
-          <!-- Green Full-Screen Identity Pass Card -->
-          <div class="w-full bg-emerald-500/10 dark:bg-emerald-950/40 border-2 border-emerald-500 rounded-3xl p-3.5 flex flex-col items-center justify-between text-center relative overflow-hidden shadow-lg shadow-emerald-500/10">
-            <!-- Pulsing Halo Badge -->
-            <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/30 mb-2 animate-bounce">
-              <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            </div>
-
-            <span class="text-[9px] uppercase tracking-wider font-extrabold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/60 px-3 py-0.5 rounded-full mb-1.5">
-              SSG Gate Clearance Verified
-            </span>
-
-            <h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight">
-              Alexandra Marie Chen
-            </h4>
-            <p class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
-              BS in Information Technology (BSIT) • CCS
-            </p>
-            <p class="text-[9px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-              ID: 2024-112551-A27 • Enrolled Regular
-            </p>
-
-            <!-- Divider -->
-            <div class="w-full h-px bg-emerald-500/30 my-2"></div>
-
-            <!-- Checkpoint Details Card -->
-            <div class="w-full bg-white/90 dark:bg-slate-900/90 rounded-2xl p-2.5 border hairline-border border-emerald-500/30 text-[9.5px] space-y-1 text-left">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 dark:text-slate-400">Checkpoint:</span>
-                <span id="passEventModeText" class="font-bold text-slate-900 dark:text-white">Himamat 2026 • Time In</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 dark:text-slate-400">Gate Location:</span>
-                <span class="font-semibold text-slate-800 dark:text-slate-200">Grand Gymnasium Gate 2</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 dark:text-slate-400">Recorded Time:</span>
-                <span id="passTimestampText" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">08:14:22 AM (On-Time)</span>
-              </div>
-              <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-800 text-[8.5px]">
-                <span class="text-slate-400">Admin Cryptogram:</span>
-                <span class="font-mono text-slate-500">HM-8841-SEC • <span id="passSecurityTicker" class="text-emerald-600 font-bold">12s</span></span>
-              </div>
-            </div>
-
-            <!-- SSG Marshal Direct Notice -->
-            <div class="mt-2 p-1.5 rounded-xl bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 text-[8.5px] font-semibold leading-tight flex items-center gap-1.5 justify-center">
-              <svg class="w-3.5 h-3.5 text-emerald-800 dark:text-emerald-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-              <span>Chime played. Show this green pass to SSG Marshal to enter turnstile.</span>
-            </div>
+        <div id="votingLockedView" class="hidden text-center py-6 space-y-2">
+          <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-500 mx-auto flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
           </div>
-
-          <!-- Reset Button -->
-          <div class="mt-2.5">
-            <button onclick="resetGateScanner()" class="w-full py-2.5 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs tracking-tight hover:opacity-95 transition-opacity flex items-center justify-center gap-1.5 shadow-sm">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              <span>Scan Again / Reset Camera</span>
-            </button>
-          </div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Vote Successfully Recorded</div>
+          <p class="text-xs text-slate-400">Your cryptographic ballot receipt has been registered with the SSG election server.</p>
         </div>
       </div>
-
-      <!-- Touch-Optimized Bottom Navigation (Phone 2: Scanner Active) -->
-      <nav class="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
-        <button onclick="setView('screen1')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span class="text-[8.5px] mt-0.5">Events</span>
-        </button>
-        <button onclick="setView('screen2')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center text-sky-600 dark:text-sky-400 font-bold transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-          <span class="text-[8.5px] mt-0.5 font-bold">Scanner</span>
-        </button>
-        <button onclick="setView('screen3'); showPhone3View('records');" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Records</span>
-        </button>
-        <button onclick="setView('screen3'); showPhone3View('profile');" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Profile</span>
-        </button>
-      </nav>
-
     </div>
 
-    <!-- ============================================== -->
-    <!-- ============================================== -->
-    <!-- PHONE 3: USER PROFILE, EVENTS & SETTINGS HUB   -->
-    <!-- ============================================== -->
-    <div id="phone3" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
-      
-      <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
-      </div>
-
-      <!-- Phone Body -->
-      <div class="pt-4 flex-1 flex flex-col">
-        <!-- Status Bar -->
-        <div class="flex justify-between items-center px-2 text-[11px] font-medium text-slate-400 dark:text-slate-500 mb-4">
-          <span>9:41</span>
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            <div class="w-4 h-2 border border-current rounded-xs p-px flex items-center"><div class="w-full h-full bg-current rounded-[0.5px]"></div></div>
+    <!-- ============================================================================== -->
+    <!-- TAB 5: CAMPUS LOST & FOUND HUB                                                 -->
+    <!-- ============================================================================== -->
+    <div id="studentTabLostFound" class="hidden space-y-6">
+      <div id="phone3ViewLostFound" class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Campus Lost &amp; Found Registry</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Items discovered during Himamat 2026 assemblies</p>
           </div>
-        </div>
-
-        <!-- TOP APP NAVIGATION -->
-        <div class="px-2 flex items-center justify-between mb-2">
-          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-tight">Sync-in</span>
-          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">User Profile</span>
-          <button class="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          <button onclick="openReportLostModal()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-all shadow-xs flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Report Found Item</span>
           </button>
         </div>
 
-        <!-- TOP VIEW SELECTOR PILL (PROFILE vs RECORDS vs LOST & FOUND) -->
-        <div class="px-2 mb-2.5">
-          <div class="p-1 rounded-xl bg-slate-100 dark:bg-slate-800/60 border hairline-border border-slate-200/80 dark:border-slate-700/60 grid grid-cols-3 gap-1 text-[9.5px]">
-            <button id="p3TabProfile" onclick="showPhone3View('profile')" class="py-1 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white font-bold shadow-2xs text-center transition-all truncate">
-              Profile
-            </button>
-            <button id="p3TabRecords" onclick="showPhone3View('records')" class="py-1 rounded-lg text-slate-500 dark:text-slate-400 text-center font-medium transition-all flex items-center justify-center gap-1 truncate">
-              <span>Records</span>
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
-            </button>
-            <button id="p3TabLostFound" onclick="showPhone3View('lostfound')" class="py-1 rounded-lg text-slate-500 dark:text-slate-400 text-center font-medium transition-all flex items-center justify-center gap-1 truncate">
-              <span>Lost &amp; Found</span>
-              <span class="text-[8px] font-bold px-1 rounded-full bg-sky-100 dark:bg-sky-900/60 text-sky-600 dark:text-sky-300">3</span>
-            </button>
+        <!-- Feed of items -->
+        <div id="lfFoundFeed" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-900 dark:text-white">Scientific Calculator (Casio FX-991EX)</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300">Unclaimed</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Found near Gym Bleacher Section C &bull; Surrendered to SSG Desk</p>
+            <button onclick="claimFoundItem('Casio FX-991EX')" class="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline">Verify &amp; Claim &rarr;</button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-900 dark:text-white">Blue Hydro Flask (32oz)</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300">Unclaimed</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Found at Gate 2 Bag Inspection Area &bull; Safe with Guard On-Duty</p>
+            <button onclick="claimFoundItem('Blue Hydro Flask')" class="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline">Verify &amp; Claim &rarr;</button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-900 dark:text-white">Student ID Lanyard (CEA)</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">Claimed</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Claimed by owner (Marcus Vance) at 11:30 AM</p>
+            <span class="text-xs text-slate-400 font-medium">Resolved</span>
           </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- VIEW A: DEDICATED STUDENT PROFILE & SETTINGS  -->
-        <!-- ============================================== -->
-        <div id="phone3ViewProfile" class="space-y-2.5 flex-1 overflow-y-auto px-2 pr-1 transition-all duration-300">
-          
-          <!-- 1. DEDICATED STUDENT PROFILE SECTION -->
-          <div class="p-3 rounded-2xl bg-[#F8FAFC] dark:bg-slate-800/50 border hairline-border border-slate-200/80 dark:border-slate-700/80 shadow-2xs">
-            <div class="flex items-center gap-3 mb-2.5">
-              <div class="relative shrink-0">
-                <div class="w-12 h-12 rounded-full bg-sky-50 dark:bg-sky-950/60 border-2 border-sky-400 text-sky-600 dark:text-sky-300 font-bold text-sm flex items-center justify-center">
-                  AC
-                </div>
-                <span class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-sky-500 text-white flex items-center justify-center border-2 border-white dark:border-slate-900">
-                  <svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate">Alexandra Marie Chen</h4>
-                <p class="text-[11px] font-semibold text-sky-600 dark:text-sky-400 truncate">BS in Information Technology (BSIT)</p>
-                <p class="text-[10px] font-medium text-slate-600 dark:text-slate-300 truncate">College of Computer Studies (CCS)</p>
-                <p class="text-[8.5px] text-slate-400 font-mono mt-0.5">ID: 2024-112551-A27 • 3rd Year Regular</p>
-              </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="h-px bg-slate-200/80 dark:bg-slate-700/80 my-2"></div>
-
-            <!-- Academic Badges -->
-            <div class="grid grid-cols-3 gap-1.5 text-center text-[8.5px]">
-              <div class="py-1 px-1 rounded-lg bg-white dark:bg-slate-800 border hairline-border border-slate-200/70 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
-                <span>Enrolled</span>
-              </div>
-              <div class="py-1 px-1 rounded-lg bg-white dark:bg-slate-800 border hairline-border border-slate-200/70 dark:border-slate-700 font-medium text-slate-500 dark:text-slate-400">
-                1st Sem 26–27
-              </div>
-              <button onclick="showPhone3View('records')" class="py-1 px-1 rounded-lg bg-white dark:bg-slate-800 border hairline-border border-slate-200/70 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300 hover:text-sky-500 transition-colors flex items-center justify-center gap-0.5">
-                <span>1 Due</span>
-                <svg class="w-2.5 h-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- 2. ACADEMIC CREDENTIALS & ADVISER -->
-          <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs space-y-1.5 text-[9.5px]">
-            <span class="block text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500">Academic &amp; Student Info</span>
-            <div class="flex items-center justify-between pt-1">
-              <span class="text-slate-500 dark:text-slate-400">Student Email</span>
-              <span class="font-semibold text-slate-800 dark:text-slate-200 font-mono text-[9px]">a.chen@university.edu.ph</span>
-            </div>
-            <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-800">
-              <span class="text-slate-500 dark:text-slate-400">Program Adviser</span>
-              <span class="font-semibold text-slate-800 dark:text-slate-200">Engr. M. De Castro, MSIT</span>
-            </div>
-            <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-800">
-              <span class="text-slate-500 dark:text-slate-400">Specialization Track</span>
-              <span class="font-bold text-sky-600 dark:text-sky-400">Systems &amp; Network Tech</span>
-            </div>
-          </div>
-
-          <!-- 3. SETTINGS & PREFERENCES (MATCHING SCREENSHOT) -->
-          <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs space-y-2 text-[9.5px]">
-            <span class="block text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500">Settings &amp; Preferences</span>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-800 dark:text-slate-200 font-semibold">Event Reminders (15m before)</span>
-              <span class="w-8 h-4.5 bg-sky-500 rounded-full flex items-center justify-end px-0.5"><span class="w-3.5 h-3.5 bg-white rounded-full shadow-xs"></span></span>
-            </div>
-            <div class="flex items-center justify-between pt-1.5 border-t border-slate-100 dark:border-slate-800">
-              <span class="text-slate-800 dark:text-slate-200 font-semibold">Offline QR Token Caching</span>
-              <span class="w-8 h-4.5 bg-sky-500 rounded-full flex items-center justify-end px-0.5"><span class="w-3.5 h-3.5 bg-white rounded-full shadow-xs"></span></span>
-            </div>
-            <div class="flex items-center justify-between pt-1.5 border-t border-slate-100 dark:border-slate-800">
-              <span class="text-slate-800 dark:text-slate-200 font-semibold">Biometric Lock (Face ID)</span>
-              <span class="w-8 h-4.5 bg-sky-500 rounded-full flex items-center justify-end px-0.5"><span class="w-3.5 h-3.5 bg-white rounded-full shadow-xs"></span></span>
-            </div>
-          </div>
-
-          <!-- 4. LOG OUT BUTTON (MATCHING SCREENSHOT) -->
-          <div class="pt-0.5">
-            <button onclick="if(confirm('Are you sure you want to log out of Alexandra Marie Chen?')) alert('Logged out successfully.');" class="w-full py-2.5 rounded-full bg-slate-50 dark:bg-slate-800/80 border hairline-border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold text-xs tracking-tight transition-colors flex items-center justify-center gap-2">
-              <svg class="w-4 h-4 text-slate-800 dark:text-slate-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-              <span>Log Out Account</span>
-            </button>
-            <p class="text-[8.5px] text-slate-400 dark:text-slate-500 text-center mt-1 font-sans">Sync-in University Portal • v2.4.1 (Build 182)</p>
-          </div>
-
-        </div>
-
-        <!-- ============================================== -->
-        <!-- VIEW B: ATTENDANCE RECORDS & OBLIGATIONS DUES -->
-        <!-- ============================================== -->
-        <div id="phone3ViewRecords" class="hidden flex-1 flex flex-col min-h-0">
-          <!-- Filter Tabs -->
-          <div class="px-2 mb-2 flex items-center gap-1 overflow-x-auto pb-1 no-scrollbar text-[8.5px] font-semibold">
-            <button onclick="setObligationFilter('all')" id="tabBtnAll" class="px-2.5 py-1 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 shrink-0 transition-all">All</button>
-            <button onclick="setObligationFilter('missed')" id="tabBtnMissed" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Missed (1)</button>
-            <button onclick="setObligationFilter('events')" id="tabBtnEvents" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Events (14)</button>
-            <button onclick="setObligationFilter('fines')" id="tabBtnFines" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Fines (₱150)</button>
-            <button onclick="setObligationFilter('announcements')" id="tabBtnAnnouncements" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 transition-all">Notices</button>
-          </div>
-
-          <!-- Scrollable Records Body -->
-          <div class="space-y-2 flex-1 overflow-y-auto px-2 pr-1" id="recordsContentBody">
-            <!-- SECTION: FINES -->
-            <div id="sectionFines" class="transition-all duration-300">
-              <span class="block text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500 mb-1">Fines &amp; Attendance Dues</span>
-              <div id="finesCardBox" class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs">
-                <div class="flex items-center justify-between mb-1">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-4 h-4 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[9px] font-bold flex items-center justify-center">₱</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">₱150.00 Outstanding</span>
-                  </div>
-                  <span class="text-[7.5px] font-bold uppercase text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">Unpaid • Hold</span>
-                </div>
-                <p class="text-[8.5px] text-slate-500 dark:text-slate-400 mb-2">1 Missed Event Penalty (Convocation) • Clearance Pending</p>
-                <div class="grid grid-cols-2 gap-1.5 mb-2">
-                  <button onclick="alert('Proceeding to GCash checkout for ₱150.00...')" class="py-1 px-2 rounded-lg bg-sky-500 hover:bg-sky-600 text-white font-bold text-[8.5px] transition-colors text-center">
-                    Pay via GCash
-                  </button>
-                  <button onclick="openServiceModal()" class="py-1 px-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[8.5px] transition-colors text-center">
-                    Offset via Service Hours
-                  </button>
-                  <button onclick="openAppealModal()" class="py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-[8.5px] text-center hover:bg-slate-200">
-                    File Excuse Appeal
-                  </button>
-                  <button onclick="openClearanceModal()" class="py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 border hairline-border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-[8.5px] text-center hover:bg-slate-200 flex items-center justify-center gap-1">
-                    <svg class="w-3 h-3 text-slate-700 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-5.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                    <span>Semester Clearance</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- SECTION: MISSED ATTENDANCE LOG -->
-            <div id="sectionMissed" class="transition-all duration-300">
-              <div class="flex items-center justify-between mb-1">
-                <span class="text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500">Missed Attendance Log</span>
-                <span class="text-[8px] font-bold text-slate-500 dark:text-slate-400">1 Incident</span>
-              </div>
-              <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs space-y-2">
-                <div class="flex items-start justify-between">
-                  <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">University Convocation 2026</h5>
-                    <p class="text-[8.5px] text-slate-500 dark:text-slate-400">Aug 28, 2026 • Main Gymnasium</p>
-                    <p class="text-[8px] text-slate-600 dark:text-slate-400 mt-0.5 font-medium">Missed Time Out scan (Cut-off exceeded)</p>
-                  </div>
-                  <div class="text-right shrink-0">
-                    <span class="text-[10.5px] font-bold text-slate-900 dark:text-white block">₱150.00</span>
-                    <span class="text-[7.5px] font-semibold text-slate-400">Penalty Fee</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SECTION: ATTENDED EVENTS HISTORY -->
-            <div id="sectionEvents" class="transition-all duration-300">
-              <div class="flex items-center justify-between mb-1">
-                <span class="text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500">Attended Events History</span>
-                <span class="text-[8px] font-bold text-slate-500 dark:text-slate-400">14 Verified</span>
-              </div>
-              <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs space-y-2">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">Himamat 2026</h5>
-                    <p class="text-[8px] text-slate-500 dark:text-slate-400">Oct 15 • In: 08:15 AM | Out: 11:45 AM</p>
-                  </div>
-                  <span class="px-1.5 py-0.5 rounded text-[8px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 inline-flex items-center gap-0.5">
-                    <span>Cleared</span>
-                    <svg class="w-2.5 h-2.5 text-slate-600 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  </span>
-                </div>
-                <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                  <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">Strands of Love</h5>
-                    <p class="text-[8px] text-slate-500 dark:text-slate-400">Oct 15 • In: 01:30 PM | Pending Out</p>
-                  </div>
-                  <span class="px-1.5 py-0.5 rounded text-[8px] font-semibold bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-300 inline-flex items-center gap-0.5">
-                    <span>In Progress</span>
-                    <svg class="w-2.5 h-2.5 text-sky-500 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                  </span>
-                </div>
-                <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                  <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">CCS General Assembly</h5>
-                    <p class="text-[8px] text-slate-500 dark:text-slate-400">Sep 18 • AVR 1 • Complete</p>
-                  </div>
-                  <span class="px-1.5 py-0.5 rounded text-[8px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 inline-flex items-center gap-0.5">
-                    <span>Cleared</span>
-                    <svg class="w-2.5 h-2.5 text-slate-600 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- SECTION: ANNOUNCEMENTS & NOTICES -->
-            <div id="sectionAnnouncements" class="transition-all duration-300">
-              <span class="block text-[8px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500 mb-1">Campus Announcements &amp; Notices</span>
-              <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
-                <div class="flex items-start gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-sky-500 mt-1 shrink-0"></span>
-                  <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">Himamat 2026: General Assembly Clearance</h5>
-                    <p class="text-[8px] text-slate-500 dark:text-slate-400">Gymnasium Gates 2 &amp; 3 turnstiles open for attendance scan.</p>
-                  </div>
-                </div>
-                <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex items-start gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1 shrink-0"></span>
-                  <div>
-                    <h5 class="text-[10px] font-bold text-slate-900 dark:text-white">Strands of Love: Hair Donation Booth</h5>
-                    <p class="text-[8px] text-slate-500 dark:text-slate-400">Pavilion Station 4 accepting donations until 05:00 PM today.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================== -->
-        <!-- VIEW C: DEDICATED CAMPUS EVENT LOST & FOUND     -->
-        <!-- ============================================== -->
-        <div id="phone3ViewLostFound" class="hidden space-y-2.5 flex-1 overflow-y-auto px-2 pr-1 transition-all duration-300">
-          <div class="p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs">
-            <div class="flex items-center justify-between mb-1.5">
-              <div>
-                <span class="text-[8px] uppercase tracking-wider font-bold text-slate-400">Campus Event Portal</span>
-                <h4 class="text-xs font-bold text-slate-900 dark:text-white">Lost &amp; Found Station</h4>
-              </div>
-              <span class="text-[7.5px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-300">Booth 3 Active</span>
-            </div>
-            <p class="text-[8.5px] text-slate-500 dark:text-slate-400 mb-2">Items held at SSG Turnstile Booth 3. Blind proof verification required before claim.</p>
-            <div class="flex gap-1 text-[8.5px] font-semibold">
-              <button onclick="setLostFoundFilter('found')" id="lfBtnFound" class="flex-1 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-center transition-all">Found at Event (3)</button>
-              <button onclick="setLostFoundFilter('report')" id="lfBtnReport" class="flex-1 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-center transition-all">+ Report Lost</button>
-            </div>
-          </div>
-
-          <!-- Found Items Feed -->
-          <div id="lfFoundFeed" class="space-y-1.5">
-            <!-- Item 1: Hydro Flask -->
-            <div class="p-2 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                </div>
-                <div>
-                  <h5 class="text-[9.5px] font-bold text-slate-900 dark:text-white">Black Hydro Flask (32oz)</h5>
-                  <p class="text-[8px] text-slate-500 dark:text-slate-400">Bleachers Sec B • 09:15 AM</p>
-                  <span class="text-[7px] font-bold text-amber-600 dark:text-amber-400">Unclaimed • SSG Booth 3</span>
-                </div>
-              </div>
-              <button onclick="openBlindProofModal('Black Hydro Flask (32oz)', 'Describe stickers and bottom dent')" class="px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-300 font-bold text-[8px] border border-sky-200 dark:border-sky-800 shrink-0 hover:bg-sky-100">
-                Claim Item
-              </button>
-            </div>
-
-            <!-- Item 2: Casio Calculator -->
-            <div class="p-2 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                </div>
-                <div>
-                  <h5 class="text-[9.5px] font-bold text-slate-900 dark:text-white">Casio FX-991EX ClassWiz</h5>
-                  <p class="text-[8px] text-slate-500 dark:text-slate-400">Gate 2 Table • 08:40 AM</p>
-                  <span class="text-[7px] font-bold text-amber-600 dark:text-amber-400">Unclaimed • SSG Booth 3</span>
-                </div>
-              </div>
-              <button onclick="openBlindProofModal('Casio FX-991EX Calculator', 'State cover marking or serial number')" class="px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-300 font-bold text-[8px] border border-sky-200 dark:border-sky-800 shrink-0 hover:bg-sky-100">
-                Claim Item
-              </button>
-            </div>
-
-            <!-- Item 3: Keys with Lanyard -->
-            <div class="p-2 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
-                </div>
-                <div>
-                  <h5 class="text-[9.5px] font-bold text-slate-900 dark:text-white">Keys with Blue Lanyard</h5>
-                  <p class="text-[8px] text-slate-500 dark:text-slate-400">Pavilion Station 4 • 10:20 AM</p>
-                  <span class="text-[7px] font-bold text-amber-600 dark:text-amber-400">Unclaimed • SSG Booth 3</span>
-                </div>
-              </div>
-              <button onclick="openBlindProofModal('Keys with Blue Lanyard', 'Describe keychain and number of keys')" class="px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-300 font-bold text-[8px] border border-sky-200 dark:border-sky-800 shrink-0 hover:bg-sky-100">
-                Claim Item
-              </button>
-            </div>
-          </div>
-
-          <!-- Report Lost Form (Initially Hidden) -->
-          <div id="lfReportForm" class="hidden p-2.5 rounded-2xl bg-white dark:bg-slate-800/60 border hairline-border border-slate-200 dark:border-slate-700/80 shadow-2xs space-y-2 text-[8.5px]">
-            <span class="block text-[8px] uppercase tracking-wider font-bold text-slate-400">File Lost Item Report</span>
-            <input type="text" id="reportItemName" placeholder="Item Name (e.g. Blue Umbrella)" class="w-full px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-700/60 border hairline-border border-slate-200 dark:border-slate-600 focus:outline-none">
-            <input type="text" id="reportLastLocation" placeholder="Last seen location (e.g. Gym 2nd Floor)" class="w-full px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-700/60 border hairline-border border-slate-200 dark:border-slate-600 focus:outline-none">
-            <textarea id="reportDescription" rows="2" placeholder="Distinctive features / scratches..." class="w-full px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-700/60 border hairline-border border-slate-200 dark:border-slate-600 focus:outline-none"></textarea>
-            <button onclick="submitLostItemReport()" class="w-full py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-[9px]">Submit to SSG Marshals</button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Touch-Optimized Bottom Navigation (Phone 3: Profile Active) -->
-      <nav class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-around text-slate-400">
-        <button onclick="setView('screen1')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span class="text-[8.5px] mt-0.5">Events</span>
-        </button>
-        <button onclick="setView('screen2')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Scanner</span>
-        </button>
-        <button id="p3NavRecords" onclick="showPhone3View('records')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span class="text-[8.5px] mt-0.5">Records</span>
-        </button>
-        <button id="p3NavProfile" onclick="showPhone3View('profile')" class="min-h-[48px] py-1 px-3 flex flex-col items-center justify-center text-sky-600 dark:text-sky-400 font-bold transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          <span class="text-[8.5px] mt-0.5 font-bold">Profile</span>
-        </button>
-      </nav>
-
-    </div>
-
-  </main>
-
-  <!-- ARCHITECTURE BREAKDOWN FOR SENIOR DEVELOPERS -->
-  <section class="max-w-4xl mx-auto bg-white dark:bg-slate-900/80 rounded-2xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
-    <div class="flex items-center gap-2 mb-4">
-      <span class="w-2 h-2 rounded-full bg-sky-500"></span>
-      <h4 class="text-xs uppercase tracking-widest font-semibold text-slate-800 dark:text-slate-200">Event Checkpoint Architecture</h4>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-      <div>
-        <p class="font-semibold text-slate-800 dark:text-slate-200 mb-1">1. Dual-Timestamp Verification</p>
-        <p>Both <strong>Himamat</strong> and <strong>Strands of Love</strong> require discrete <em>Time In</em> and <em>Time Out</em> timestamps to validate genuine active participation rather than quick attendance-spoofing.</p>
-      </div>
-      <div>
-        <p class="font-semibold text-slate-800 dark:text-slate-200 mb-1">2. Dynamic Rolling QR Token</p>
-        <p>12-second rolling cryptographic token bound to student ID <code class="text-sky-600 font-mono">#112551A27G</code>, preventing screenshot forwarding across attendees at busy event gates.</p>
-      </div>
-      <div>
-        <p class="font-semibold text-slate-800 dark:text-slate-200 mb-1">3. Minimalist Aesthetic Restraint</p>
-        <p>White &amp; light blue palette, clean natural cards, 0.75px hairline borders, and refined upright sans typography matching luxury mobile design standards.</p>
+        <form id="lfReportForm" class="hidden"></form>
       </div>
     </div>
-  </section>
   </div>
-  <!-- END OF ROLE 1: STUDENT VIEW -->
 
-  <!-- ============================================================================== -->
-  <!-- ROLE 2 CONTAINER: FACULTY / TEACHER PORTAL (OPTIMIZED FOR TABLETS & LAPTOPS)     -->
-  <!-- ============================================================================== -->
-  <div id="roleViewFaculty" class="hidden max-w-5xl mx-auto mb-16 space-y-4">
+
+<div id="roleViewFaculty" class="hidden max-w-5xl mx-auto mb-16 space-y-4">
     <!-- Tablet & Laptop Optimization Notice -->
     <div class="flex items-center justify-between p-3 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border hairline-border border-indigo-200/80 dark:border-indigo-800/80 text-xs text-indigo-900 dark:text-indigo-200">
       <div class="flex items-center gap-2.5">
@@ -1122,7 +1037,121 @@
     </div>
 
     <!-- Header Card -->
+    <div     <!-- ============================================== -->
+    <!-- TEACHER / MARSHAL GATE SCANNER TERMINAL          -->
+    <!-- ============================================== -->
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b hairline-border border-slate-200/80 dark:border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Gate 2 Turnstile Scanner Terminal</h3>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Online &bull; Turnstile Active</span>
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Contactless QR code optical reader &amp; high-frequency RFID/NFC gate sensor</p>
+        </div>
+
+        <!-- Camera Controls -->
+        <div class="flex items-center gap-2">
+          <button id="btnStartCamera" onclick="startCameraScanner()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-indigo-600/20">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span>Start Camera Scanner</span>
+          </button>
+          <button id="btnStopCamera" onclick="stopCameraScanner()" class="hidden px-3.5 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-all">
+            <span>Stop Camera</span>
+          </button>
+          <button onclick="flipCamera()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all" title="Flip Camera">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left: Camera & Optical Viewfinder (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <div class="w-full h-56 sm:h-64 rounded-2xl bg-slate-950 relative overflow-hidden flex items-center justify-center border-2 border-slate-700 shadow-inner">
+            <!-- Active Video Stream Feed -->
+            <video id="cameraVideoFeed" autoplay playsinline class="hidden w-full h-full object-cover"></video>
+
+            <!-- Placeholder / Standby Reticle -->
+            <div id="cameraPlaceholder" class="flex flex-col items-center justify-center p-4 text-center space-y-2">
+              <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+              </div>
+              <div class="text-xs font-semibold text-white">Optical Scanner Ready</div>
+              <p class="text-[10px] text-slate-400 max-w-xs">Click "Start Camera Scanner" to enable device webcam, or use manual ID verification.</p>
+            </div>
+
+            <!-- Optical Laser Scanning Animation -->
+            <div class="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent laser-line pointer-events-none"></div>
+
+            <!-- Targeting Reticle Corners -->
+            <div class="absolute inset-6 border border-white/20 rounded-xl pointer-events-none flex flex-col justify-between p-2">
+              <div class="flex justify-between">
+                <div class="w-4 h-4 border-t-2 border-l-2 border-indigo-400 rounded-tl"></div>
+                <div class="w-4 h-4 border-t-2 border-r-2 border-indigo-400 rounded-tr"></div>
+              </div>
+              <div class="flex justify-between">
+                <div class="w-4 h-4 border-b-2 border-l-2 border-indigo-400 rounded-bl"></div>
+                <div class="w-4 h-4 border-b-2 border-r-2 border-indigo-400 rounded-br"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Telemetry, Manual Input & Fast Scanners (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+          <!-- Manual Student ID / RFID Input Form -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-3">
+            <div class="text-xs font-bold text-slate-900 dark:text-white">Manual Check-In &bull; Turnstile Control</div>
+            <div class="flex gap-2">
+              <input 
+                type="text" 
+                id="kioskManualInputFaculty" 
+                placeholder="Enter Student ID (e.g. 2024-08192) or RFID UID..." 
+                class="flex-1 bg-white dark:bg-slate-900 border hairline-border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                onkeydown="if(event.key==='Enter') executeFacultyScan('IN')"
+              />
+              <button onclick="executeFacultyScan('IN')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all shadow-xs">
+                Time IN
+              </button>
+              <button onclick="executeFacultyScan('OUT')" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs transition-all shadow-xs">
+                Time OUT
+              </button>
+            </div>
+          </div>
+
+          <!-- Rapid Test Verification Buttons -->
+          <div>
+            <div class="text-[11px] font-semibold text-slate-400 mb-2">One-Click Gate Verification Simulation:</div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="simulateGateScanAttendee('2024-08192', 'Sophia Chen')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold transition-all">
+                &bull; Scan Sophia Chen (CEA)
+              </button>
+              <button onclick="simulateGateScanAttendee('2023-01452', 'Marcus Vance')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold transition-all">
+                &bull; Scan Marcus Vance (CEA)
+              </button>
+              <button onclick="simulateGateScanAttendee('9999-99999', 'Unregistered Guest')" class="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-semibold hover:bg-rose-100 transition-all">
+                &bull; Scan Unregistered (Deny)
+              </button>
+            </div>
+          </div>
+
+          <!-- Turnstile Hardware Telemetry Status -->
+          <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span id="facultyTurnstileLed" class="w-3 h-3 rounded-full bg-emerald-500 shadow-xs"></span>
+              <span class="font-bold text-slate-900 dark:text-white" id="facultyTurnstileStatusText">Turnstile Ready &bull; Gate Barrier Locked</span>
+            </div>
+            <span class="font-mono text-slate-400 text-[11px]">Relay: Pin #12 (Active Low)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+class="bg-white dark:bg-slate-900 rounded-3xl p-6 border hairline-border border-slate-200/80 dark:border-slate-800 shadow-xl mb-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center gap-3.5">
           <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold text-lg flex items-center justify-center border border-indigo-500/20">
@@ -1327,6 +1356,10 @@
       <button onclick="setAdminSubTab('announcements')" id="admTabAnnouncements" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all">
         <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
         <span>Announcements &amp; Crisis</span>
+      </button>
+      <button onclick="setAdminSubTab('audit')" id="admTabAudit" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-all">
+        <svg class="w-4 h-4 text-violet-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <span>Security Audit Ledger</span>
       </button>
     </div>
 
@@ -1679,6 +1712,8 @@
               <!-- Dynamically rendered rows from SyncInDB.getAttendees() -->
             </tbody>
           </table>
+<div id="admAttendeePaginationContainer" class="mt-3 pt-3 border-t hairline-border border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs"></div>
+
         </div>
       </div>
     </div>
@@ -5492,6 +5527,568 @@
     // Launch dynamic token timer
     startDynamicQrPassCountdown();
 
+
+
+// ==============================================================================
+// SYNC-IN PRODUCTION WEB APPLICATION ENGINE v2.6.0
+// ==============================================================================
+
+window.syncinSoundEnabled = true;
+let currentFacingMode = 'environment';
+let activeCameraStream = null;
+
+// --- 1. PORTAL ROUTING & ROLE SEPARATION ---
+function initPortalRouting() {
+  const params = new URLSearchParams(window.location.search);
+  const portalParam = params.get('portal') || params.get('role');
+  const keyParam = params.get('key');
+  const hash = (window.location.hash || '').replace('#/', '').replace('#', '').toLowerCase();
+  const target = (portalParam || hash || '').toLowerCase();
+
+  if (target === 'admin') {
+    if (keyParam === 'SSG-ADMIN-2026' || sessionStorage.getItem('syncin_admin_unlocked') === 'true') {
+      sessionStorage.setItem('syncin_admin_unlocked', 'true');
+      proceedSetRole('admin');
+    } else {
+      openPortalPasscodeModal('admin');
+    }
+  } else if (target === 'teacher' || target === 'faculty') {
+    if (keyParam === 'TEACH-2026' || sessionStorage.getItem('syncin_teacher_unlocked') === 'true') {
+      sessionStorage.setItem('syncin_teacher_unlocked', 'true');
+      proceedSetRole('faculty');
+    } else {
+      openPortalPasscodeModal('faculty');
+    }
+  } else {
+    proceedSetRole('student');
+  }
+}
+
+function openPortalPasscodeModal(role) {
+  const modal = document.getElementById('modalPortalPasscode');
+  const title = document.getElementById('portalPasscodeTitle');
+  const sub = document.getElementById('portalPasscodeSub');
+  const targetInput = document.getElementById('targetPortalRole');
+  const passInput = document.getElementById('portalPasscodeInput');
+  const hint = document.getElementById('portalPasscodeHint');
+
+  if (!modal) return;
+  targetInput.value = role;
+  if (passInput) passInput.value = '';
+
+  if (role === 'admin') {
+    title.textContent = 'SSG Admin Command Center';
+    sub.textContent = 'Enter administrative master key to access attendance databases & analytics.';
+    if (hint) hint.textContent = 'Default Passcode: SSG-ADMIN-2026';
+  } else {
+    title.textContent = 'Teacher & Gate Marshal Portal';
+    sub.textContent = 'Enter faculty security key to access turnstile scanners & class rosters.';
+    if (hint) hint.textContent = 'Default Passcode: TEACH-2026';
+  }
+
+  modal.classList.remove('hidden');
+  if (passInput) setTimeout(() => passInput.focus(), 100);
+}
+
+function handlePortalPasscodeSubmit(e) {
+  e.preventDefault();
+  const role = document.getElementById('targetPortalRole').value;
+  const val = (document.getElementById('portalPasscodeInput').value || '').trim();
+
+  if (role === 'admin') {
+    if (val === 'SSG-ADMIN-2026') {
+      sessionStorage.setItem('syncin_admin_unlocked', 'true');
+      closeModal('modalPortalPasscode');
+      proceedSetRole('admin');
+      if (typeof showToast === 'function') showToast('SSG Administrative Command Center Unlocked', 'success');
+      return;
+    }
+  } else if (role === 'faculty' || role === 'teacher') {
+    if (val === 'TEACH-2026') {
+      sessionStorage.setItem('syncin_teacher_unlocked', 'true');
+      closeModal('modalPortalPasscode');
+      proceedSetRole('faculty');
+      if (typeof showToast === 'function') showToast('Teacher & Gate Marshal Portal Unlocked', 'success');
+      return;
+    }
+  }
+
+  if (typeof showToast === 'function') showToast('Invalid Passcode. Access Denied.', 'error');
+  if (typeof playErrorTone === 'function') playErrorTone();
+}
+
+function cancelPortalPasscode() {
+  closeModal('modalPortalPasscode');
+  proceedSetRole('student');
+}
+
+function promptStaffPortalEntry(role) {
+  closeModal('modalStaffAccess');
+  openPortalPasscodeModal(role);
+}
+
+function openStaffAccessModal() {
+  const m = document.getElementById('modalStaffAccess');
+  if (m) m.classList.remove('hidden');
+}
+
+function exitToStudentView() {
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('portal');
+    url.searchParams.delete('role');
+    url.searchParams.delete('key');
+    window.history.replaceState({}, '', url.pathname);
+  } catch (err) {}
+  proceedSetRole('student');
+  if (typeof showToast === 'function') showToast('Returned to Student Portal View', 'info');
+}
+
+// Override / update proceedSetRole to update header badge and visibility
+const originalProceedSetRole = window.proceedSetRole;
+window.proceedSetRole = function(role) {
+  if (typeof originalProceedSetRole === 'function') {
+    originalProceedSetRole(role);
+  }
+
+  const badge = document.getElementById('headerPortalBadge');
+  const exitBtn = document.getElementById('btnExitStaffPortal');
+  const userProfile = document.getElementById('headerUserProfile');
+
+  if (role === 'student') {
+    if (badge) {
+      badge.textContent = 'Student Portal';
+      badge.className = 'text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border hairline-border border-sky-200 dark:border-sky-800';
+    }
+    if (exitBtn) exitBtn.classList.add('hidden');
+    if (userProfile) userProfile.classList.remove('hidden');
+  } else if (role === 'faculty') {
+    if (badge) {
+      badge.textContent = 'Faculty Gate Portal';
+      badge.className = 'text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border hairline-border border-indigo-200 dark:border-indigo-800';
+    }
+    if (exitBtn) exitBtn.classList.remove('hidden');
+    if (userProfile) userProfile.classList.add('hidden');
+  } else if (role === 'admin') {
+    if (badge) {
+      badge.textContent = 'SSG Admin Command';
+      badge.className = 'text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border hairline-border border-emerald-200 dark:border-emerald-800';
+    }
+    if (exitBtn) exitBtn.classList.remove('hidden');
+    if (userProfile) userProfile.classList.add('hidden');
+  }
+};
+
+// --- 2. STUDENT TABS SWITCHER ---
+function setStudentTab(tab) {
+  const tabs = ['pass', 'schedule', 'clearance', 'voting', 'lostfound'];
+  tabs.forEach(t => {
+    const el = document.getElementById('studentTab' + t.charAt(0).toUpperCase() + t.slice(1));
+    const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+    if (el) {
+      if (t === tab) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    }
+    if (btn) {
+      if (t === tab) {
+        btn.className = 'px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-xs shrink-0';
+      } else {
+        btn.className = 'px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold text-xs flex items-center gap-2 transition-all shrink-0';
+      }
+    }
+  });
+}
+
+// --- 3. GLOBAL SEARCH ENGINE ---
+function handleGlobalSearch(q) {
+  const dropdown = document.getElementById('globalSearchResults');
+  const container = document.getElementById('globalSearchResultsContent');
+  if (!dropdown || !container) return;
+
+  const query = (q || '').trim().toLowerCase();
+  if (!query) {
+    dropdown.classList.add('hidden');
+    return;
+  }
+
+  const items = [
+    { type: 'Event', title: 'Himamat 2026: Campus Intramurals', sub: 'Gymnasium • Oct 06, 2026', action: () => { setRole('student'); setStudentTab('schedule'); } },
+    { type: 'Event', title: 'Strands of Love: Benefit Gala', sub: 'Amphitheater • Oct 09, 2026', action: () => { setRole('student'); setStudentTab('schedule'); } },
+    { type: 'Checkpoint', title: 'Morning Time In (07:30 AM)', sub: 'Gate 2 Turnstile • Recorded', action: () => { setRole('student'); setStudentTab('schedule'); } },
+    { type: 'Checkpoint', title: 'Afternoon Time Out (05:00 PM)', sub: 'Gym Main Exit • Verified', action: () => { setRole('student'); setStudentTab('schedule'); } },
+    { type: 'Clearance', title: 'Official Student Clearance Slip', sub: 'Sophia Chen (2024-08192) • 100% Cleared', action: () => { openClearanceCertificateModal('2024-08192'); } },
+    { type: 'Appeal', title: 'Excuse Appeal & Medical Exemption', sub: 'Dean Office Remediation Form', action: () => { openExcuseAppealModal(); } },
+    { type: 'Voting', title: 'Himamat Spirit Award Ballot', sub: 'Active SSG Student Survey', action: () => { setRole('student'); setStudentTab('voting'); } },
+    { type: 'Item', title: 'Scientific Calculator (Casio FX-991EX)', sub: 'Found item at Gym Bleachers', action: () => { setRole('student'); setStudentTab('lostfound'); } }
+  ];
+
+  const matched = items.filter(item => 
+    item.title.toLowerCase().includes(query) || 
+    item.sub.toLowerCase().includes(query) || 
+    item.type.toLowerCase().includes(query)
+  );
+
+  if (matched.length === 0) {
+    container.innerHTML = '<div class="p-3 text-center text-slate-400">No results found for "' + query + '"</div>';
+  } else {
+    container.innerHTML = matched.map((item, idx) => `
+      <div onclick="executeSearchResult(${idx})" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-between transition-all">
+        <div>
+          <div class="font-bold text-slate-900 dark:text-white">${item.title}</div>
+          <div class="text-[10.5px] text-slate-400">${item.sub}</div>
+        </div>
+        <span class="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${item.type}</span>
+      </div>
+    `).join('');
+    window.currentSearchResults = matched;
+  }
+
+  dropdown.classList.remove('hidden');
+}
+
+function executeSearchResult(idx) {
+  if (window.currentSearchResults && window.currentSearchResults[idx]) {
+    window.currentSearchResults[idx].action();
+  }
+  const dropdown = document.getElementById('globalSearchResults');
+  if (dropdown) dropdown.classList.add('hidden');
+  const input = document.getElementById('globalSearchInput');
+  if (input) input.value = '';
+}
+
+// Global keyboard shortcut Ctrl+K
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    const input = document.getElementById('globalSearchInput');
+    if (input) input.focus();
+  }
+  if (e.key === 'Escape') {
+    const dropdown = document.getElementById('globalSearchResults');
+    if (dropdown) dropdown.classList.add('hidden');
+  }
+});
+
+// Close search dropdown on click outside
+document.addEventListener('click', (e) => {
+  const searchInput = document.getElementById('globalSearchInput');
+  const dropdown = document.getElementById('globalSearchResults');
+  if (dropdown && !dropdown.contains(e.target) && e.target !== searchInput) {
+    dropdown.classList.add('hidden');
+  }
+});
+
+// --- 4. NOTIFICATION CENTER ---
+function openNotificationsModal() {
+  const m = document.getElementById('modalNotifications');
+  if (m) m.classList.remove('hidden');
+}
+
+function markAllNotificationsRead() {
+  const badge = document.getElementById('notifBadge');
+  if (badge) badge.style.display = 'none';
+  if (typeof showToast === 'function') showToast('All campus notices marked as read', 'success');
+}
+
+// --- 5. SETTINGS & APP PREFERENCES ---
+function openSettingsModal() {
+  const m = document.getElementById('modalAppSettings');
+  if (m) m.classList.remove('hidden');
+}
+
+function toggleThemeMode() {
+  const isDark = document.documentElement.classList.contains('dark');
+  setTheme(isDark ? 'light' : 'dark');
+}
+
+function toggleSoundSetting(enabled) {
+  window.syncinSoundEnabled = enabled;
+  if (typeof showToast === 'function') {
+    showToast(enabled ? 'Gate sound effects enabled' : 'Gate sound effects muted', 'info');
+  }
+}
+
+function switchStudentProfile(id) {
+  const profiles = {
+    '2024-08192': { name: 'Sophia Chen', sub: 'BSCS-3A • 2024-08192', college: 'CEA', prog: 'BS Computer Science (3A)', pct: '100% Complete', status: 'Cleared / Verified' },
+    '2023-01452': { name: 'Marcus Vance', sub: 'BSCE-2B • 2023-01452', college: 'CEA', prog: 'BS Civil Engineering (2B)', pct: '75% Complete', status: 'Pending 1 Checkpoint' },
+    '2022-09381': { name: 'Elena Rostova', sub: 'BSED-4A • 2022-09381', college: 'CED', prog: 'BS Secondary Education (4A)', pct: '50% Deficit', status: 'Appeal Required' }
+  };
+  const p = profiles[id] || profiles['2024-08192'];
+
+  const hName = document.getElementById('headerUserName');
+  const hSub = document.getElementById('headerUserSub');
+  const hAvatar = document.getElementById('headerUserAvatar');
+  const pName = document.getElementById('studentProfileName');
+  const pStatus = document.getElementById('studentProfileStatus');
+  const pDetails = document.getElementById('studentProfileDetails');
+  const pPct = document.getElementById('studentProfilePct');
+
+  const initials = p.name.split(' ').map(w => w[0]).join('');
+  if (hName) hName.textContent = p.name;
+  if (hSub) hSub.textContent = p.sub;
+  if (hAvatar) hAvatar.textContent = initials;
+  if (pName) pName.textContent = p.name;
+  if (pStatus) pStatus.textContent = p.status;
+  if (pPct) pPct.innerHTML = `<span>${p.pct}</span>`;
+  if (pDetails) {
+    pDetails.innerHTML = `Student ID: <span class="font-mono font-semibold text-slate-700 dark:text-slate-300">${id}</span> • Program: <span class="text-slate-700 dark:text-slate-300">${p.prog}</span> • College: <span class="text-slate-700 dark:text-slate-300">${p.college}</span>`;
+  }
+
+  if (typeof showToast === 'function') showToast(`Active Profile: ${p.name}`, 'info');
+}
+
+function copyPortalLink(type) {
+  const base = window.location.origin + window.location.pathname;
+  let url = base;
+  if (type === 'teacher') url += '?portal=teacher';
+  else if (type === 'admin') url += '?portal=admin';
+
+  navigator.clipboard.writeText(url).then(() => {
+    if (typeof showToast === 'function') showToast(`Copied ${type.toUpperCase()} link to clipboard!`, 'success');
+  }).catch(() => {
+    prompt('Copy link:', url);
+  });
+}
+
+function exportAppDataJson() {
+  const data = {
+    app: 'Sync-in Campus Attendance Gateway',
+    version: '2.6.0',
+    exportDate: new Date().toISOString(),
+    attendees: (window.cachedAttendees || []),
+    events: (window.cachedEvents || []),
+    auditTrail: (window.cachedAuditLogs || [])
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `sync_in_database_${Date.now()}.json`;
+  a.click();
+  if (typeof showToast === 'function') showToast('Database export downloaded successfully', 'success');
+}
+
+function resetAppFactoryDefaults() {
+  if (confirm('Reset application data to initial factory state?')) {
+    localStorage.removeItem('syncin_attendees');
+    localStorage.removeItem('syncin_audit');
+    sessionStorage.clear();
+    window.location.reload();
+  }
+}
+
+// --- 6. FAST SIMULATOR & LOST AND FOUND ---
+function simulateGateCheckInFast() {
+  if (typeof playChime === 'function' && window.syncinSoundEnabled) {
+    playChime();
+  }
+  if (typeof showToast === 'function') {
+    showToast('Gate 2 Turnstile: ACCESS GRANTED (Sophia Chen • BSCS-3A)', 'success');
+  }
+  if (typeof renderAdminAuditTrail === 'function') {
+    renderAdminAuditTrail();
+  }
+}
+
+function submitStudentVote() {
+  const selected = document.querySelector('input[name="spiritVote"]:checked');
+  const val = selected ? selected.value : 'CEA';
+  const u = document.getElementById('votingUnlockedView');
+  const l = document.getElementById('votingLockedView');
+  if (u) u.classList.add('hidden');
+  if (l) l.classList.remove('hidden');
+  if (typeof showToast === 'function') {
+    showToast(`Vote cast for ${val}! Ballot recorded.`, 'success');
+  }
+}
+
+function claimFoundItem(item) {
+  if (confirm(`File verification claim for "${item}" at SSG help desk?`)) {
+    if (typeof showToast === 'function') {
+      showToast(`Claim filed for ${item}. Present Student ID to claim.`, 'success');
+    }
+  }
+}
+
+function openReportLostModal() {
+  const m = document.getElementById('modalReportLost');
+  if (m) m.classList.remove('hidden');
+}
+
+function handleReportLostSubmit(e) {
+  e.preventDefault();
+  const title = document.getElementById('reportItemTitle').value;
+  const loc = document.getElementById('reportItemLocation').value;
+  const cust = document.getElementById('reportItemCustodian').value;
+
+  const feed = document.getElementById('lfFoundFeed');
+  if (feed) {
+    const card = document.createElement('div');
+    card.className = 'p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border hairline-border border-slate-200/60 dark:border-slate-700/60 space-y-2';
+    card.innerHTML = `
+      <div class="flex items-center justify-between text-xs">
+        <span class="font-bold text-slate-900 dark:text-white">${title}</span>
+        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300">Unclaimed</span>
+      </div>
+      <p class="text-[11px] text-slate-400">Found at ${loc} • Custodian: ${cust}</p>
+      <button onclick="claimFoundItem('${title.replace(/'/g, "\\'")}')" class="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline">Verify &amp; Claim &rarr;</button>
+    `;
+    feed.prepend(card);
+  }
+
+  closeModal('modalReportLost');
+  if (typeof showToast === 'function') showToast(`Registered item "${title}" to Lost & Found`, 'success');
+}
+
+function regenerateDynamicQrPass() {
+  const hashEl = document.getElementById('qrTotpHash');
+  if (hashEl) {
+    const chars = '0123456789ABCDEF';
+    let code = '';
+    for (let i = 0; i < 3; i++) {
+      let segment = '';
+      for (let j = 0; j < 4; j++) segment += chars[Math.floor(Math.random() * chars.length)];
+      code += (i === 0 ? '' : '-') + segment;
+    }
+    hashEl.textContent = code;
+  }
+  if (typeof showToast === 'function') showToast('Dynamic QR Pass regenerated with new rotating cryptographic hash', 'info');
+}
+
+function downloadQrPassPng() {
+  if (typeof showToast === 'function') showToast('Generating high-resolution offline QR Pass for your wallet...', 'info');
+  setTimeout(() => {
+    if (typeof showToast === 'function') showToast('QR Pass saved to device storage!', 'success');
+  }, 700);
+}
+
+// --- 7. REAL DEVICE CAMERA SCANNER (FACULTY PORTAL) ---
+async function startCameraScanner() {
+  const video = document.getElementById('cameraVideoFeed');
+  if (!video) return;
+
+  try {
+    if (activeCameraStream) {
+      activeCameraStream.getTracks().forEach(track => track.stop());
+    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: currentFacingMode }
+    });
+    activeCameraStream = stream;
+    video.srcObject = stream;
+    video.classList.remove('hidden');
+
+    const placeholder = document.getElementById('cameraPlaceholder');
+    if (placeholder) placeholder.classList.add('hidden');
+
+    const btnStart = document.getElementById('btnStartCamera');
+    const btnStop = document.getElementById('btnStopCamera');
+    if (btnStart) btnStart.classList.add('hidden');
+    if (btnStop) btnStop.classList.remove('hidden');
+
+    if (typeof showToast === 'function') showToast('Camera Scanner Active. Align QR pass within targeting frame.', 'success');
+  } catch (err) {
+    console.warn('Camera access denied or unavailable:', err);
+    if (typeof showToast === 'function') showToast('Camera unavailable. Using optical sensor simulator.', 'info');
+  }
+}
+
+function stopCameraScanner() {
+  if (activeCameraStream) {
+    activeCameraStream.getTracks().forEach(track => track.stop());
+    activeCameraStream = null;
+  }
+  const video = document.getElementById('cameraVideoFeed');
+  if (video) video.classList.add('hidden');
+
+  const placeholder = document.getElementById('cameraPlaceholder');
+  if (placeholder) placeholder.classList.remove('hidden');
+
+  const btnStart = document.getElementById('btnStartCamera');
+  const btnStop = document.getElementById('btnStopCamera');
+  if (btnStart) btnStart.classList.remove('hidden');
+  if (btnStop) btnStop.classList.add('hidden');
+}
+
+function flipCamera() {
+  currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+  if (activeCameraStream) {
+    startCameraScanner();
+  }
+}
+
+// Initialize on DOM load
+window.addEventListener('DOMContentLoaded', () => {
+  initPortalRouting();
+});
+
+function executeFacultyScan(type) {
+  const input = document.getElementById('kioskManualInputFaculty');
+  const val = input ? input.value.trim() : '';
+  if (!val) {
+    if (typeof showToast === 'function') showToast('Please enter a Student ID or scan a badge', 'error');
+    return;
+  }
+  const isDenied = val.includes('9999');
+  const led = document.getElementById('facultyTurnstileLed');
+  const statusText = document.getElementById('facultyTurnstileStatusText');
+
+  if (isDenied) {
+    if (typeof playErrorTone === 'function' && window.syncinSoundEnabled) playErrorTone();
+    if (led) led.className = 'w-3 h-3 rounded-full bg-rose-500 shadow-xs';
+    if (statusText) statusText.textContent = `ACCESS DENIED • ID ${val} Not Registered`;
+    if (typeof showToast === 'function') showToast(`Access Denied: ID ${val} is not enrolled in event roster`, 'error');
+  } else {
+    if (typeof playChime === 'function' && window.syncinSoundEnabled) playChime();
+    if (led) led.className = 'w-3 h-3 rounded-full bg-emerald-500 shadow-xs';
+    if (statusText) statusText.textContent = `ACCESS GRANTED • Turnstile Unlocked (ID ${val})`;
+    if (typeof showToast === 'function') showToast(`Turnstile Gate: Time ${type} Verified for ID ${val}`, 'success');
+  }
+
+  if (input) input.value = '';
+  setTimeout(() => {
+    if (led) led.className = 'w-3 h-3 rounded-full bg-emerald-500 shadow-xs';
+    if (statusText) statusText.textContent = 'Turnstile Ready • Gate Barrier Locked';
+  }, 3500);
+}
+
+
+
+
+// Bridge functions for custom event handlers
+function openExcuseAppealModal() {
+  if (typeof openAppealModal === 'function') openAppealModal();
+  else {
+    const m = document.getElementById('appealModal');
+    if (m) m.classList.remove('hidden');
+  }
+}
+
+function openServiceSlotsModal() {
+  if (typeof openServiceModal === 'function') openServiceModal();
+  else {
+    const m = document.getElementById('serviceModal');
+    if (m) m.classList.remove('hidden');
+  }
+}
+
+function simulateGateScanAttendee(id, name) {
+  if (typeof simulateGateScan === 'function') simulateGateScan(id, name);
+  else {
+    executeFacultyScan('IN');
+  }
+}
+
+function switchActiveEvent(eventId) {
+  const isHimamat = eventId === 'himamat';
+  const tag = document.getElementById('qrEventTag');
+  if (tag) tag.textContent = isHimamat ? 'Himamat 2026 Pass' : 'Strands of Love Pass';
+  if (typeof showToast === 'function') {
+    showToast(isHimamat ? 'Active Event: Himamat 2026 (Campus Intramurals)' : 'Active Event: Strands of Love (Benefit Gala)', 'info');
+  }
+}
+
 </script>
 
   <!-- ==================== ADMIN MODAL 1: EVENT FORM (CREATE / EDIT) ==================== -->
@@ -5907,6 +6504,28 @@ Carlos Mendoza,2023-110022-A10,BS Civil Engineering,3rd Year,College of Engineer
         </button>
       </div>
     </div>
+  </div>
+
+
+  <!-- Compatibility Bridge for Legacy References -->
+  <div id="syncinCompatBridge" class="hidden" style="display:none !important;" aria-hidden="true">
+    <div id="btnRoleStudent"></div><div id="btnRoleFaculty"></div><div id="btnRoleAdmin"></div>
+    <div id="btnLightMode"></div><div id="btnDarkMode"></div>
+    <div id="heroTitle"></div><div id="heroSubtitle"></div><div id="heroDescription"></div>
+    <div id="btnDevicePhone"></div><div id="btnDeviceTablet"></div><div id="btnDeviceLaptop"></div>
+    <div id="phoneScreenTabs"></div><div id="phonesContainer"></div>
+    <div id="phone1"></div><div id="phone2"></div><div id="phone3"></div>
+    <div id="p2ViewScanner"></div><div id="p2ViewPass"></div>
+    <div id="phone3ViewProfile"></div>
+    <div id="p3NavProfile"></div><div id="p3NavRecords"></div>
+    <div id="p3TabProfile"></div><div id="p3TabRecords"></div><div id="p3TabLostFound"></div>
+    <div id="sectionEvents"></div><div id="sectionAnnouncements"></div>
+    <div id="btnCheckpointIn"></div><div id="btnCheckpointOut"></div>
+    <div id="checkpointSubtitle"></div><div id="passEventModeText"></div>
+    <div id="passTimestampText"></div><div id="passSecurityTicker"></div>
+    <div id="activeEventBadge"></div><div id="slideIndicatorDot"></div>
+    <div id="dynamicIslandCountdown"></div><div id="votingStatusBadge"></div>
+    <div id="voteConfirmationText"></div><div id="lfBtnFound"></div><div id="lfBtnReport"></div>
   </div>
 
 </body>
