@@ -1,6 +1,6 @@
 {
   "name": "sync-in",
-  "version": "2.4.0",
+  "version": "2.6.0",
   "description": "Sync-in — University Events & Activities Attendance System (Himamat & Strands of Love)",
   "main": "server.js",
   "scripts": {
