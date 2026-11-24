@@ -97,7 +97,221 @@
 
 
   <!-- TOP MINIMAL NAVIGATION & CONTROLS -->
-  <header class="max-w-6xl mx-auto mb-10 flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border hairline-border border-slate-200/80 dark:border-slate-800 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+  
+  <!-- ============================================================================== -->
+  <!-- WATER REFILLING STATION BLUE & WHITE AUTHENTICATION GATEWAY                    -->
+  <!-- ============================================================================== -->
+  <div id="authGatewayView" class="w-full min-h-[92vh] flex items-center justify-center py-6 px-3 sm:px-6 transition-all duration-300">
+    <div class="w-full max-w-md mx-auto">
+      
+      <!-- Brand Card in Water Refilling Blue & White Palette -->
+      <div class="bg-white dark:bg-[#0c1322] rounded-3xl p-6 sm:p-8 shadow-[0_12px_40px_rgba(2,132,199,0.12)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.4)] border-2 border-sky-100 dark:border-sky-900/60 relative overflow-hidden transition-all">
+        
+        <!-- Subtle Water Ripple Ambient Gradient Top Accent -->
+        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-sky-400 via-sky-500 to-cyan-400"></div>
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-sky-200/40 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-cyan-200/30 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Logo & Water Crystal Emblem -->
+        <div class="text-center mb-6 relative">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-600 via-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/30 mb-3.5 transform transition-transform hover:scale-105">
+            <!-- Modern Water Droplet / Spark Vector SVG -->
+            <svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a8 8 0 00-14.856 0A8.003 8.003 0 0012 22a8.003 8.003 0 007.428-6.572zM12 2v4m0 0l-2 2m2-2l2 2" />
+            </svg>
+          </div>
+          
+          <div class="text-[11px] font-black tracking-widest text-sky-600 dark:text-sky-400 uppercase mb-1">
+            SYNC-IN UNIVERSITY LIFE
+          </div>
+          <h1 id="authGatewayTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Sign In to Campus Pass
+          </h1>
+          <p id="authGatewaySubtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-xs mx-auto leading-relaxed">
+            Himamat 2026 &amp; Strands of Love Attendance Verification
+          </p>
+        </div>
+
+        <!-- Role / Device Selector Segmented Tabs -->
+        <div class="mb-5 bg-sky-50/80 dark:bg-slate-800/80 p-1 rounded-2xl border border-sky-100 dark:border-slate-700/80 flex items-center justify-between text-xs gap-1">
+          <button type="button" id="authTabStudent" onclick="switchAuthTab('student')" class="flex-1 py-2 px-2.5 rounded-xl font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all bg-sky-600 text-white shadow-sm">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            <span>Student Pass</span>
+          </button>
+          
+          <button type="button" id="authTabAdmin" onclick="switchAuthTab('admin')" class="flex-1 py-2 px-2.5 rounded-xl font-medium text-[11px] text-slate-600 dark:text-slate-300 hover:text-sky-600 flex items-center justify-center gap-1.5 transition-all">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span>SSG Admin</span>
+          </button>
+
+          <button type="button" id="authTabFaculty" onclick="switchAuthTab('faculty')" class="flex-1 py-2 px-2.5 rounded-xl font-medium text-[11px] text-slate-600 dark:text-slate-300 hover:text-sky-600 flex items-center justify-center gap-1.5 transition-all">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-5.825-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
+            <span>Faculty</span>
+          </button>
+        </div>
+
+        <!-- Main Login Form -->
+        <form id="authGatewayForm" onsubmit="handleAuthGatewaySubmit(event)" class="space-y-4">
+          <!-- Hidden active role input -->
+          <input type="hidden" id="authInputRole" value="student" />
+
+          <!-- Email / Student ID field -->
+          <div>
+            <label id="authLabelIdentifier" for="authInputIdentifier" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              Student ID / University Email
+            </label>
+            <div class="relative rounded-2xl shadow-xs">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-sky-500">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                id="authInputIdentifier" 
+                name="identifier" 
+                required 
+                value="2024-112551-A27" 
+                placeholder="e.g. 2024-112551-A27 or student@university.edu.ph" 
+                class="w-full pl-10 pr-4 py-3 bg-sky-50/50 dark:bg-slate-800/60 border border-sky-200 dark:border-slate-700 rounded-2xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all font-medium" 
+              />
+            </div>
+          </div>
+
+          <!-- Password / PIN field with Show/Hide Eye Toggle -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label id="authLabelPassword" for="authInputPassword" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                Password / Security PIN
+              </label>
+              <button type="button" onclick="showAuthHelpHint()" class="text-[11px] text-sky-600 dark:text-sky-400 hover:underline font-medium">
+                Default PINs?
+              </button>
+            </div>
+            <div class="relative rounded-2xl shadow-xs">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-sky-500">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <input 
+                type="password" 
+                id="authInputPassword" 
+                name="password" 
+                required 
+                value="PASS-2026" 
+                placeholder="Enter your security passcode" 
+                class="w-full pl-10 pr-11 py-3 bg-sky-50/50 dark:bg-slate-800/60 border border-sky-200 dark:border-slate-700 rounded-2xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all font-medium" 
+              />
+              <button 
+                type="button" 
+                id="btnAuthTogglePassword" 
+                onclick="toggleAuthPasswordVisibility()" 
+                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors" 
+                title="Toggle password visibility"
+              >
+                <!-- Eye Open Icon -->
+                <svg id="authIconEyeOpen" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <!-- Eye Closed Icon (hidden by default) -->
+                <svg id="authIconEyeClosed" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember on this device checkbox & Security note -->
+          <div class="flex items-center justify-between text-xs pt-1">
+            <label class="flex items-center gap-2 text-slate-600 dark:text-slate-400 cursor-pointer select-none">
+              <input type="checkbox" id="authCheckRemember" checked class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-sky-300 dark:border-slate-700 rounded-md" />
+              <span>Remember on this device</span>
+            </label>
+            <span class="text-[11px] text-sky-600 dark:text-sky-400 font-semibold flex items-center gap-1">
+              <svg class="w-3 h-3 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>TLS Encrypted</span>
+            </span>
+          </div>
+
+          <!-- Primary Submit Button in Vibrant Water Refilling Station Blue -->
+          <button 
+            type="submit" 
+            id="btnAuthGatewaySubmit" 
+            class="w-full py-3.5 px-6 rounded-2xl bg-sky-600 hover:bg-sky-500 active:bg-sky-700 text-white font-bold text-sm shadow-lg shadow-sky-600/30 hover:shadow-sky-500/40 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span id="btnAuthSubmitText">Sign In to Campus Pass</span>
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </form>
+
+        <!-- Divider with 1-Click Fast Access Chips -->
+        <div class="mt-6 pt-5 border-t border-sky-100 dark:border-slate-800">
+          <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500 text-center mb-3">
+            1-Click Instant Demo Portals
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <!-- Student Demo -->
+            <button 
+              type="button" 
+              onclick="quickLoginAs('student')" 
+              class="p-2 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-sky-200/80 dark:border-slate-700 text-left transition-all group"
+            >
+              <div class="flex items-center gap-1.5 text-sky-700 dark:text-sky-300 font-bold text-[11px]">
+                <svg class="w-3.5 h-3.5 text-sky-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <span>Student</span>
+              </div>
+              <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Neil / Alexandra</div>
+            </button>
+
+            <!-- SSG Admin Demo -->
+            <button 
+              type="button" 
+              onclick="quickLoginAs('admin')" 
+              class="p-2 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-sky-200/80 dark:border-slate-700 text-left transition-all group"
+            >
+              <div class="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-300 font-bold text-[11px]">
+                <svg class="w-3.5 h-3.5 text-indigo-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span>SSG Admin</span>
+              </div>
+              <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Lead Marshal</div>
+            </button>
+
+            <!-- Faculty Demo -->
+            <button 
+              type="button" 
+              onclick="quickLoginAs('faculty')" 
+              class="p-2 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-sky-200/80 dark:border-slate-700 text-left transition-all group"
+            >
+              <div class="flex items-center gap-1.5 text-cyan-700 dark:text-cyan-300 font-bold text-[11px]">
+                <svg class="w-3.5 h-3.5 text-cyan-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-5.825-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
+                <span>Faculty</span>
+              </div>
+              <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Prof. Dela Cruz</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Compliance & Security Footer -->
+        <div class="mt-6 text-center text-[10px] text-slate-400 dark:text-slate-500 flex items-center justify-center gap-1.5">
+          <svg class="w-3 h-3 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span>Sync-in Cyber Shield • RA 10173 Privacy Compliant</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================================== -->
+  <!-- MAIN APPLICATION SHELL (VISIBLE ONCE AUTHENTICATED)                            -->
+  <!-- ============================================================================== -->
+  <div id="appMainView" class="hidden transition-all duration-300">
+<header class="max-w-6xl mx-auto mb-10 flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border hairline-border border-slate-200/80 dark:border-slate-800 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
     <div class="flex items-center gap-3">
       <div class="w-8 h-8 rounded-lg bg-sky-500/10 dark:bg-sky-400/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-semibold text-xs tracking-tight">
         S
@@ -169,6 +383,19 @@
         <span>Cyber Shield: Active</span>
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
       </button>
+
+      
+      <!-- Authenticated Active User Status Chip & Sign Out -->
+      <div id="activeUserHeaderChip" class="flex items-center gap-1.5 pl-2 border-l border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-200 text-[11px] font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="activeUserNameDisplay">Neil (Student)</span>
+        </div>
+        <button onclick="logoutSession()" class="px-2.5 py-1 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 dark:hover:bg-rose-900/60 border border-rose-200 dark:border-rose-800/80 text-rose-600 dark:text-rose-300 font-bold text-[11px] flex items-center gap-1 transition-all" title="Sign Out of Session">
+          <svg class="w-3 h-3 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          <span>Exit</span>
+        </button>
+      </div>
 
       <!-- Admin Kiosk Standee Simulator Button -->
       <button onclick="openAdminKioskModal()" class="px-3 py-1.5 rounded-xl bg-sky-50 dark:bg-sky-950/60 border hairline-border border-sky-300 dark:border-sky-700 hover:bg-sky-100 dark:hover:bg-sky-900/60 text-sky-700 dark:text-sky-300 font-semibold text-[11px] flex items-center gap-1.5 transition-all shadow-xs">
@@ -1775,6 +2002,9 @@
   </div>
 
   
+  
+  </div>
+
   <!-- ==================== NOTIFICATIONS & ACTIVITY MODAL ==================== -->
   <div id="modalNotifications" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="if(event.target===this)closeModal('modalNotifications')">
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-md w-full border hairline-border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[85vh] flex flex-col">
@@ -5904,6 +6134,189 @@
 
     window.addEventListener('DOMContentLoaded', handleUrlRoleRouting);
     window.addEventListener('hashchange', handleUrlRoleRouting);
+
+
+    // ==============================================================================
+    // WATER REFILLING BLUE & WHITE AUTH GATEWAY & DEVICE ROUTING CONTROLLER
+    // ==============================================================================
+    let currentAuthTabRole = 'student';
+
+    function switchAuthTab(role) {
+      currentAuthTabRole = role;
+      const tabS = document.getElementById('authTabStudent');
+      const tabA = document.getElementById('authTabAdmin');
+      const tabF = document.getElementById('authTabFaculty');
+      const inputRole = document.getElementById('authInputRole');
+      const labelId = document.getElementById('authLabelIdentifier');
+      const inputId = document.getElementById('authInputIdentifier');
+      const inputPw = document.getElementById('authInputPassword');
+      const title = document.getElementById('authGatewayTitle');
+      const submitText = document.getElementById('btnAuthSubmitText');
+
+      if (inputRole) inputRole.value = role;
+
+      const baseInactive = 'flex-1 py-2 px-2.5 rounded-xl font-medium text-[11px] text-slate-600 dark:text-slate-300 hover:text-sky-600 flex items-center justify-center gap-1.5 transition-all';
+      const baseActive = 'flex-1 py-2 px-2.5 rounded-xl font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all bg-sky-600 text-white shadow-sm';
+
+      if (tabS) tabS.className = (role === 'student') ? baseActive : baseInactive;
+      if (tabA) tabA.className = (role === 'admin') ? baseActive : baseInactive;
+      if (tabF) tabF.className = (role === 'faculty') ? baseActive : baseInactive;
+
+      if (role === 'admin') {
+        if (title) title.innerText = 'SSG Admin Command Center';
+        if (labelId) labelId.innerText = 'Admin / Lead Marshal ID or Email';
+        if (inputId) {
+          inputId.placeholder = 'e.g. admin@university.edu.ph or SSG-OFFICER-01';
+          inputId.value = 'admin@university.edu.ph';
+        }
+        if (inputPw) inputPw.value = 'SSG-2026';
+        if (submitText) submitText.innerText = 'Access SSG Command Portal';
+      } else if (role === 'faculty') {
+        if (title) title.innerText = 'Faculty Scanner Portal';
+        if (labelId) labelId.innerText = 'Faculty Email / Employee ID';
+        if (inputId) {
+          inputId.placeholder = 'e.g. prof.delacruz@university.edu.ph';
+          inputId.value = 'prof.delacruz@university.edu.ph';
+        }
+        if (inputPw) inputPw.value = 'FACULTY-2026';
+        if (submitText) submitText.innerText = 'Access Faculty Scanner';
+      } else {
+        if (title) title.innerText = 'Sign In to Campus Pass';
+        if (labelId) labelId.innerText = 'Student ID / University Email';
+        if (inputId) {
+          inputId.placeholder = 'e.g. 2024-112551-A27 or student@university.edu.ph';
+          inputId.value = '2024-112551-A27';
+        }
+        if (inputPw) inputPw.value = 'PASS-2026';
+        if (submitText) submitText.innerText = 'Sign In to Campus Pass';
+      }
+    }
+
+    function toggleAuthPasswordVisibility() {
+      const input = document.getElementById('authInputPassword');
+      const eyeOpen = document.getElementById('authIconEyeOpen');
+      const eyeClosed = document.getElementById('authIconEyeClosed');
+      if (!input) return;
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (eyeOpen) eyeOpen.classList.add('hidden');
+        if (eyeClosed) eyeClosed.classList.remove('hidden');
+      } else {
+        input.type = 'password';
+        if (eyeOpen) eyeOpen.classList.remove('hidden');
+        if (eyeClosed) eyeClosed.classList.add('hidden');
+      }
+    }
+
+    function showAuthHelpHint() {
+      showToast('Default Demo Passwords:\nStudent: PASS-2026\nSSG Admin: SSG-2026\nFaculty: FACULTY-2026', 'info');
+    }
+
+    function quickLoginAs(role) {
+      switchAuthTab(role);
+      setTimeout(() => {
+        const form = document.getElementById('authGatewayForm');
+        if (form) handleAuthGatewaySubmit(new Event('submit', { cancelable: true }));
+      }, 50);
+    }
+
+    function handleAuthGatewaySubmit(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const role = document.getElementById('authInputRole')?.value || currentAuthTabRole;
+      const id = document.getElementById('authInputIdentifier')?.value || '';
+      const pin = document.getElementById('authInputPassword')?.value || '';
+      const remember = document.getElementById('authCheckRemember')?.checked ?? true;
+
+      const authRes = SecurityCore.authenticateSession(role, pin);
+      if (authRes.success) {
+        if (remember) {
+          localStorage.setItem('syncin_active_session', JSON.stringify({
+            role: authRes.session.role,
+            user: authRes.session.user,
+            id: authRes.session.id,
+            timestamp: Date.now()
+          }));
+        }
+        enterApplicationWithSession(authRes.session);
+      } else {
+        showToast(authRes.message || 'Authentication failed. Please verify credentials.', 'error');
+      }
+    }
+
+    function enterApplicationWithSession(session) {
+      const authGateway = document.getElementById('authGatewayView');
+      const appMain = document.getElementById('appMainView');
+      const userDisplay = document.getElementById('activeUserNameDisplay');
+
+      if (authGateway) authGateway.classList.add('hidden');
+      if (appMain) appMain.classList.remove('hidden');
+
+      if (userDisplay && session) {
+        userDisplay.innerText = session.user + ' (' + session.role.toUpperCase() + ')';
+      }
+
+      // Automatically route according to role and device:
+      proceedSetRole(session.role);
+
+      showToast('Welcome, ' + (session.user || 'User') + '! Session authenticated.', 'success');
+    }
+
+    function logoutSession() {
+      const authGateway = document.getElementById('authGatewayView');
+      const appMain = document.getElementById('appMainView');
+
+      localStorage.removeItem('syncin_active_session');
+      sessionStorage.removeItem('syncin_active_session');
+      if (SecurityCore && typeof SecurityCore.terminateSession === 'function') {
+        SecurityCore.terminateSession();
+      }
+
+      if (appMain) appMain.classList.add('hidden');
+      if (authGateway) authGateway.classList.remove('hidden');
+
+      // Scroll to top of login
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('Signed out successfully. Security session terminated.', 'info');
+    }
+
+    // Auto-detect device and initialize landing view
+    function initDeviceAndAuthLanding() {
+      // Check if user is on laptop/desktop
+      const isLaptopOrDesktop = window.innerWidth >= 1024 || (!(/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) && window.innerWidth >= 768);
+
+      // Check stored session
+      let savedSession = null;
+      try {
+        const stored = localStorage.getItem('syncin_active_session');
+        if (stored) savedSession = JSON.parse(stored);
+      } catch (err) {}
+
+      if (savedSession && savedSession.role) {
+        // Authenticate with stored session
+        const authRes = SecurityCore.authenticateSession(savedSession.role, savedSession.role === 'admin' ? 'SSG-2026' : (savedSession.role === 'faculty' ? 'FACULTY-2026' : 'PASS-2026'));
+        if (authRes.success) {
+          enterApplicationWithSession(authRes.session);
+          return;
+        }
+      }
+
+      // If not logged in, select appropriate tab based on device:
+      if (isLaptopOrDesktop) {
+        // On laptop, default to SSG Admin Command Center tab!
+        switchAuthTab('admin');
+      } else {
+        // On mobile phone, default to Student Pass tab!
+        switchAuthTab('student');
+      }
+    }
+
+    // Execute landing initialization on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDeviceAndAuthLanding);
+    } else {
+      setTimeout(initDeviceAndAuthLanding, 20);
+    }
 
 </script>
 
