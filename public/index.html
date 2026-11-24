@@ -369,28 +369,15 @@
         </button>
       </div>
 
-      <!-- Authenticated Active User Status Chip & Sign Out -->
-      <div id="activeUserHeaderChip" class="flex items-center gap-1.5 pl-2 border-l border-slate-200 dark:border-slate-700">
-        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-200 text-[11px] font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="activeUserNameDisplay">Neil (Student)</span>
-        </div>
-        <button onclick="logoutSession()" class="px-2.5 py-1 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 dark:hover:bg-rose-900/60 border border-rose-200 dark:border-rose-800/80 text-rose-600 dark:text-rose-300 font-bold text-[11px] flex items-center gap-1 transition-all" title="Sign Out of Session">
-          <svg class="w-3.5 h-3.5 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-          <span>Exit</span>
+      <!-- Minimalist Monochrome Exit/Back Icon Button (No Text, No Red Color) -->
+      <div id="activeUserHeaderChip" class="flex items-center pl-2 border-l border-slate-200 dark:border-slate-700">
+        <span id="activeUserNameDisplay" class="hidden">User</span>
+        <button onclick="logoutSession()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all shadow-xs cursor-pointer" title="Sign Out / Back" aria-label="Sign Out">
+          <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+          </svg>
         </button>
       </div>
-
-      <!-- Hidden compatibility bridge for legacy scripts referencing removed header elements -->
-      <div class="hidden" style="display:none !important;" aria-hidden="true">
-        <button id="btnRoleStudent" onclick="setRole('student')"></button>
-        <button id="btnRoleFaculty" onclick="setRole('faculty')"></button>
-        <button id="btnRoleAdmin" onclick="setRole('admin')"></button>
-        <button id="btnCyberShieldHeader" onclick="openSecurityHubModal()"></button>
-        <button onclick="openEmergencyModal()"></button>
-        <button onclick="openAdminKioskModal()"></button>
-      </div>
-    </div>
   </header>
 
   <!-- SUB-HERO (Clean, Upright, Non-Italic Typography) -->
