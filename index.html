@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<!DOC
+        <button onclick="closeClearanceCertificateModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 shadow-xs shrink-0 no-print" aria-label="Close modal">
+          <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>TYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
@@ -126,6 +129,22 @@
         </button>
       </div>
 
+      <!-- Search Button -->
+      <button onclick="openSearchModal()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all shadow-xs" title="Search events, records & items">
+        <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </button>
+
+      <!-- Notifications Bell Button with unread badge -->
+      <button onclick="openNotificationsModal()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all shadow-xs relative" title="Notifications & Activity Log">
+        <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span id="notifBadgeCounter" class="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 text-white rounded-full text-[9px] font-bold flex items-center justify-center">3</span>
+      </button>
+
+      <!-- Settings Button -->
+      <button onclick="openSettingsModal()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all shadow-xs" title="Preferences & Settings">
+        <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </button>
+
       <!-- Theme Switcher (Light & Dark Mode) -->
       <div class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-0.5 rounded-xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs">
         <button id="btnLightMode" onclick="setTheme('light')" class="px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 font-medium text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white" title="Switch to Light Mode">
@@ -160,70 +179,63 @@
   </header>
 
   <!-- SUB-HERO (Clean, Upright, Non-Italic Typography) -->
-  <div class="max-w-4xl mx-auto mb-10 text-center px-4" id="subHeroSection">
-    <p class="text-xs uppercase tracking-[0.2em] font-semibold text-sky-600/90 dark:text-sky-400/90 mb-2" id="heroSubtitle">University Event Tracking &amp; Student Portal</p>
-    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight" id="heroTitle">
+  <div class="max-w-4xl mx-auto mb-6 text-center px-4" id="subHeroSection">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950/60 border hairline-border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 text-[11px] font-semibold mb-2 shadow-2xs">
+      <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
+      <span id="heroSubtitle">University Event Tracking &amp; Student Portal</span>
+    </div>
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight" id="heroTitle">
       Effortless Time In &amp; Time Out verification.
     </h2>
-    <p class="mt-2 text-xs md:text-sm text-slate-400 dark:text-slate-400 max-w-md mx-auto leading-relaxed" id="heroDescription">
-      Sleek contactless QR passes for <span class="text-slate-700 dark:text-slate-300 font-medium">Himamat</span> and <span class="text-slate-700 dark:text-slate-300 font-medium">Strands of Love</span>.
+    <p class="mt-1.5 text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto leading-relaxed" id="heroDescription">
+      Sleek contactless QR passes for <span class="text-slate-700 dark:text-slate-300 font-semibold">Himamat</span> and <span class="text-slate-700 dark:text-slate-300 font-semibold">Strands of Love</span>.
     </p>
   </div>
 
   <!-- ============================================================================== -->
-  <!-- ROLE 1 CONTAINER: STUDENT MOBILE INTERFACE (3 PHONES)                           -->
+  <!-- ROLE 1 CONTAINER: STUDENT RESPONSIVE WEB INTERFACE                             -->
   <!-- ============================================================================== -->
   <div id="roleViewStudent">
-    <!-- Cross-Device Responsive Controller for Students (Phone, Tablet, Laptop) -->
-    <div class="max-w-xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 px-4">
-      <!-- Device Preset Indicator & Selector -->
-      <div class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs w-full sm:w-auto justify-center">
-        <!-- Phone View Button -->
-        <button onclick="setDeviceMode('phone')" id="btnDevicePhone" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700/90 text-slate-900 dark:text-white shadow-xs font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all" title="Optimized 1-Screen Mobile Phone View">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="7" y="2" width="10" height="20" rx="2" stroke-width="2"/><line x1="11" y1="18" x2="13" y2="18" stroke-width="2" stroke-linecap="round"/></svg>
-          <span>Phone</span>
-        </button>
-        <!-- Tablet View Button (iPad Dual-Pane) -->
-        <button onclick="setDeviceMode('tablet')" id="btnDeviceTablet" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-all" title="Optimized 2-Pane iPad / Tablet Layout">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="3" stroke-width="2"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg>
-          <span>Tablet (Dual)</span>
-        </button>
-        <!-- Laptop / Desktop Panoramic Tri-View (Hidden on mobile screens < 768px) -->
-        <button onclick="setDeviceMode('laptop')" id="btnDeviceLaptop" class="hidden md:flex flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 font-semibold text-[11px] items-center justify-center gap-1.5 transition-all" title="Panoramic 3-Phone Showcase for Laptops & Desktops">
-          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><line x1="2" y1="20" x2="22" y2="20" stroke-width="2" stroke-linecap="round"/></svg>
-          <span>Laptop (Tri-View)</span>
-        </button>
-      </div>
+    <!-- Hidden compatibility bridge for legacy scripts referencing device buttons -->
+    <div id="syncinCompatBridge" class="hidden" style="display:none !important;" aria-hidden="true">
+      <button id="btnDevicePhone" onclick="setDeviceMode('phone')"></button>
+      <button id="btnDeviceTablet" onclick="setDeviceMode('tablet')"></button>
+      <button id="btnDeviceLaptop" onclick="setDeviceMode('laptop')"></button>
+    </div>
 
-      <!-- Quick Screen Switcher (For Phone & Tablet focus) -->
-      <div id="phoneScreenTabs" class="flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs w-full sm:w-auto justify-center">
-        <button onclick="setView('screen1')" id="btnView1" class="flex-1 sm:flex-initial px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700/90 text-slate-900 dark:text-white shadow-xs font-semibold text-[10.5px]">Events</button>
-        <button onclick="setView('screen2')" id="btnView2" class="flex-1 sm:flex-initial px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 font-medium text-[10.5px]">Scanner</button>
-        <button onclick="setView('screen3')" id="btnView3" class="flex-1 sm:flex-initial px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 font-medium text-[10.5px]">Profile &amp; Hub</button>
+    <!-- Responsive View Segmented Navigation (Mobile & Desktop) -->
+    <div class="max-w-xl mx-auto mb-6 px-3">
+      <div id="phoneScreenTabs" class="flex items-center bg-slate-100/90 dark:bg-slate-800/80 p-1 rounded-2xl border hairline-border border-slate-200/60 dark:border-slate-700/60 text-xs w-full justify-between shadow-xs">
+        <button onclick="setView('screen1')" id="btnView1" class="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-slate-700/90 text-slate-900 dark:text-white shadow-xs font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1.5 transition-all">
+          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Events Hub</span>
+        </button>
+        <button onclick="setView('screen2')" id="btnView2" class="flex-1 px-3 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-[11px] sm:text-xs flex items-center justify-center gap-1.5 transition-all">
+          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+          <span>Digital QR Pass</span>
+        </button>
+        <button onclick="setView('screen3')" id="btnView3" class="flex-1 px-3 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-[11px] sm:text-xs flex items-center justify-center gap-1.5 transition-all">
+          <svg class="w-3.5 h-3.5 text-current shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span>Clearance &amp; Hub</span>
+        </button>
       </div>
     </div>
 
-    <!-- PHONES CONTAINER -->
-    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center mb-16" id="phonesContainer">
+    <!-- MAIN APP CONTENT CONTAINER (Responsive Web Card) -->
+    <main class="max-w-3xl mx-auto w-full mb-16 px-3 sm:px-4" id="phonesContainer">
 
     <!-- ============================================== -->
     <!-- PHONE 1: EVENTS HUB (HIMAMAT & STRANDS OF LOVE)-->
     <!-- ============================================== -->
-    <div id="phone1" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
+    <div id="phone1" class="w-full bg-white dark:bg-[#0D121D] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-200 flex flex-col justify-between overflow-hidden">
       
       <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
-      </div>
+      
 
       <!-- Phone Body -->
       <div class="pt-4 flex-1 flex flex-col">
         <!-- Status Bar (Desktop Mockup Only) -->
-        <div class="hidden sm:flex justify-between items-center px-2 text-[11px] font-medium text-slate-400 dark:text-slate-500 mb-3 md:mb-5">
-          <span>9:41</span>
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            <div class="w-4 h-2 border border-current rounded-xs p-px flex items-center"><div class="w-full h-full bg-current rounded-[0.5px]"></div></div>
+        
           </div>
         </div>
 
@@ -507,21 +519,15 @@
     <!-- ============================================== -->
     <!-- PHONE 2: QR CHECKPOINT PASS (TIME IN / TIME OUT)-->
     <!-- ============================================== -->
-    <div id="phone2" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
+    <div id="phone2" class="w-full bg-white dark:bg-[#0D121D] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-200 flex flex-col justify-between overflow-hidden">
       
       <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
-      </div>
+      
 
       <!-- Phone Body -->
       <div class="pt-4 flex-1 flex flex-col">
         <!-- Status Bar -->
-        <div class="flex justify-between items-center px-2 text-[11px] font-medium text-slate-400 dark:text-slate-500 mb-5">
-          <span>9:41</span>
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3 h-3 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            <div class="w-4 h-2 border border-current rounded-xs p-px flex items-center"><div class="w-full h-full bg-current rounded-[0.5px]"></div></div>
+        
           </div>
         </div>
 
@@ -701,21 +707,15 @@
     <!-- ============================================== -->
     <!-- PHONE 3: USER PROFILE, EVENTS & SETTINGS HUB   -->
     <!-- ============================================== -->
-    <div id="phone3" class="w-full max-w-[420px] md:max-w-[360px] bg-white dark:bg-[#0D121D] rounded-3xl md:rounded-[44px] p-4 sm:p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[660px] md:min-h-[720px]">
+    <div id="phone3" class="w-full bg-white dark:bg-[#0D121D] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm border hairline-border border-slate-200/80 dark:border-slate-800 relative transition-all duration-200 flex flex-col justify-between overflow-hidden">
       
       <!-- Minimal Speaker / Sensor (Visible on Laptop & Desktop mockups) -->
-      <div class="hidden md:flex absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-200/90 dark:bg-black rounded-full z-30 items-center justify-center pointer-events-none border hairline-border border-slate-300/80 dark:border-slate-800">
-        <div class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-800"></div>
-      </div>
+      
 
       <!-- Phone Body -->
       <div class="pt-4 flex-1 flex flex-col">
         <!-- Status Bar -->
-        <div class="flex justify-between items-center px-2 text-[11px] font-medium text-slate-400 dark:text-slate-500 mb-4">
-          <span>9:41</span>
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            <div class="w-4 h-2 border border-current rounded-xs p-px flex items-center"><div class="w-full h-full bg-current rounded-[0.5px]"></div></div>
+        
           </div>
         </div>
 
@@ -1068,6 +1068,31 @@
       </nav>
 
     </div>
+
+  
+  <!-- MOBILE FIXED BOTTOM NAVIGATION BAR -->
+  <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t hairline-border border-slate-200/80 dark:border-slate-800 py-2 px-3 flex justify-around items-center sm:hidden shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+    <button onclick="setView('screen1')" id="mobileNavEvents" class="flex-1 py-1 flex flex-col items-center justify-center text-sky-600 dark:text-sky-400 transition-colors" title="Events Hub">
+      <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <span class="text-[10px] font-bold mt-0.5 pointer-events-none">Events</span>
+    </button>
+    <button onclick="setView('screen2')" id="mobileNavPass" class="flex-1 py-1 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors" title="Digital QR Pass">
+      <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+      <span class="text-[10px] font-medium mt-0.5 pointer-events-none">QR Pass</span>
+    </button>
+    <button onclick="setView('screen3'); showPhone3View('records');" id="mobileNavClearance" class="flex-1 py-1 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors" title="Clearance & Fines">
+      <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      <span class="text-[10px] font-medium mt-0.5 pointer-events-none">Clearance</span>
+    </button>
+    <button onclick="setView('screen3'); showPhone3View('lostfound');" id="mobileNavLost" class="flex-1 py-1 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors" title="Lost & Found Registry">
+      <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <span class="text-[10px] font-medium mt-0.5 pointer-events-none">Lost Items</span>
+    </button>
+    <button onclick="openSettingsModal()" id="mobileNavSettings" class="flex-1 py-1 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors" title="Settings">
+      <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      <span class="text-[10px] font-medium mt-0.5 pointer-events-none">Settings</span>
+    </button>
+  </nav>
 
   </main>
 
@@ -1749,9 +1774,220 @@
 
   </div>
 
+  
+  <!-- ==================== NOTIFICATIONS & ACTIVITY MODAL ==================== -->
+  <div id="modalNotifications" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="if(event.target===this)closeModal('modalNotifications')">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-md w-full border hairline-border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+            <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white">Activity Notifications</h4>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">Live attendance events &amp; clearances</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modalNotifications')" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 shadow-xs" aria-label="Close dialog">
+          <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center justify-between py-2 text-xs border-b border-slate-100 dark:border-slate-800/80 mb-3 shrink-0">
+        <span class="text-[11px] text-slate-400" id="notifStatusSummary">3 unread notifications</span>
+        <div class="flex gap-2">
+          <button onclick="markAllNotificationsRead()" class="text-[11px] font-semibold text-sky-600 dark:text-sky-400 hover:underline">Mark all read</button>
+          <span class="text-slate-300 dark:text-slate-700">•</span>
+          <button onclick="clearAllNotifications()" class="text-[11px] font-semibold text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">Clear</button>
+        </div>
+      </div>
+
+      <!-- Notifications Feed -->
+      <div class="space-y-2.5 overflow-y-auto flex-1 pr-1" id="notificationsFeed">
+        <div class="p-3 rounded-2xl bg-sky-50/60 dark:bg-sky-950/30 border hairline-border border-sky-200/60 dark:border-sky-800/60 flex items-start gap-3 notif-item" data-unread="true">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1 mb-0.5">
+              <span class="text-xs font-bold text-slate-900 dark:text-white">Gate 04 Time-In Recorded</span>
+              <span class="text-[10px] text-slate-400">12m ago</span>
+            </div>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-tight">Himamat 2026 Morning Assembly attendance confirmed with rolling TOTP hash.</p>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-sky-500 shrink-0 mt-1.5 notif-dot"></span>
+        </div>
+
+        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 flex items-start gap-3 notif-item" data-unread="true">
+          <div class="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1 mb-0.5">
+              <span class="text-xs font-bold text-slate-900 dark:text-white">Clearance: 100% Cleared</span>
+              <span class="text-[10px] text-slate-400">1h ago</span>
+            </div>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-tight">Zero outstanding fines (₱0.00). Official clearance certificate is ready for export.</p>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-sky-500 shrink-0 mt-1.5 notif-dot"></span>
+        </div>
+
+        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 flex items-start gap-3 notif-item" data-unread="true">
+          <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"/></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1 mb-0.5">
+              <span class="text-xs font-bold text-slate-900 dark:text-white">SSG Live Voting Active</span>
+              <span class="text-[10px] text-slate-400">3h ago</span>
+            </div>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-tight">College Representative Election ballot is open. Cast your verified vote on the Events Hub.</p>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-sky-500 shrink-0 mt-1.5 notif-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== GLOBAL SEARCH MODAL ==================== -->
+  <div id="modalSearch" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="if(event.target===this)closeModal('modalSearch')">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 max-w-lg w-full border hairline-border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[85vh] flex flex-col">
+      <div class="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
+        <svg class="w-5 h-5 text-sky-600 dark:text-sky-400 shrink-0 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="globalSearchInput" oninput="filterGlobalSearch(this.value)" placeholder="Search events, checkpoints, clearance, items..." class="w-full bg-transparent text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none">
+        <button onclick="closeModal('modalSearch')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer shrink-0" aria-label="Close search">
+          <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-1.5 py-2.5 overflow-x-auto text-[11px] shrink-0 border-b border-slate-100 dark:border-slate-800/60 mb-2">
+        <button onclick="filterSearchCategory('all')" id="searchCat_all" class="px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-800">All</button>
+        <button onclick="filterSearchCategory('event')" id="searchCat_event" class="px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">Events</button>
+        <button onclick="filterSearchCategory('pass')" id="searchCat_pass" class="px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">Checkpoints</button>
+        <button onclick="filterSearchCategory('clearance')" id="searchCat_clearance" class="px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">Clearance</button>
+        <button onclick="filterSearchCategory('lostfound')" id="searchCat_lostfound" class="px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">Lost &amp; Found</button>
+      </div>
+
+      <!-- Live Search Results Container -->
+      <div class="space-y-2 overflow-y-auto flex-1 pr-1" id="globalSearchResults">
+        <!-- Default Suggestions -->
+        <div onclick="selectSearchResult('event', 'himamat2026')" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-sky-50 dark:hover:bg-sky-950/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer transition-all flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300">Event</span>
+              <span class="text-xs font-bold text-slate-900 dark:text-white">Himamat 2026: Morning Assembly</span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Main Campus Gymnasium • Turnstiles 01-08</p>
+          </div>
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </div>
+
+        <div onclick="selectSearchResult('event', 'strands2026')" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-sky-50 dark:hover:bg-sky-950/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer transition-all flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300">Event</span>
+              <span class="text-xs font-bold text-slate-900 dark:text-white">Strands of Love: Evening Gala</span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">University Convention Center • RFID Checkpoint</p>
+          </div>
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </div>
+
+        <div onclick="selectSearchResult('clearance', 'status')" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-sky-50 dark:hover:bg-sky-950/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer transition-all flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">Clearance</span>
+              <span class="text-xs font-bold text-slate-900 dark:text-white">Official Clearance & Fines Ledger</span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Current Balance: ₱0.00 • 100% Cleared</p>
+          </div>
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== APP SETTINGS & PORTALS MODAL ==================== -->
+  <div id="modalSettings" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="if(event.target===this)closeModal('modalSettings')">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-md w-full border hairline-border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center">
+            <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white">Preferences &amp; Links</h4>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">Pass feedback, theme &amp; portal routes</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modalSettings')" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 shadow-xs" aria-label="Close dialog">
+          <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 overflow-y-auto flex-1 pr-1 text-xs">
+        <!-- Audio & Haptics -->
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Feedback &amp; Telemetry</span>
+          <div class="mt-2 space-y-2">
+            <div class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+              <div>
+                <p class="font-bold text-slate-900 dark:text-white">Audio Chime on Gate Scan</p>
+                <p class="text-[11px] text-slate-400">Synthesized Web Audio confirmation</p>
+              </div>
+              <button onclick="playGateChime('success')" class="px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 font-semibold text-[10px] border border-sky-200 dark:border-sky-800 hover:bg-sky-100 transition-all">Test Sound</button>
+            </div>
+            <div class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+              <div>
+                <p class="font-bold text-slate-900 dark:text-white">Dynamic TOTP Refresh</p>
+                <p class="text-[11px] text-slate-400">Cryptographic pass rolling cadence</p>
+              </div>
+              <span class="px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-mono text-[10px] font-bold">12s Interval</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role Portal Direct Links -->
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Dedicated Portal Links</span>
+          <div class="mt-2 space-y-2">
+            <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-slate-900 dark:text-white">Student Mobile App</span>
+                <button onclick="copyPortalLink('student')" class="text-[10px] font-semibold text-sky-600 dark:text-sky-400 hover:underline">Copy Link</button>
+              </div>
+              <p class="text-[11px] font-mono text-slate-500 break-all">https://dunkedoreo-cloud.github.io/sync-in/#student</p>
+            </div>
+
+            <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-slate-900 dark:text-white">Teacher / Faculty Scanner</span>
+                <button onclick="copyPortalLink('faculty')" class="text-[10px] font-semibold text-sky-600 dark:text-sky-400 hover:underline">Copy Link</button>
+              </div>
+              <p class="text-[11px] font-mono text-slate-500 break-all">https://dunkedoreo-cloud.github.io/sync-in/#faculty</p>
+            </div>
+
+            <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border hairline-border border-slate-200/60 dark:border-slate-700/60">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-slate-900 dark:text-white">SSG Admin Logistics</span>
+                <button onclick="copyPortalLink('admin')" class="text-[10px] font-semibold text-sky-600 dark:text-sky-400 hover:underline">Copy Link</button>
+              </div>
+              <p class="text-[11px] font-mono text-slate-500 break-all">https://dunkedoreo-cloud.github.io/sync-in/#admin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL NOTIFICATION -->
-  <div id="scanSuccessModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 max-w-xs w-full border hairline-border border-slate-200 dark:border-slate-800 shadow-xl text-center">
+  <div id="scanSuccessModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden" onclick="if(event.target===this)closeModal('scanSuccessModal')">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 max-w-xs w-full border hairline-border border-slate-200 dark:border-slate-800 shadow-xl text-center relative">
+      <button onclick="closeModal('scanSuccessModal')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer z-50" aria-label="Close dialog">
+        <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
       <div class="w-10 h-10 rounded-full bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center mx-auto mb-3">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
       </div>
@@ -2889,9 +3125,6 @@
       const bPhone = document.getElementById('btnDevicePhone');
       const bTablet = document.getElementById('btnDeviceTablet');
       const bLaptop = document.getElementById('btnDeviceLaptop');
-      const p1 = document.getElementById('phone1');
-      const p2 = document.getElementById('phone2');
-      const p3 = document.getElementById('phone3');
       const container = document.getElementById('phonesContainer');
       const tabs = document.getElementById('phoneScreenTabs');
 
@@ -2902,40 +3135,12 @@
         }
       });
 
-      if (mode === 'phone') {
-        if (bPhone) {
-          bPhone.classList.remove('text-slate-500', 'dark:text-slate-400');
-          bPhone.classList.add('bg-white', 'dark:bg-slate-700/90', 'text-slate-900', 'dark:text-white', 'shadow-xs', 'font-bold');
-        }
-        if (tabs) tabs.classList.remove('hidden');
-        container.className = 'max-w-md mx-auto flex justify-center mb-16 px-2';
-        applyScreenVisibility(currentScreenView);
-      } else if (mode === 'tablet') {
-        if (bTablet) {
-          bTablet.classList.remove('text-slate-500', 'dark:text-slate-400');
-          bTablet.classList.add('bg-white', 'dark:bg-slate-700/90', 'text-slate-900', 'dark:text-white', 'shadow-xs', 'font-bold');
-        }
-        if (tabs) tabs.classList.remove('hidden');
-        container.className = 'max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center mb-16 px-4';
-        // Tablet displays Phone 1 (Events) + active second screen (Phone 2 or Phone 3)
-        p1.classList.remove('hidden');
-        if (currentScreenView === 'screen3') {
-          p2.classList.add('hidden');
-          p3.classList.remove('hidden');
-        } else {
-          p2.classList.remove('hidden');
-          p3.classList.add('hidden');
-        }
-      } else { // laptop
-        if (bLaptop) {
-          bLaptop.classList.remove('text-slate-500', 'dark:text-slate-400');
-          bLaptop.classList.add('bg-white', 'dark:bg-slate-700/90', 'text-slate-900', 'dark:text-white', 'shadow-xs', 'font-bold');
-        }
-        container.className = 'max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center mb-16 px-4';
-        p1.classList.remove('hidden');
-        p2.classList.remove('hidden');
-        p3.classList.remove('hidden');
+      if (container) {
+        container.className = 'w-full max-w-3xl mx-auto mb-16 px-3 sm:px-4';
       }
+      if (tabs) tabs.classList.remove('hidden');
+
+      applyScreenVisibility(currentScreenView);
     }
 
     function applyScreenVisibility(view) {
@@ -2944,24 +3149,9 @@
       const p3 = document.getElementById('phone3');
       if (!p1 || !p2 || !p3) return;
 
-      if (currentDeviceMode === 'phone') {
-        p1.classList.toggle('hidden', view !== 'screen1');
-        p2.classList.toggle('hidden', view !== 'screen2');
-        p3.classList.toggle('hidden', view !== 'screen3');
-      } else if (currentDeviceMode === 'tablet') {
-        p1.classList.remove('hidden');
-        if (view === 'screen3') {
-          p2.classList.add('hidden');
-          p3.classList.remove('hidden');
-        } else {
-          p2.classList.remove('hidden');
-          p3.classList.add('hidden');
-        }
-      } else {
-        p1.classList.remove('hidden');
-        p2.classList.remove('hidden');
-        p3.classList.remove('hidden');
-      }
+      p1.classList.toggle('hidden', view !== 'screen1');
+      p2.classList.toggle('hidden', view !== 'screen2');
+      p3.classList.toggle('hidden', view !== 'screen3');
     }
 
     function setView(view) {
@@ -2970,7 +3160,7 @@
         const el = document.getElementById(id);
         if (el) {
           el.classList.remove('bg-white', 'dark:bg-slate-700/90', 'text-slate-900', 'dark:text-white', 'shadow-xs', 'font-bold');
-          el.classList.add('text-slate-500', 'dark:text-slate-400');
+          el.classList.add('text-slate-500', 'dark:text-slate-400', 'font-semibold');
         }
       });
 
@@ -2985,15 +3175,26 @@
         activeEl.classList.add('bg-white', 'dark:bg-slate-700/90', 'text-slate-900', 'dark:text-white', 'shadow-xs', 'font-bold');
       }
 
-      // If user is on a small screen or in phone mode, apply visibility
-      if (window.innerWidth < 768 && currentDeviceMode === 'laptop') {
-        currentDeviceMode = 'phone';
+      // Synchronize mobile fixed bottom navigation
+      const navMap = {
+        'screen1': 'mobileNavEvents',
+        'screen2': 'mobileNavPass',
+        'screen3': 'mobileNavClearance'
+      };
+      ['mobileNavEvents', 'mobileNavPass', 'mobileNavClearance', 'mobileNavLost', 'mobileNavSettings'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.className = 'flex-1 py-1 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors';
+        }
+      });
+      const activeNav = document.getElementById(navMap[view] || 'mobileNavEvents');
+      if (activeNav) {
+        activeNav.className = 'flex-1 py-1 flex flex-col items-center justify-center text-sky-600 dark:text-sky-400 font-bold transition-colors';
       }
 
       applyScreenVisibility(view);
     }
 
-    // Auto-detect device screen on load & resize
     function autoDetectDeviceViewport() {
       if (window.innerWidth < 768) {
         setDeviceMode('phone');
@@ -4884,7 +5085,7 @@
     // 2. MODAL ACCESSIBILITY & ESCAPE KEY HANDLER
     // =========================================================================
     function closeAllModals() {
-      const modalIds = ["modalEventForm","modalAttendeeForm","modalAnnouncementForm","modalProtocolForm","modalBatchImport","modalClearanceCertificate","adminKioskModal","emergencyModal","adminAuthModal","securityHubModal","scanSuccessModal","clearanceModal","serviceModal","appealModal","blindProofModal","newServiceSlotModal"];
+      const modalIds = ["modalEventForm","modalAttendeeForm","modalAnnouncementForm","modalProtocolForm","modalBatchImport","modalClearanceCertificate","adminKioskModal","emergencyModal","adminAuthModal","securityHubModal","scanSuccessModal","clearanceModal","serviceModal","appealModal","blindProofModal","newServiceSlotModal","modalNotifications","modalSearch","modalSettings"];
       modalIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
@@ -5510,6 +5711,200 @@
       }
     });
 
+
+    // =========================================================================
+    // ACTIVITY NOTIFICATIONS CENTER
+    // =========================================================================
+    function openNotificationsModal() {
+      const m = document.getElementById('modalNotifications');
+      if (m) m.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeNotificationsModal() {
+      closeModal('modalNotifications');
+    }
+
+    function markAllNotificationsRead() {
+      const dots = document.querySelectorAll('.notif-dot');
+      dots.forEach(d => d.classList.add('hidden'));
+      const badge = document.getElementById('notifBadgeCounter');
+      if (badge) {
+        badge.classList.add('hidden');
+        badge.innerText = '0';
+      }
+      const summary = document.getElementById('notifStatusSummary');
+      if (summary) summary.innerText = 'All caught up (0 unread)';
+      showToast('All notifications marked as read', 'success');
+    }
+
+    function clearAllNotifications() {
+      const feed = document.getElementById('notificationsFeed');
+      if (feed) {
+        feed.innerHTML = '<div class="py-8 text-center text-slate-400 text-xs">No active notifications</div>';
+      }
+      const badge = document.getElementById('notifBadgeCounter');
+      if (badge) badge.classList.add('hidden');
+      const summary = document.getElementById('notifStatusSummary');
+      if (summary) summary.innerText = '0 notifications';
+      showToast('Notifications cleared', 'info');
+    }
+
+    // =========================================================================
+    // GLOBAL REAL-TIME SEARCH
+    // =========================================================================
+    let currentSearchCategory = 'all';
+
+    function openSearchModal() {
+      const m = document.getElementById('modalSearch');
+      if (m) {
+        m.classList.remove('hidden');
+        const inp = document.getElementById('globalSearchInput');
+        if (inp) {
+          inp.value = '';
+          setTimeout(() => inp.focus(), 50);
+        }
+      }
+      document.body.classList.add('overflow-hidden');
+      filterGlobalSearch('');
+    }
+
+    function closeSearchModal() {
+      closeModal('modalSearch');
+    }
+
+    function filterSearchCategory(cat) {
+      currentSearchCategory = cat;
+      ['all', 'event', 'pass', 'clearance', 'lostfound'].forEach(c => {
+        const btn = document.getElementById('searchCat_' + c);
+        if (btn) {
+          if (c === cat) {
+            btn.className = 'px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-800';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
+          }
+        }
+      });
+      const inp = document.getElementById('globalSearchInput');
+      filterGlobalSearch(inp ? inp.value : '');
+    }
+
+    const SEARCH_DATABASE = [
+      { type: 'event', id: 'himamat2026', title: 'Himamat 2026: Morning Assembly', subtitle: 'Main Campus Gymnasium • Turnstiles 01-08' },
+      { type: 'event', id: 'strands2026', title: 'Strands of Love: Evening Gala', subtitle: 'University Convention Center • RFID Checkpoint' },
+      { type: 'event', id: 'ballot', title: 'College Representative Election Ballot', subtitle: 'SSG Supreme Student Government Live Voting' },
+      { type: 'pass', id: 'screen2', title: 'Dynamic QR Checkpoint Pass', subtitle: 'Live TOTP Rolling Token with 30s Countdown Ring' },
+      { type: 'pass', id: 'screen2', title: 'Student Digital ID Card', subtitle: 'Neil Armstrong G. • ID #112551A27G' },
+      { type: 'clearance', id: 'records', title: 'Clearance Status: 100% Cleared', subtitle: 'Official Fines Ledger • ₱0.00 Outstanding' },
+      { type: 'clearance', id: 'appeal', title: 'Activity Exemption & Excuse Appeals', subtitle: 'Submit medical certificate or official excused absence slip' },
+      { type: 'clearance', id: 'service', title: 'Community Service Slot Booking', subtitle: 'Remediate assembly absence fines through campus service' },
+      { type: 'lostfound', id: 'lostfound', title: 'Lost & Found Registry', subtitle: 'Report missing items or browse unclaimed student belongings' }
+    ];
+
+    function filterGlobalSearch(query) {
+      const container = document.getElementById('globalSearchResults');
+      if (!container) return;
+      const q = (query || '').toLowerCase().trim();
+
+      const filtered = SEARCH_DATABASE.filter(item => {
+        const matchCat = (currentSearchCategory === 'all' || item.type === currentSearchCategory);
+        const matchQuery = !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q);
+        return matchCat && matchQuery;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="py-8 text-center text-slate-400 text-xs">No matching results found</div>';
+        return;
+      }
+
+      const tagColors = {
+        event: 'bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300',
+        pass: 'bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300',
+        clearance: 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300',
+        lostfound: 'bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300'
+      };
+
+      container.innerHTML = filtered.map(item => `
+        <div onclick="selectSearchResult('${item.type}', '${item.id}')" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-sky-50 dark:hover:bg-sky-950/40 border hairline-border border-slate-200/60 dark:border-slate-700/60 cursor-pointer transition-all flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${tagColors[item.type] || 'bg-slate-100 text-slate-700'}">${item.type}</span>
+              <span class="text-xs font-bold text-slate-900 dark:text-white">${SecurityCore.sanitizeHTML(item.title)}</span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">${SecurityCore.sanitizeHTML(item.subtitle)}</p>
+          </div>
+          <svg class="w-4 h-4 text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </div>
+      `).join('');
+    }
+
+    function selectSearchResult(type, id) {
+      closeModal('modalSearch');
+      if (type === 'event') {
+        setView('screen1');
+        if (id === 'himamat2026') selectEventForPass('himamat2026');
+        else if (id === 'strands2026') selectEventForPass('strands2026');
+      } else if (type === 'pass') {
+        setView('screen2');
+      } else if (type === 'clearance') {
+        setView('screen3');
+        if (id === 'appeal') openAppealModal();
+        else if (id === 'service') openServiceModal();
+        else showPhone3View('records');
+      } else if (type === 'lostfound') {
+        setView('screen3');
+        showPhone3View('lostfound');
+      }
+    }
+
+    // =========================================================================
+    // SETTINGS & DEDICATED PORTAL ROUTING
+    // =========================================================================
+    function openSettingsModal() {
+      const m = document.getElementById('modalSettings');
+      if (m) m.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeSettingsModal() {
+      closeModal('modalSettings');
+    }
+
+    function copyPortalLink(role) {
+      const baseUrl = window.location.origin + window.location.pathname;
+      let targetUrl = baseUrl;
+      if (role === 'faculty') targetUrl += '#faculty';
+      else if (role === 'admin') targetUrl += '#admin';
+      else targetUrl += '#student';
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(targetUrl).then(() => {
+          showToast(`${role.toUpperCase()} portal link copied to clipboard!`, 'success');
+        }).catch(() => {
+          prompt('Copy portal link:', targetUrl);
+        });
+      } else {
+        prompt('Copy portal link:', targetUrl);
+      }
+    }
+
+    function handleUrlRoleRouting() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const hash = (window.location.hash || '').toLowerCase();
+      const roleParam = urlParams.get('role');
+
+      if (roleParam === 'admin' || hash === '#admin') {
+        setRole('admin');
+      } else if (roleParam === 'faculty' || roleParam === 'scanner' || hash === '#faculty' || hash === '#scanner') {
+        setRole('faculty');
+      } else {
+        setRole('student');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleUrlRoleRouting);
+    window.addEventListener('hashchange', handleUrlRoleRouting);
+
 </script>
 
   <!-- ==================== ADMIN MODAL 1: EVENT FORM (CREATE / EDIT) ==================== -->
@@ -5760,6 +6155,9 @@
             <p class="text-[11px] text-slate-500 dark:text-slate-400">Import student attendance lists generated by the Registrar or departmental heads.</p>
           </div>
         </div>
+        <button onclick="closeBatchImportModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 shadow-xs shrink-0" aria-label="Close modal">
+          <svg class="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
         <button onclick="closeBatchImportModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 shadow-sm" aria-label="Close modal">
           <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
